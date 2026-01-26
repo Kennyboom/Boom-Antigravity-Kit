@@ -1,0 +1,120 @@
+/**
+ * Example test file for CLI installer
+ * 
+ * To use this file:
+ * 1. Rename to install.test.js
+ * 2. Run: npm test
+ * 
+ * This uses Node.js built-in test runner (Node 18+)
+ */
+
+const { test, describe } = require('node:test');
+const assert = require('node:assert');
+const fs = require('node:fs');
+const path = require('node:path');
+const os = require('node:os');
+
+// Import functions to test (requires exporting them from install.js)
+// const { ensureDir, copyWithReplace, copyFileWithReplace } = require('./install.js');
+
+describe('CLI Installer', () => {
+    
+    describe('ensureDir()', () => {
+        test('should create directory if it does not exist', () => {
+            const testDir = path.join(os.tmpdir(), 'agent-assistant-test-' + Date.now());
+            
+            // Uncomment when ensureDir is exported:
+            // ensureDir(testDir);
+            // assert.ok(fs.existsSync(testDir));
+            
+            // Cleanup
+            // fs.rmdirSync(testDir, { recursive: true });
+            
+            assert.ok(true, 'Test placeholder - implement after exporting functions');
+        });
+        
+        test('should not throw if directory already exists', () => {
+            const testDir = os.tmpdir();
+            
+            // Uncomment when ensureDir is exported:
+            // assert.doesNotThrow(() => ensureDir(testDir));
+            
+            assert.ok(true, 'Test placeholder');
+        });
+    });
+    
+    describe('copyWithReplace()', () => {
+        test('should copy files with text replacements', () => {
+            // Setup: Create temp source directory with test file
+            // const srcDir = path.join(os.tmpdir(), 'src-' + Date.now());
+            // const destDir = path.join(os.tmpdir(), 'dest-' + Date.now());
+            
+            // Create source file with placeholder
+            // fs.mkdirSync(srcDir, { recursive: true });
+            // fs.writeFileSync(path.join(srcDir, 'test.md'), '~/.{TOOL}/ config');
+            
+            // Run copy with replacement
+            // copyWithReplace(srcDir, destDir, { '~/.{TOOL}/': '~/.cursor/' });
+            
+            // Verify
+            // const result = fs.readFileSync(path.join(destDir, 'test.md'), 'utf8');
+            // assert.strictEqual(result, '~/.cursor/ config');
+            
+            // Cleanup
+            // fs.rmdirSync(srcDir, { recursive: true });
+            // fs.rmdirSync(destDir, { recursive: true });
+            
+            assert.ok(true, 'Test placeholder - implement after exporting functions');
+        });
+        
+        test('should skip symbolic links', () => {
+            // Test that symlinks are skipped (security feature)
+            assert.ok(true, 'Test placeholder');
+        });
+        
+        test('should skip hidden files', () => {
+            // Test that .dotfiles are skipped
+            assert.ok(true, 'Test placeholder');
+        });
+        
+        test('should skip node_modules', () => {
+            // Test that node_modules directories are skipped
+            assert.ok(true, 'Test placeholder');
+        });
+    });
+    
+    describe('Tool Installation', () => {
+        test('should install cursor correctly', () => {
+            // This would need to mock file system operations
+            // or use a temp directory for testing
+            assert.ok(true, 'Integration test placeholder');
+        });
+        
+        test('should handle missing source directory', () => {
+            // Test graceful handling of missing source
+            assert.ok(true, 'Test placeholder');
+        });
+    });
+    
+    describe('Input Validation', () => {
+        test('should reject invalid tool names', () => {
+            // Test that invalid tools are rejected
+            // const validTools = ['cursor', 'copilot', 'antigravity', 'gemini', 'claude', 'claude-code'];
+            // const invalidTools = ['invalid', '../path', '', null];
+            assert.ok(true, 'Test placeholder');
+        });
+    });
+});
+
+/**
+ * To make this work, export functions from install.js:
+ * 
+ * module.exports = {
+ *     ensureDir,
+ *     copyWithReplace,
+ *     copyFileWithReplace,
+ *     // ... other functions
+ * };
+ * 
+ * Then uncomment the import at the top of this file.
+ */

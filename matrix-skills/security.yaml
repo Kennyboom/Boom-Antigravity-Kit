@@ -1,0 +1,66 @@
+# ============================================================================
+# SECURITY DOMAIN SKILLS
+# ============================================================================
+# Threat modeling, secure coding, vulnerability assessment, compliance
+# Primary agents: security-engineer, reviewer
+# ============================================================================
+
+domain: security
+name: "Security Engineering"
+description: "Threat modeling, secure coding, compliance"
+skill_count: 6
+
+skills:
+  # --------------------------------------------------------------------------
+  # CORE SKILLS (Priority 9-10)
+  # --------------------------------------------------------------------------
+  - skill_id: vulnerability-scanner
+    category: core
+    priority_score: 10
+    relevance_mapping:
+      agents: [security-engineer, reviewer]
+      profiles: ["security:*"]
+    description: "OWASP 2025, supply chain security, attack surface mapping"
+
+  - skill_id: senior-security
+    category: expert
+    priority_score: 9
+    relevance_mapping:
+      agents: [security-engineer]
+      profiles: ["security:*"]
+    description: "Security architecture, threat modeling, crypto implementation"
+
+  # --------------------------------------------------------------------------
+  # EXPERT SKILLS (Priority 8)
+  # --------------------------------------------------------------------------
+  - skill_id: red-team-tactics
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [security-engineer]
+      profiles: ["security:validation"]
+    description: "MITRE ATT&CK, attack simulation, detection evasion"
+
+  - skill_id: senior-secops
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [security-engineer]
+      profiles: ["security:validation"]
+    description: "Incident response, vulnerability management, compliance"
+
+  - skill_id: secure-code-guardian
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [security-engineer, reviewer]
+      profiles: ["security:*"]
+    description: "Secure coding practices and enforcement"
+
+  - skill_id: security-reviewer
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [security-engineer, reviewer]
+      profiles: ["security:*", "quality:review"]
+    description: "Security-focused code review"

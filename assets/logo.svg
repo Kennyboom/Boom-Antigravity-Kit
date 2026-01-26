@@ -1,0 +1,96 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Improved Rich Background Gradient -->
+    <radialGradient id="bgGradient" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 256) rotate(90) scale(362.039)">
+      <stop stop-color="#1E293B"/> <!-- Lighter center (Slate 800) -->
+      <stop offset="1" stop-color="#020617"/> <!-- Darker edges (Slate 950) -->
+    </radialGradient>
+    
+    <!-- Secondary "Cyber" Glow for background depth -->
+    <radialGradient id="cyberGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 0) rotate(90) scale(300 300)">
+      <stop stop-color="#3B82F6" stop-opacity="0.15"/>
+      <stop offset="1" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Core Gradients (Unchanged) -->
+    <linearGradient id="coreGradient" x1="256" y1="196" x2="256" y2="316" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+    
+    <radialGradient id="glowGradient" cx="256" cy="256" r="100" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Satellite Gradients (Unchanged) -->
+    <linearGradient id="sat1Gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#34D399"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="sat2Gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#DB2777"/>
+    </linearGradient>
+    <linearGradient id="sat3Gradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+
+    <!-- Filters (Unchanged) -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="512" height="512" rx="110" fill="url(#bgGradient)"/>
+  
+  <!-- Subtle Top Blue Haze -->
+  <rect width="512" height="512" rx="110" fill="url(#cyberGlow)"/>
+  
+  <!-- Subtle Grid Pattern -->
+  <path d="M256 60 V452 M60 256 H452" stroke="#334155" stroke-width="2" stroke-opacity="0.3"/>
+  <circle cx="256" cy="256" r="160" stroke="#334155" stroke-width="2" stroke-opacity="0.3" stroke-dasharray="10 10"/>
+  <circle cx="256" cy="256" r="120" stroke="#334155" stroke-width="1.5" stroke-opacity="0.4"/>
+
+  <!-- Circuit Connections -->
+  <g stroke="#475569" stroke-width="3" stroke-linecap="round">
+    <path d="M256 196 L256 150 L256 116"/>
+    <path d="M226 286 L180 310 L140 330"/>
+    <path d="M286 286 L332 310 L372 330"/>
+  </g>
+
+  <!-- Active Data Pulses -->
+  <circle cx="256" cy="150" r="3" fill="#94A3B8"/>
+  <circle cx="180" cy="310" r="3" fill="#94A3B8"/>
+  <circle cx="332" cy="310" r="3" fill="#94A3B8"/>
+
+  <!-- Ambient Glow behind Core -->
+  <circle cx="256" cy="256" r="90" fill="url(#glowGradient)"/>
+
+  <!-- CENTRAL CORE (Hexagon) -->
+  <path d="M256 186 L316.6 221 V291 L256 326 L195.4 291 V221 L256 186 Z" 
+        fill="url(#coreGradient)" 
+        stroke="#7DD3FC" stroke-width="4"
+        filter="url(#glow)"/>
+  
+  <!-- Core Inner Detail -->
+  <path d="M256 216 L286 233.5 V268.5 L256 286 L226 268.5 V233.5 L256 216 Z" 
+        stroke="#FFFFFF" stroke-opacity="0.5" stroke-width="2" fill="none"/>
+
+  <!-- SATELLITE NODES (Hexagons) -->
+  <path d="M256 86 L282 101 V131 L256 146 L230 131 V101 L256 86 Z"
+        fill="url(#sat1Gradient)" stroke="#6EE7B7" stroke-width="3" filter="url(#glow)"/>
+
+  <path d="M134.7 300 L160.7 315 V345 L134.7 360 L108.7 345 V315 L134.7 300 Z"
+        fill="url(#sat2Gradient)" stroke="#F9A8D4" stroke-width="3" filter="url(#glow)"/>
+
+  <path d="M377.3 300 L403.3 315 V345 L377.3 360 L351.3 345 V315 L377.3 300 Z"
+        fill="url(#sat3Gradient)" stroke="#FCD34D" stroke-width="3" filter="url(#glow)"/>
+
+</svg>

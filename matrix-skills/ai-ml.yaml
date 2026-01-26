@@ -1,0 +1,125 @@
+# ============================================================================
+# AI/ML DOMAIN SKILLS
+# ============================================================================
+# Machine learning, LLMs, data science, MLOps
+# Primary agents: backend-engineer (with ML focus)
+# ============================================================================
+
+domain: ai_ml
+name: "AI/ML Engineering"
+description: "Machine learning, LLMs, data science"
+skill_count: 13
+
+skills:
+  # --------------------------------------------------------------------------
+  # EXPERT SKILLS (Priority 8)
+  # --------------------------------------------------------------------------
+  - skill_id: senior-ml-engineer
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "ML engineering, model deployment, MLOps"
+
+  - skill_id: senior-data-scientist
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Data science, statistical modeling, experimentation"
+
+  - skill_id: senior-data-engineer
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [backend-engineer, database-architect]
+      profiles: ["backend:execution", "data:*"]
+    description: "Data engineering, ETL, pipelines"
+
+  - skill_id: senior-prompt-engineer
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Advanced prompt engineering and optimization"
+
+  # --------------------------------------------------------------------------
+  # SPECIALIZED SKILLS (Priority 6-7)
+  # --------------------------------------------------------------------------
+  - skill_id: senior-computer-vision
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Computer vision, image processing, object detection"
+
+  - skill_id: fine-tuning-expert
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "LLM fine-tuning and customization"
+
+  - skill_id: llm-application-dev
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "LLM application development"
+
+  - skill_id: rag-architect
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "RAG architecture and implementation"
+
+  - skill_id: prompt-engineer
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Prompt engineering patterns"
+
+  - skill_id: ml-pipeline
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "ML pipeline development and orchestration"
+
+  # --------------------------------------------------------------------------
+  # UTILITY SKILLS (Priority 6)
+  # --------------------------------------------------------------------------
+  - skill_id: pandas-pro
+    category: utility
+    priority_score: 6
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Pandas data manipulation expertise"
+
+  - skill_id: pydantic-models
+    category: utility
+    priority_score: 6
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Pydantic model patterns"
+
+  - skill_id: spark-engineer
+    category: specialized
+    priority_score: 6
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Apache Spark data processing"

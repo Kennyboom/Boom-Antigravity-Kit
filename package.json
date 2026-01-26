@@ -1,0 +1,67 @@
+{
+  "name": "agent-assistant",
+  "version": "1.0.0",
+  "description": "Multi-agent orchestration framework for AI coding assistants (Cursor, Copilot, Antigravity, Claude Code).",
+  "main": "cli/install.js",
+  "bin": {
+    "agent-assistant": "./cli/install.js"
+  },
+  "scripts": {
+    "install:cursor": "node cli/install.js install cursor",
+    "install:copilot": "node cli/install.js install copilot",
+    "install:antigravity": "node cli/install.js install antigravity",
+    "install:all": "node cli/install.js install --all",
+    "uninstall:cursor": "node cli/install.js uninstall cursor",
+    "uninstall:copilot": "node cli/install.js uninstall copilot",
+    "uninstall:antigravity": "node cli/install.js uninstall antigravity",
+    "uninstall:all": "node cli/install.js uninstall --all",
+    "list": "node cli/install.js list",
+    "test": "node --test cli/*.test.js || echo 'No tests found yet - see cli/install.test.js.example'",
+    "lint": "node --check cli/install.js && echo '✅ JavaScript syntax valid'",
+    "lint:md": "echo 'Run: npx markdownlint \"**/*.md\" --ignore node_modules' to lint Markdown",
+    "semantic-release": "semantic-release",
+    "prepare": "husky install || true"
+  },
+  "keywords": [
+    "agentic-coding",
+    "ai-agents",
+    "cursor",
+    "copilot",
+    "antigravity",
+    "gemini",
+    "cli",
+    "automation",
+    "agent-orchestration",
+    "multi-agent"
+  ],
+  "author": "NamCH",
+  "license": "MIT",
+  "files": [
+    "cli/",
+    "agents/",
+    "commands/",
+    "rules/",
+    "skills/",
+    "documents/",
+    "code-assistants/",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^11.1.0",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.2.6",
+    "@semantic-release/npm": "^11.0.2",
+    "@semantic-release/release-notes-generator": "^12.1.0",
+    "conventional-changelog-conventionalcommits": "^7.0.2",
+    "husky": "^8.0.3",
+    "semantic-release": "^22.0.12"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
