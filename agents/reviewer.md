@@ -36,12 +36,6 @@ category: validation
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `quality:review` | Domains: `quality`, `security`, `architecture`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `quality.yaml` | `code-review`, `code-review-checklist`, `code-reviewer` |
-| `security.yaml` | `vulnerability-scanner`, `secure-code-guardian` |
-| `architecture.yaml` | `architecture`, `clean-code` |
-
 ---
 
 ## 🎯 Expert Mindset

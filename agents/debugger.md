@@ -36,12 +36,6 @@ category: debugging
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `quality:debugging` | Domains: `quality`, `performance`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `quality.yaml` | `systematic-debugging`, `debugging`, `debugging-wizard` |
-| `performance.yaml` | `performance-profiling` |
-| `architecture.yaml` | `clean-code` |
-
 ---
 
 ## 🎯 Expert Mindset

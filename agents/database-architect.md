@@ -36,12 +36,6 @@ category: execution
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `data:execution` | Domains: `data`, `performance`, `architecture`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `data.yaml` | `database-design`, `databases`, `prisma-expert`, `sql-pro`, `postgres-pro` |
-| `performance.yaml` | `performance-profiling` |
-| `architecture.yaml` | `architecture`, `clean-code` |
-
 ---
 
 ## 🎯 Expert Mindset

@@ -16,7 +16,7 @@ agent-assistant/                     # Project root
 ├── documents/                       # 📚 Generated documentation
 ├── matrix-skills/                   # 🎯 Skill discovery matrix (19 domains)
 ├── rules/                           # ⚖️ Orchestration rules and protocols
-├── skills/                          # 💡 218 domain skill definitions
+├── skills/                          # 💡 310 domain skill definitions
 ├── AGENT-TEMPLATE.md                # 📝 Agent file template
 ├── CLAUDE.md                        # 🟣 Claude Code entry point
 ├── COPILOT.md                       # 🔵 GitHub Copilot entry point
@@ -162,26 +162,26 @@ Contains 20 YAML files that define skill-to-agent mappings.
 
 ```
 matrix-skills/
-├── _index.yaml                      # Central registry (218 skills, 20 agents)
-├── ai-ml.yaml                       # 13 AI/ML skills
+├── _index.yaml                      # Central registry (310 skills, 20 agents)
+├── ai-ml.yaml                       # 40 AI/ML skills (+27: agent development, LLM patterns, RAG, voice AI)
 ├── architecture.yaml                # 9 architecture skills
-├── backend.yaml                     # 20 backend skills
+├── backend.yaml                     # 32 backend skills (+12: job queues, payments, communications)
 ├── cloud.yaml                       # 11 cloud skills
 ├── data.yaml                        # 7 database skills
 ├── design.yaml                      # 10 design skills
-├── devops.yaml                      # 15 DevOps skills
-├── frontend.yaml                    # 18 frontend skills
+├── devops.yaml                      # 22 DevOps skills (+7: cloud functions, git workflows, automation)
+├── frontend.yaml                    # 22 frontend skills (+4: UI patterns, auth integration)
 ├── gaming.yaml                      # 3 gaming skills
 ├── languages.yaml                   # 17 language skills
 ├── management.yaml                  # 4 management skills
 ├── mcp.yaml                         # 8 MCP skills
 ├── mobile.yaml                      # 8 mobile skills
 ├── performance.yaml                 # 1 performance skill
-├── planning.yaml                    # 9 planning skills
-├── quality.yaml                     # 17 QA skills
+├── planning.yaml                    # 12 planning skills (+3: file-based planning, execution)
+├── quality.yaml                     # 21 QA skills (+4: TDD, test fixing, verification)
 ├── research.yaml                    # 11 research skills
-├── security.yaml                    # 6 security skills
-└── tools.yaml                       # 31 utility skills
+├── security.yaml                    # 35 security skills (+29: penetration testing, vulnerability assessment)
+└── tools.yaml                       # 41 utility skills (+10: bots, email, content creation)
 ```
 
 **File Purposes**:
@@ -190,7 +190,7 @@ matrix-skills/
 
 ### 2.5 `skills/` — Domain Skill Definitions
 
-Contains 218+ skill folders with SKILL.md definitions.
+Contains 310+ skill folders with SKILL.md definitions.
 
 ```
 skills/
@@ -394,7 +394,7 @@ node cli/install.js list
 
 ```yaml
 version: "1.0"
-total_skills: 218
+total_skills: 310
 
 domains:                         # 19 domain registrations
   backend: { file: "backend.yaml", ... }
@@ -548,11 +548,11 @@ REPORTS_PATH  = ./reports/
 | Command Files | 40+ | Workflow definitions |
 | Rule Files | 8 | Orchestration protocols |
 | Matrix Files | 20 | Skill discovery config |
-| Skill Folders | 218+ | Domain skill definitions |
+| Skill Folders | 310+ | Domain skill definitions |
 | Entry Points | 4 | Tool-specific entry files |
 | Config Files | 5 | package.json, etc. |
 
-**Total Files**: ~1,600+ (including skills subfolder contents)
+**Total Files**: ~2,000+ (including skills subfolder contents)
 
 ---
 

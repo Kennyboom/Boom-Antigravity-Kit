@@ -8,7 +8,7 @@
 domain: planning
 name: "Planning & Analysis"
 description: "Requirements, task breakdown, roadmaps"
-skill_count: 9
+skill_count: 12
 
 skills:
   # --------------------------------------------------------------------------
@@ -88,3 +88,30 @@ skills:
       agents: [tech-lead, planner]
       profiles: ["planning:*", "architecture:*"]
     description: "AI operational modes adaptation"
+
+  # --------------------------------------------------------------------------
+  # NEW SKILLS - PLANNING & EXECUTION (Added from skills-more)
+  # --------------------------------------------------------------------------
+  - skill_id: planning-with-files
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [planner]
+      profiles: ["planning:analysis"]
+    description: "File-based planning for complex tasks (task_plan.md, findings.md, progress.md)"
+
+  - skill_id: executing-plans
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [planner, tech-lead]
+      profiles: ["planning:analysis", "architecture:orchestration"]
+    description: "Execute written implementation plans in batches with review checkpoints"
+
+  - skill_id: kaizen
+    category: utility
+    priority_score: 6
+    relevance_mapping:
+      agents: [planner, tech-lead]
+      profiles: ["planning:*", "architecture:*"]
+    description: "Continuous improvement guide, Kaizen, Poka-Yoke, Standardized Work, JIT"

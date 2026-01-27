@@ -11,7 +11,7 @@ Agent Assistant operates in the domain of **AI-assisted software development orc
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │     AGENTS      │────▶│    COMMANDS     │────▶│     SKILLS      │
-│  (20 entities)  │     │  (40+ entities) │     │ (218 entities)  │
+│  (20 entities)  │     │  (40+ entities) │     │ (310+ entities)  │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
          │                      │                       │
          ▼                      ▼                       ▼

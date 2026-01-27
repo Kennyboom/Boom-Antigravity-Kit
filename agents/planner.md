@@ -35,12 +35,6 @@ category: planning
 
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `planning:analysis` | Domains: `planning`, `architecture`
-
-| Domain File | Key Skills |
-|-------------|------------|
-| `planning.yaml` | `plan-writing`, `planning`, `sequential-thinking`, `problem-solving` |
-| `architecture.yaml` | `architecture`, `feature-forge` |
-
 ---
 
 ## 🎯 Expert Mindset

@@ -36,13 +36,6 @@ category: execution
 
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `devops:execution` | Domains: `devops`, `security`, `cloud`
-
-| Domain File | Key Skills |
-|-------------|------------|
-| `devops.yaml` | `devops`, `deployment-procedures`, `docker-expert`, `kubernetes-specialist`, `terraform-engineer` |
-| `cloud.yaml` | `cloud-architect`, `aws-cdk-development`, `cloudflare-expert` |
-| `security.yaml` | `vulnerability-scanner` |
-
 ---
 
 ## 🎯 Expert Mindset

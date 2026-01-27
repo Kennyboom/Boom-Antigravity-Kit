@@ -19,7 +19,7 @@
 
 ## 2. Purpose and Mission
 
-Agent Assistant transforms a single AI coding assistant into a **coordinated team of 20 specialist agents** with structured workflows, quality gates, and 218+ domain skills.
+Agent Assistant transforms a single AI coding assistant into a **coordinated team of 20 specialist agents** with structured workflows, quality gates, and 310+ domain skills.
 
 ### Core Value Proposition
 
@@ -49,8 +49,8 @@ With Agent Assistant:
 | ----------------- | ----- | ---------------------------------------------------------- |
 | Specialist Agents | 20    | Domain experts (backend, frontend, security, tester, etc.) |
 | Command Workflows | 40+   | Development workflows (/cook, /fix, /plan, /deploy, etc.)  |
-| Domain Skills     | 218   | On-demand knowledge (React, APIs, databases, DevOps, etc.) |
-| Matrix Domains    | 19    | Skill categories (backend, frontend, security, etc.)       |
+| Domain Skills     | 310   | On-demand knowledge (React, APIs, databases, DevOps, AI/ML, Security, etc.) |
+| Matrix Domains    | 19    | Skill categories (backend, frontend, security, ai-ml, etc.)       |
 | Quality Gates     | 5     | Compile, lint, test, security, review                      |
 | Rule Files        | 8     | Orchestration protocols                                    |
 | Supported Tools   | 4     | Claude Code, Cursor, Copilot, Antigravity/Gemini           |
@@ -225,19 +225,21 @@ Then try development commands:
 | **Deployment**    | `/deploy:check`, `/deploy:preview`, `/deploy:production`, `/deploy:rollback` |
 | **Utility**       | `/ask`, `/auto`                                                              |
 
-### 7.3 218 Domain Skills
+### 7.3 310 Domain Skills
 
 Skills are organized across 19 domains:
 
 | Domain         | Skills | Examples                                            |
 | -------------- | ------ | --------------------------------------------------- |
-| Backend        | 20     | api-patterns, nestjs-expert, fastapi-expert         |
-| Frontend       | 18     | react-patterns, nextjs-developer, tailwind-patterns |
-| Architecture   | 9      | architecture, clean-code, code-refactoring          |
-| Quality        | 17     | debugging, testing-patterns, code-review            |
-| Security       | 6      | vulnerability-scanner, senior-security              |
-| Design         | 10     | frontend-design, ui-ux-pro-max                      |
-| And 13 more... | 138    | —                                                   |
+| Backend        | 32     | api-patterns, nestjs-expert, fastapi-expert, stripe-integration, inngest, trigger-dev |
+| Frontend       | 22     | react-patterns, nextjs-developer, tailwind-patterns, react-ui-patterns, javascript-mastery |
+| AI/ML          | 40     | ai-agents-architect, crewai, langgraph, rag-engineer, prompt-engineering, voice-agents |
+| Security       | 35     | vulnerability-scanner, penetration testing, metasploit, burp-suite, sql-injection-testing |
+| Quality        | 21     | debugging, testing-patterns, code-review, test-driven-development, verification-before-completion |
+| DevOps         | 22     | docker-expert, kubernetes, terraform, github-workflow-automation, azure-functions, gcp-cloud-run |
+| Planning       | 12     | plan-writing, planning, executing-plans, kaizen     |
+| Tools          | 41     | slack-bot-builder, discord-bot-architect, email-systems, copywriting |
+| And 11 more... | 85     | —                                                   |
 
 ### 7.4 Quality Gates
 

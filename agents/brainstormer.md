@@ -36,12 +36,6 @@ category: research
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `planning:discovery` | Domains: `planning`, `research`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `planning.yaml` | `brainstorming`, `planning`, `sequential-thinking`, `problem-solving` |
-| `research.yaml` | `research` |
-| `tools.yaml` | `domain-name-brainstormer` |
-
 ---
 
 ## 🎯 Expert Mindset

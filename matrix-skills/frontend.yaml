@@ -8,7 +8,7 @@
 domain: frontend
 name: "Frontend Development"
 description: "UI/UX, web applications, client-side"
-skill_count: 18
+skill_count: 22
 
 skills:
   # --------------------------------------------------------------------------
@@ -163,3 +163,38 @@ skills:
       agents: [frontend-engineer]
       profiles: ["frontend:*"]
     description: "Internationalization, translations, RTL support"
+
+  # --------------------------------------------------------------------------
+  # NEW SKILLS (Added from skills-more)
+  # --------------------------------------------------------------------------
+  - skill_id: frontend-dev-guidelines
+    category: core
+    priority_score: 8
+    relevance_mapping:
+      agents: [frontend-engineer, tech-lead]
+      profiles: ["frontend:*"]
+    description: "Opinionated frontend standards for React + TypeScript, Suspense-first data fetching"
+
+  - skill_id: react-ui-patterns
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [frontend-engineer, designer]
+      profiles: ["frontend:execution", "design:*"]
+    description: "React UI patterns: loading states, error handling, button states, empty states"
+
+  - skill_id: javascript-mastery
+    category: core
+    priority_score: 7
+    relevance_mapping:
+      agents: [frontend-engineer, backend-engineer]
+      profiles: ["frontend:*", "backend:*"]
+    description: "JavaScript reference: 33+ concepts (primitives, closures, event loop, async patterns)"
+
+  - skill_id: nextjs-supabase-auth
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [frontend-engineer, backend-engineer]
+      profiles: ["frontend:execution"]
+    description: "Supabase Auth + Next.js App Router, auth middleware, Server Actions"

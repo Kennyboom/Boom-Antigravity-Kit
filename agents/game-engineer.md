@@ -36,13 +36,6 @@ category: execution
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `gaming:execution` | Domains: `gaming`, `performance`, `frontend`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `gaming.yaml` | `game-development`, `game-developer`, `threejs` |
-| `performance.yaml` | `performance-profiling` |
-| `frontend.yaml` | `frontend-development` |
-| `languages.yaml` | `cpp-pro` |
-
 ---
 
 ## 🎯 Expert Mindset

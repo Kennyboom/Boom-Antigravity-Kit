@@ -6,7 +6,7 @@
 
 **Multi-agent orchestration for AI coding assistants**
 
-Transform one AI into a coordinated team of 20 specialist agents with structured workflows and 218+ domain skills.
+Transform one AI into a coordinated team of 20 specialist agents with structured workflows and 310+ domain skills.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Node.js 18+](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
@@ -21,7 +21,7 @@ Transform one AI into a coordinated team of 20 specialist agents with structured
 | **One-Time Setup, Forever Use** | Configure once at global level (`~/.cursor/`, `~/.claude/`, etc.) and it auto-applies to ALL your projects. No more repetitive config for every new repo. |
 | **Sub-Agent Orchestration** | When supported (Claude Code, Cursor Max mode), the main agent spawns specialized sub-agents to handle tasks **in parallel** — backend, frontend, testing, security all working simultaneously. |
 | **Multi-Platform Support** | Works seamlessly across **Cursor**, **GitHub Copilot**, **Claude Code**, and **Antigravity/Gemini**. Same workflows, any tool. |
-| **Matrix Skill Discovery** | Automatically injects the right skills into each agent based on their profile and your request. 218 skills, zero manual config. |
+| **Matrix Skill Discovery** | Automatically injects the right skills into each agent based on their profile and your request. 310+ skills, zero manual config. |
 
 ### The Goal
 
@@ -43,7 +43,7 @@ Transform one AI into a coordinated team of 20 specialist agents with structured
 
 ```bash
 # Clone
-git clone https://github.com/nals-ai/agent-assistant.git
+git clone https://github.com/hainamchung/agent-assistant.git
 cd agent-assistant
 
 # Install for your tool(s)
@@ -124,7 +124,7 @@ profile: "backend:execution"
 # Matrix resolves → 20+ backend skills injected automatically
 ```
 
-**218 skills** across 19 domains. Add a new skill once, all relevant agents get it instantly.
+**310+ skills** across 19 domains. Add a new skill once, all relevant agents get it instantly.
 
 ---
 
@@ -136,7 +136,7 @@ agent-assistant/
 ├── commands/        # 40+ workflow commands
 ├── rules/           # 8 orchestration rules
 ├── matrix-skills/   # 19 domain skill registries
-├── skills/          # 218 domain skills
+├── skills/          # 310+ domain skills
 └── cli/             # Installer
 ```
 

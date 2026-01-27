@@ -36,13 +36,6 @@ category: validation
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `performance:validation` | Domains: `performance`, `backend`, `frontend`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `performance.yaml` | `performance-profiling` |
-| `backend.yaml` | `backend-development` |
-| `frontend.yaml` | `frontend-development` |
-| `data.yaml` | `databases`, `database-optimizer` |
-
 ---
 
 ## 🎯 Expert Mindset

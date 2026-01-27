@@ -35,11 +35,6 @@ category: validation
 
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `quality:validation` | Domains: `quality`
-
-| Domain File | Key Skills |
-|-------------|------------|
-| `quality.yaml` | `testing-patterns`, `tdd-workflow`, `webapp-testing`, `senior-qa`, `playwright-expert` |
-
 ---
 
 ## 🎯 Expert Mindset

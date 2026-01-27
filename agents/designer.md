@@ -36,11 +36,6 @@ category: design
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `design:creative` | Domains: `design`, `frontend`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `design.yaml` | `aesthetic`, `ui-ux-pro-max`, `ui-styling`, `ui-design-system`, `mobile-design` |
-| `frontend.yaml` | `frontend-design`, `tailwind-patterns`, `web-design-guidelines` |
-
 ---
 
 ## 🎯 Expert Mindset

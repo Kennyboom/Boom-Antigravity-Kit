@@ -37,13 +37,6 @@ priority: critical
 
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `security:validation` | Domains: `security`, `architecture`
-
-| Domain File | Key Skills |
-|-------------|------------|
-| `security.yaml` | `vulnerability-scanner`, `senior-security`, `red-team-tactics`, `secure-code-guardian` |
-| `architecture.yaml` | `architecture`, `clean-code` |
-| `backend.yaml` | `better-auth` |
-
 ---
 
 ## 🎯 Expert Mindset

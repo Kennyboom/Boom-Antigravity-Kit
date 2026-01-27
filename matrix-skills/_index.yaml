@@ -7,7 +7,7 @@
 #   Each domain has its own file: {domain}.yaml
 #   Agents reference specific domain files based on their profile.
 #
-# TOTAL: 218 skills across 19 domains
+# TOTAL: 310 skills across 19 domains
 #
 # USAGE:
 #   1. Agent declares profile in frontmatter (e.g., "backend:execution")
@@ -17,7 +17,7 @@
 
 version: "1.0"
 last_updated: "2026-01-26"
-total_skills: 218
+total_skills: 310
 
 # ============================================================================
 # DOMAIN REGISTRY
@@ -27,13 +27,13 @@ domains:
     file: "backend.yaml"
     name: "Backend Development"
     description: "Server-side logic, APIs, data access"
-    skill_count: 20
+    skill_count: 32
 
   frontend:
     file: "frontend.yaml"
     name: "Frontend Development"
     description: "UI/UX, web applications, client-side"
-    skill_count: 18
+    skill_count: 22
 
   architecture:
     file: "architecture.yaml"
@@ -45,13 +45,13 @@ domains:
     file: "quality.yaml"
     name: "Quality Assurance"
     description: "Testing, code review, validation"
-    skill_count: 17
+    skill_count: 21
 
   security:
     file: "security.yaml"
     name: "Security Engineering"
     description: "Threat modeling, secure coding, compliance"
-    skill_count: 6
+    skill_count: 35
 
   design:
     file: "design.yaml"
@@ -63,13 +63,13 @@ domains:
     file: "planning.yaml"
     name: "Planning & Analysis"
     description: "Requirements, task breakdown, roadmaps"
-    skill_count: 9
+    skill_count: 12
 
   devops:
     file: "devops.yaml"
     name: "DevOps & Deployment"
     description: "CI/CD, infrastructure, containerization"
-    skill_count: 15
+    skill_count: 22
 
   data:
     file: "data.yaml"
@@ -111,7 +111,7 @@ domains:
     file: "ai-ml.yaml"
     name: "AI/ML Engineering"
     description: "Machine learning, LLMs, data science"
-    skill_count: 13
+    skill_count: 40
 
   cloud:
     file: "cloud.yaml"
@@ -129,7 +129,7 @@ domains:
     file: "tools.yaml"
     name: "Tools & Utilities"
     description: "Productivity tools, document processing"
-    skill_count: 31
+    skill_count: 41
 
   mcp:
     file: "mcp.yaml"

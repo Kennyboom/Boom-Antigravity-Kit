@@ -50,7 +50,7 @@ Agent Assistant is a **multi-agent orchestration framework** that transforms a s
                                       │
                                       ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                    MATRIX SKILL DISCOVERY (218 Skills)                       │
+│                    MATRIX SKILL DISCOVERY (310+ Skills)                       │
 │  ┌──────────────────────────────────────────────────────────────────────┐   │
 │  │ _index.yaml → Domain Files (19) → Skill Resolution → Skill Injection │   │
 │  └──────────────────────────────────────────────────────────────────────┘   │

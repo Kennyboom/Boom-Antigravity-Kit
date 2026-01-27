@@ -74,7 +74,10 @@
 | Orchestration     | `tech-lead`            | —                   |
 | Bug investigation | `debugger`             | `tester`            |
 | Deployment        | `devops-engineer`      | —                   |
-| Git operations    | `devops-engineer`      |
+| Git operations    | `devops-engineer`      | —                   |
+| AI/ML agents      | `backend-engineer`     | `tech-lead`         |
+| Penetration test  | `security-engineer`    | —                   |
+| Workflow automation | `devops-engineer`    | `backend-engineer`  |
 
 ---
 

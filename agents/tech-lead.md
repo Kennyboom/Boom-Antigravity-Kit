@@ -35,13 +35,6 @@ category: execution
 
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `architecture:orchestration` | Domains: `architecture`, `quality`, `planning`
-
-| Domain File | Key Skills |
-|-------------|------------|
-| `architecture.yaml` | `architecture`, `senior-architect`, `clean-code`, `app-builder` |
-| `quality.yaml` | `code-review`, `code-reviewer` |
-| `planning.yaml` | `planning`, `sequential-thinking` |
-
 ---
 
 ## 🎯 Expert Mindset

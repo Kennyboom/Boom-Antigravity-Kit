@@ -8,7 +8,7 @@
 domain: quality
 name: "Quality Assurance"
 description: "Testing, code review, validation"
-skill_count: 17
+skill_count: 21
 
 skills:
   # --------------------------------------------------------------------------
@@ -158,3 +158,38 @@ skills:
       agents: [backend-engineer, frontend-engineer]
       profiles: ["backend:*", "frontend:*"]
     description: "How to request code reviews effectively"
+
+  # --------------------------------------------------------------------------
+  # NEW SKILLS - TESTING & CODE QUALITY (Added from skills-more)
+  # --------------------------------------------------------------------------
+  - skill_id: test-driven-development
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [tester, backend-engineer, frontend-engineer]
+      profiles: ["quality:validation", "backend:*", "frontend:*"]
+    description: "Rigorous TDD: NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST"
+
+  - skill_id: test-fixing
+    category: specialized
+    priority_score: 7
+    relevance_mapping:
+      agents: [tester, debugger]
+      profiles: ["quality:validation", "quality:debugging"]
+    description: "Systematic test fixing, smart error grouping, prioritizing fixes"
+
+  - skill_id: production-code-audit
+    category: expert
+    priority_score: 8
+    relevance_mapping:
+      agents: [reviewer, tech-lead]
+      profiles: ["quality:review", "architecture:*"]
+    description: "Autonomous codebase audit, deep-scan, production-grade quality transformation"
+
+  - skill_id: verification-before-completion
+    category: core
+    priority_score: 9
+    relevance_mapping:
+      agents: [tester, reviewer, backend-engineer, frontend-engineer]
+      profiles: ["quality:*", "backend:*", "frontend:*"]
+    description: "NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE"

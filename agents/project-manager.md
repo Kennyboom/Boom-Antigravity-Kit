@@ -36,12 +36,6 @@ category: orchestration
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `management:orchestration` | Domains: `management`, `planning`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `management.yaml` | `agile-product-owner`, `product-manager-toolkit`, `product-strategist` |
-| `planning.yaml` | `planning` |
-| `tools.yaml` | `issue-creator`, `jira-issues`, `meeting-insights-analyzer` |
-
 ---
 
 ## 🎯 Expert Mindset

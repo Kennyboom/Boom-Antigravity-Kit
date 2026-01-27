@@ -35,14 +35,6 @@ category: execution
 
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `backend:execution` | Domains: `backend`, `architecture`, `quality`, `data`, `languages`
-
-| Domain File | Key Skills |
-|-------------|------------|
-| `backend.yaml` | `api-patterns`, `backend-development`, `microservices-architect`, `senior-backend` |
-| `architecture.yaml` | `architecture`, `clean-code`, `code-refactoring` |
-| `data.yaml` | `database-design`, `sql-pro`, `prisma-expert` |
-| `languages.yaml` | `typescript-expert`, `python-patterns`, `golang-pro` |
-
 ---
 
 ## 🎯 Expert Mindset

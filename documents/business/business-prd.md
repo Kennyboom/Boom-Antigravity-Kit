@@ -11,7 +11,7 @@
 
 ### 1.1 Product Overview
 
-**Agent Assistant** is an open-source multi-agent orchestration framework that transforms a single AI coding assistant into a coordinated team of 20 specialist agents. It provides structured workflows, quality gates, and 218+ domain skills for production-grade AI-assisted software development.
+**Agent Assistant** is an open-source multi-agent orchestration framework that transforms a single AI coding assistant into a coordinated team of 20 specialist agents. It provides structured workflows, quality gates, and 310+ domain skills for production-grade AI-assisted software development.
 
 ### 1.2 Vision Statement
 
@@ -165,7 +165,7 @@ AI coding assistants are powerful but unstructured. Developers use AI tools in a
 
 | ID | Requirement | Priority | Status |
 |----|-------------|----------|--------|
-| FR-004.1 | System SHALL support 218+ domain skills | Must-Have | ✅ Complete |
+| FR-004.1 | System SHALL support 310+ domain skills | Must-Have | ✅ Complete |
 | FR-004.2 | System SHALL resolve skills based on agent profile | Must-Have | ✅ Complete |
 | FR-004.3 | System SHALL support 19 skill domains | Must-Have | ✅ Complete |
 | FR-004.4 | System SHALL support skill priority scoring | Must-Have | ✅ Complete |
@@ -287,7 +287,7 @@ AI coding assistants are powerful but unstructured. Developers use AI tools in a
 | 20 Specialist Agents | Domain experts | ✅ Complete |
 | Core Command Workflows | /cook, /fix, /plan, etc. | ✅ Complete |
 | Quality Gates | 5 automated gates | ✅ Complete |
-| Matrix Skill Discovery | 218 skills | ✅ Complete |
+| Matrix Skill Discovery | 310+ skills | ✅ Complete |
 | Multi-Tool Support | 4 AI tools | ✅ Complete |
 | CLI Installer | One-command setup | ✅ Complete |
 
@@ -326,7 +326,7 @@ AI coding assistants are powerful but unstructured. Developers use AI tools in a
 |---------|--------|
 | 20 Specialist Agents | ✅ |
 | 40+ Command Workflows | ✅ |
-| 218 Domain Skills | ✅ |
+| 310+ Domain Skills | ✅ |
 | Matrix Skill Discovery | ✅ |
 | Multi-Tool Support | ✅ |
 | CLI Installer | ✅ |

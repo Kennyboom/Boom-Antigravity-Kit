@@ -2,7 +2,7 @@
 
 > **Purpose**: Runtime resolution of skills for agents using the Matrix Metadata system.
 > **Source**: `~/.{TOOL}/skills/agent-assistant/matrix-skills/` (distributed by domain)
-> **Total Skills**: 218 skills across 19 domains
+> **Total Skills**: 310 skills across 19 domains
 
 ---
 
@@ -15,24 +15,24 @@ The Skill Discovery Protocol replaces hardcoded skill lists in agent files with 
 ```
 matrix-skills/
 ├── _index.yaml          # Registry, agent profiles, resolution rules
-├── backend.yaml         # 20 skills
-├── frontend.yaml        # 18 skills
+├── backend.yaml         # 32 skills
+├── frontend.yaml        # 22 skills
 ├── architecture.yaml    # 9 skills
-├── quality.yaml         # 17 skills
-├── security.yaml        # 6 skills
+├── quality.yaml         # 21 skills
+├── security.yaml        # 35 skills
 ├── design.yaml          # 10 skills
-├── planning.yaml        # 9 skills
-├── devops.yaml          # 15 skills
+├── planning.yaml        # 12 skills
+├── devops.yaml          # 22 skills
 ├── data.yaml            # 7 skills
 ├── performance.yaml     # 1 skill
 ├── research.yaml        # 11 skills
 ├── mobile.yaml          # 8 skills
 ├── gaming.yaml          # 3 skills
 ├── management.yaml      # 4 skills
-├── ai-ml.yaml           # 13 skills
+├── ai-ml.yaml           # 40 skills
 ├── cloud.yaml           # 11 skills
 ├── languages.yaml       # 17 skills
-├── tools.yaml           # 31 skills
+├── tools.yaml           # 41 skills
 └── mcp.yaml             # 8 skills
 ```
 
@@ -128,18 +128,24 @@ profile: "backend:execution"
 
 | Step | Source File | Skills Found |
 |------|-------------|--------------|
-| 1 | backend.yaml | api-patterns, backend-development, microservices-architect |
+| 1 | backend.yaml | api-patterns, backend-development, microservices-architect, backend-dev-guidelines, software-architecture, bun-development, inngest, trigger-dev, stripe-integration |
 | 2 | architecture.yaml | architecture, clean-code |
-| 3 | data.yaml | database-design, sql-pro, prisma-expert |
-| 4 | languages.yaml | typescript-expert, python-patterns |
+| 3 | data.yaml | database-design, sql-pro, prisma-expert, nosql-expert, neon-postgres |
+| 4 | languages.yaml | typescript-expert, python-patterns, javascript-mastery |
+| 5 | ai-ml.yaml | ai-agents-architect, autonomous-agents, llm-app-patterns, rag-engineer, prompt-engineering, crewai, langgraph |
 
 **Output (sorted by priority):**
 ```
 architecture (10)
+ai-agents-architect (9)
 api-patterns (9)
 database-design (9)
 clean-code (9)
 backend-development (8)
+backend-dev-guidelines (8)
+software-architecture (8)
+llm-app-patterns (8)
+rag-engineer (8)
 typescript-expert (8)
 microservices-architect (8)
 ...
@@ -216,6 +222,21 @@ This enables cross-domain skill sharing without explicit agent declarations.
 
 ---
 
+## Agent Files: Profile + Domains Only
+
+Agent files **do not** list key skills or domain-file tables. Each agent's Skills section contains only:
+
+```markdown
+## ⚡ Skills
+
+> **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
+> Profile: `{domain}:{category}` | Domains: `{inherit_from from _index.yaml}`
+```
+
+AI tools resolve skills by reading `~/.{TOOL}/skills/agent-assistant/matrix-skills/_index.yaml` → `agent_profiles.{agent}.inherit_from`, then loading the listed domain files and injecting skills via `relevance_mapping`. **When adding new skills, update only the skill folder and the corresponding matrix-skills domain file; no agent file changes are required.**
+
+---
+
 ## Adding New Skills
 
 ### Workflow
@@ -240,7 +261,9 @@ This enables cross-domain skill sharing without explicit agent declarations.
 
 3. **Update domain skill_count in _index.yaml** (optional but recommended)
 
-4. **Verify resolution:**
+4. **Do not edit agent files** — skills are resolved from matrix-skills by Profile and Domains only.
+
+5. **Verify resolution:**
    - Skill appears in target agent's resolved set
    - Priority ordering is correct
    - No conflicts with existing skills
@@ -322,7 +345,7 @@ The orchestrator never needs to know individual skills—it only needs the agent
 
 - Resolution: O(D × S) where D=inherited domains, S=skills per domain
 - Typical resolution: < 1ms
-- Total Matrix size: ~218 skills = ~15KB across all YAML files
+- Total Matrix size: ~310 skills = ~25KB across all YAML files
 
 ---
 

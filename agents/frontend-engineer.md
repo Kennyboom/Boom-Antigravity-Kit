@@ -35,13 +35,6 @@ category: execution
 
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `frontend:execution` | Domains: `frontend`, `design`, `architecture`
-
-| Domain File | Key Skills |
-|-------------|------------|
-| `frontend.yaml` | `react-patterns`, `react-best-practices`, `nextjs-best-practices`, `tailwind-patterns` |
-| `design.yaml` | `aesthetic`, `ui-ux-pro-max`, `ui-styling` |
-| `architecture.yaml` | `architecture`, `clean-code` |
-
 ---
 
 ## 🎯 Expert Mindset

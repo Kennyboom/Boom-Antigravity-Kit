@@ -8,7 +8,7 @@
 domain: tools
 name: "Tools & Utilities"
 description: "Productivity tools, document processing"
-skill_count: 31
+skill_count: 41
 
 skills:
   # --------------------------------------------------------------------------
@@ -269,3 +269,84 @@ skills:
     relevance_mapping:
       profiles: ["*"]
     description: "Template skill structure"
+
+  # --------------------------------------------------------------------------
+  # NEW SKILLS - COMMUNICATION & AUTOMATION (Added from skills-more)
+  # --------------------------------------------------------------------------
+  - skill_id: slack-bot-builder
+    category: specialized
+    priority_score: 6
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Slack apps using Bolt framework, Block Kit, slash commands, OAuth"
+
+  - skill_id: discord-bot-architect
+    category: specialized
+    priority_score: 6
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Discord bots with Discord.js/Pycord, Gateway intents, slash commands"
+
+  - skill_id: telegram-bot-builder
+    category: specialized
+    priority_score: 6
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Telegram bots, Bot API, architecture, monetization, scaling"
+
+  - skill_id: email-sequence
+    category: utility
+    priority_score: 5
+    relevance_mapping:
+      profiles: ["*"]
+    description: "Email sequences, drip campaigns, lifecycle emails"
+
+  - skill_id: email-systems
+    category: specialized
+    priority_score: 6
+    relevance_mapping:
+      agents: [backend-engineer]
+      profiles: ["backend:execution"]
+    description: "Email systems engineering, transactional email, deliverability, SPF/DKIM/DMARC"
+
+  # --------------------------------------------------------------------------
+  # NEW SKILLS - CONTENT CREATION (Added from skills-more)
+  # --------------------------------------------------------------------------
+  - skill_id: content-creator
+    category: utility
+    priority_score: 5
+    relevance_mapping:
+      profiles: ["*"]
+    description: "SEO-optimized marketing content, brand voice analyzer, content frameworks"
+
+  - skill_id: copywriting
+    category: utility
+    priority_score: 5
+    relevance_mapping:
+      profiles: ["*"]
+    description: "Marketing copywriting, homepage, landing pages, pricing pages, conversion-focused"
+
+  - skill_id: copy-editing
+    category: utility
+    priority_score: 5
+    relevance_mapping:
+      profiles: ["*"]
+    description: "Systematic copy editing through 7 focused passes (Clarity, Voice, So What, etc.)"
+
+  - skill_id: social-content
+    category: utility
+    priority_score: 5
+    relevance_mapping:
+      profiles: ["*"]
+    description: "Social media content creation, LinkedIn, Twitter/X, Instagram, TikTok"
+
+  - skill_id: api-documentation-generator
+    category: utility
+    priority_score: 6
+    relevance_mapping:
+      agents: [docs-manager, backend-engineer]
+      profiles: ["research:documentation", "backend:execution"]
+    description: "Generate API documentation from code, endpoints, parameters, OpenAPI/Swagger"

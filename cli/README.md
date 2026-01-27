@@ -21,7 +21,7 @@ This CLI tool installs the Agent Assistant framework for different AI coding too
 
 ```bash
 # Clone the repository
-git clone https://github.com/nals-ai/agent-assistant.git
+git clone https://github.com/hainamchung/agent-assistant.git
 cd agent-assistant
 
 # Install for a specific tool

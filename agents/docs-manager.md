@@ -37,12 +37,6 @@ category: support
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `research:documentation` | Domains: `research`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `research.yaml` | `documentation-templates`, `code-documentation`, `repomix`, `writing-skills` |
-| `tools.yaml` | `document-skills`, `docx`, `pdf`, `pptx`, `xlsx`, `changelog-generator` |
-| `architecture.yaml` | `clean-code` |
-
 ---
 
 ## 🎯 Expert Mindset

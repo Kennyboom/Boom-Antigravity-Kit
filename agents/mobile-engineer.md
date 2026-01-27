@@ -36,13 +36,6 @@ category: execution
 > **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
 > Profile: `mobile:execution` | Domains: `mobile`, `design`, `frontend`
 
-| Domain File | Key Skills |
-|-------------|------------|
-| `mobile.yaml` | `mobile-development`, `react-native-expert`, `flutter-expert`, `expo-app-design` |
-| `design.yaml` | `mobile-design` |
-| `frontend.yaml` | `react-patterns` |
-| `quality.yaml` | `testing-patterns` |
-
 ---
 
 ## 🎯 Expert Mindset
