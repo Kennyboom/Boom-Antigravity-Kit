@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/logo.png" alt="Agent Assistant Logo" width="120" height="auto" />
+  <img src="assets/logo.svg" alt="Agent Assistant Logo" width="120" height="auto" />
 </div>
 
 # Agent Assistant

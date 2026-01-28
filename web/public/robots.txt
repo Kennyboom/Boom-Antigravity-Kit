@@ -1,0 +1,15 @@
+# Agent Assistant Robots.txt
+# https://agent-assistant.dev
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://agent-assistant.dev/sitemap.xml
+
+# Disallow admin or private paths (if any)
+Disallow: /api/
+Disallow: /_/
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
