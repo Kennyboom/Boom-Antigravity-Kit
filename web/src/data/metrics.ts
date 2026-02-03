@@ -43,8 +43,8 @@ export const featureCards = [
   },
   {
     emoji: '🧠',
-    title: 'Matrix Skills',
-    description: `${totalSkills}+ skills across ${totalDomains} domains auto-injected based on agent profiles for deep expertise.`,
+    title: 'Hybrid Skill Orchestration',
+    description: `${totalSkills}+ matrix skills across ${totalDomains} domains plus on-demand community skills via find-skills. Variant-aware, deep expertise.`,
     href: '/features/matrix-skills',
     badge: 'Smart',
   },

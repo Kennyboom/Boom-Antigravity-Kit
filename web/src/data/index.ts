@@ -29,10 +29,15 @@ export {
   skillInjectionExample,
   skillDiscoverySteps,
   skillBenefits,
+  hsolDecisionTable,
+  hsolUniqueFeatures,
+  findSkillsCta,
   getTotalSkills,
   totalSkills,
   totalDomains,
   type SkillDomain,
+  type HsolDecisionRow,
+  type HsolUniqueFeature,
 } from './skills'
 
 // Platforms
@@ -57,3 +62,13 @@ export {
   resources,
   agentCollaboration,
 } from './metrics'
+
+// Workflow Architecture
+export {
+  workflowNodes,
+  workflowEdges,
+  nodeTypeLegend,
+  architectureConcepts,
+  type WorkflowNodeType,
+  type WorkflowNodeData,
+} from './workflowArchitecture'

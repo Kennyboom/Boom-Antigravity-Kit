@@ -20,11 +20,13 @@ execution-mode: execute
 
 **LOAD now** (in order; path `./rules/` or `~/.{TOOL}/skills/agent-assistant/rules/`):
 
-1. ORCHESTRATION-LAWS.md
-2. ADAPTIVE-EXECUTION.md
-3. EXECUTION-PROTOCOL.md
+1. CORE.md — Identity, Laws, Routing
+2. PHASES.md — Phase Execution
+3. AGENTS.md — Tiered Execution
 
 **⛔ Do not run Phase 1 until all are loaded.** Follow **all** rules in those files; they override any conflicting instructions in this file.
+
+**Skills Resolution**: When delegating, load `SKILLS.md` on-demand for fitness calculation and dynamic discovery (focus variant enables find-skills for superior skill matching).
 
 ---
 
@@ -90,45 +92,28 @@ One phase at a time, each phase independent: Phase 1 → then Phase 2 → … in
 
 ---
 
-## 🛡️ STRICT CONTEXT GATE — Automatic Context Optimization
+## 🛡️ CONTEXT GATE CHECKPOINT
 
-> **⚡ FOCUS MODE**: This checkpoint executes automatically. NO user input required.
+> **⛔ BLOCKING**: Load Context Gate protocol NOW before proceeding.
 >
-> **PURPOSE**: Prevent "context rot" by forcibly clearing noisy debugging history.
-> This acts as a mandatory "firewall" before handoff to fix workflows.
+> **LOAD**: `rules/CONTEXT-GATE.md` — Execute FOCUS MODE (Debug variant)
+>
+> This is a MANDATORY checkpoint. Cannot skip or bypass.
 
-### 🔒 AUTOMATIC EXECUTION (NO PROMPT)
+### ⚡ EXECUTION
 
 ```yaml
-strict_context_gate:
-  mode: "AUTOMATIC - No user interaction"
-  behavior: "Force Clear context & Fix"
+context_gate_execution:
+  mode: "FOCUS (Automatic)"
+  trigger: "After Phase 4 (Solution Design) completes"
+  protocol: "Follow rules/CONTEXT-GATE.md § FOCUS MODE § debug_focus_variant"
+  
+  variant_adjustments:
+    reload_type: "OUTPUT_ESSENTIAL_CONTEXT"
+    handoff_to: "/fix:focus"
+```
 
-  execution:
-    1. ANNOUNCE: |
-      ## 🛡️ Strict Context Gate — Automatic
-
-      ✅ **Debug Complete**: Root cause identified, fix strategy designed.
-      🔒 **Focus Mode**: Automatically clearing context for fix handoff.
-
-      ⚡ Executing: **Clear context & Fix**...
-
-    2. CONTEXT_DIRECTIVE: |
-      ╔══════════════════════════════════════════════════════════════════╗
-      ║  ⛔ MANDATORY CONTEXT RESET — FOCUS MODE                        ║
-      ╠══════════════════════════════════════════════════════════════════╣
-      ║  IGNORE: All debugging hypotheses, failed investigation paths,  ║
-      ║          rejected theories, and intermediate reasoning.         ║
-      ║                                                                  ║
-      ║  SOLE SOURCE OF TRUTH: Root cause + Fix strategy.               ║
-      ║                                                                  ║
-      ║  HANDOFF: Ready for `/fix:focus` implementation.               ║
-      ║           Fix should treat root cause as fresh context.         ║
-      ╚══════════════════════════════════════════════════════════════════╝
-
-    3. OUTPUT: Root cause + Fix strategy summary
-
-    4. PROCEED: To COMPLETION
+**Note**: Debug outputs context for fix handoff, doesn't implement directly.
 ```
 
 ### 📋 Post-Gate Status
@@ -136,9 +121,19 @@ strict_context_gate:
 ```markdown
 🔒 **Context Gate Passed**
 
-- Previous context: DISCARDED
-- Active context: Root cause + Fix strategy only
-- Mode: Clean handoff ready
+## ✅ Output for Handoff:
+- User request (original issue verbatim)
+- Root cause summary with evidence
+- Fix strategy with rollback
+- Acceptance criteria for fix verification
+
+## ❌ Discarded:
+- Failed investigation hypotheses
+- Rejected theories
+- Debugging noise
+- Chat history
+
+Mode: Clean handoff ready
 
 Ready for fix implementation...
 ```

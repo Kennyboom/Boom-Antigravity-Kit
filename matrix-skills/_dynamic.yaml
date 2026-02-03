@@ -1,0 +1,137 @@
+# ============================================================================
+# DYNAMIC SKILL MANIFEST
+# ============================================================================
+# Auto-managed by Hybrid Skill Orchestration Layer (HSOL)
+# Manual edits may be overwritten
+#
+# PURPOSE:
+#   Track dynamically installed skills from the community ecosystem
+#   Enable unified skill resolution across matrix and dynamic sources
+#
+# UPDATED BY: This file is updated when agents run the install flow (e.g. agent runs
+#    `npx skills add <skill> -g -y`), not when the user runs the command manually.
+#
+# LIFECYCLE:
+#   1. Agent (orchestrator/install flow) runs `npx skills add <skill> -g -y`; manifest updated
+#   2. HSOL validates and registers skill here
+#   3. Skill becomes available for resolution
+#   4. Trust level increases with successful executions
+#   5. High-trust skills may be promoted to matrix-skills/
+# ============================================================================
+
+version: "1.1"
+last_updated: "2026-01-30T00:00:00Z"
+schema_version: 1
+
+# ============================================================================
+# CONFIGURATION
+# ============================================================================
+config:
+  # Discovery settings
+  discovery:
+    enabled: true
+    endpoint: "npx skills find"
+    timeout_ms: 5000
+    cache_ttl_seconds: 3600
+    
+  # Trust progression thresholds
+  trust_thresholds:
+    new_skill: 0.3
+    after_3_executions: 0.5
+    after_10_executions: 0.7
+    promoted_to_matrix: 1.0
+    
+  # Promotion criteria — when met, skill is auto-promoted to matrix (no queue)
+  promotion:
+    min_executions: 10
+    min_success_rate: 0.85
+    max_inactive_days: 30
+    automatic: true   # Promote to matrix when criteria met; no human review queue
+
+# ============================================================================
+# INSTALLED DYNAMIC SKILLS
+# ============================================================================
+# Each entry follows this schema:
+#
+# - skill_id: unique-identifier
+#   source: "{platform}/{owner}/{repo}@{skill}"
+#   version: "vX.Y.Z"
+#   installed_at: "ISO-8601 timestamp"
+#   installed_by: "user|system"
+#   checksum: "sha256:..."
+#   
+#   # Resolution metadata
+#   domains: [domain1, domain2]
+#   keywords: [keyword1, keyword2]
+#   description: "Brief description for matching"
+#   
+#   # Trust and metrics
+#   trust_level: 0.3-1.0
+#   execution_count: 0
+#   success_count: 0
+#   failure_count: 0
+#   last_execution: "ISO-8601 timestamp"
+#   last_success: "ISO-8601 timestamp"
+#   
+#   # Relevance mapping (mirrors matrix skill schema)
+#   relevance_mapping:
+#     agents: [agent-id, ...]
+#     profiles: ["domain:category", ...]
+# ============================================================================
+
+skills: []
+  # Example entry (commented):
+  # - skill_id: "clerk-auth"
+  #   source: "github/vercel-labs/skills@clerk-auth"
+  #   version: "v1.2.0"
+  #   installed_at: "2026-01-30T12:00:00Z"
+  #   installed_by: "user"
+  #   checksum: "sha256:abc123def456..."
+  #   
+  #   domains: ["backend", "security"]
+  #   keywords: ["clerk", "authentication", "oauth", "jwt"]
+  #   description: "Clerk authentication integration patterns"
+  #   
+  #   trust_level: 0.3
+  #   execution_count: 0
+  #   success_count: 0
+  #   failure_count: 0
+  #   last_execution: null
+  #   last_success: null
+  #   
+  #   relevance_mapping:
+  #     agents: [backend-engineer, security-engineer]
+  #     profiles: ["backend:execution", "security:*"]
+
+# ============================================================================
+# REJECTED SKILLS
+# ============================================================================
+# Skills that failed validation or were rejected after evaluation
+# Prevents re-installation of problematic skills
+# ============================================================================
+
+rejected_skills: []
+  # Example entry (commented):
+  # - skill_id: "sketchy-skill"
+  #   source: "github/unknown/repo@sketchy"
+  #   rejected_at: "2026-01-25T08:00:00Z"
+  #   reason: "Schema validation failed"
+  #   block_reinstall: true
+
+# ============================================================================
+# TELEMETRY SUMMARY
+# ============================================================================
+# Aggregated metrics for monitoring HSOL health
+# Updated periodically by analytics engine
+# ============================================================================
+
+telemetry_summary:
+  last_updated: null
+  total_dynamic_skills: 0
+  total_executions: 0
+  overall_success_rate: null
+  skills_promoted_count: 0
+  skills_rejected_count: 0
+  discovery_requests_today: 0
+  cache_hit_rate: null
+

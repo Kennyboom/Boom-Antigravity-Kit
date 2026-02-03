@@ -17,17 +17,19 @@ execution-mode: execute
 
 **LOAD now** (in order; path `./rules/` or `~/.{TOOL}/skills/agent-assistant/rules/`):
 
-1. ORCHESTRATION-LAWS.md
-2. ADAPTIVE-EXECUTION.md
-3. EXECUTION-PROTOCOL.md
+1. CORE.md — Identity, Laws, Routing
+2. PHASES.md — Phase Execution
+3. AGENTS.md — Tiered Execution
 
 **⛔ Do not run Phase 1 until all are loaded.** Follow **all** rules in those files; they override any conflicting instructions in this file.
+
+**Skills Resolution**: When delegating, load `SKILLS.md` on-demand for fitness calculation and dynamic discovery (hard/focus variants enable find-skills).
 
 ---
 
 ## 🔀 TIERED EXECUTION PROTOCOL (MANDATORY)
 
-> **Reference**: `{RULES_PATH}/ADAPTIVE-EXECUTION.md`
+> **Reference: AGENTS.md (Tiered Execution)`
 
 ```yaml
 tiered_execution:
@@ -208,21 +210,55 @@ option_1_clear_ready:
     2. CONTEXT_DIRECTIVE: |
        ⛔ IGNORE all design exploration and rejected alternatives.
        ✅ DESIGN FILE is SOLE SOURCE OF TRUTH.
-    3. PROCEED: Continue to Design Review phase
+    3. RELOAD_ESSENTIAL_CONTEXT: |
+       ## 📥 Essential Context Reload
+       
+       Read Design file and extract these sections for review/handoff context:
+       
+       1️⃣ **USER REQUEST (VERBATIM)**: 
+          - Extract from Design header: `## 📌 User Request (VERBATIM)`
+          - This is the ORIGINAL design request to verify against
+       
+       2️⃣ **ACCEPTANCE CRITERIA**:
+          - Extract from Design header: `## 🎯 Acceptance Criteria`
+          - These are the checkpoints for design approval
+       
+       3️⃣ **DESIGN DOCUMENT**:
+          - Full design content from `./reports/designs/DESIGN-{request}.md`
+          - This is the SOLE SOURCE OF TRUTH for design decisions
+       
+       4️⃣ **REMAINING PHASES**: Phase 5 (Design Review) → Implementation Handoff
+       
+       5️⃣ **REVIEW RULES** (Summary):
+          - Verify design meets original user request
+          - Check all acceptance criteria are addressed
+          - Ensure design is implementation-ready
+    4. PROCEED: Continue to Design Review phase
+    5. POST_STATUS: |
+       🔒 **Context Gate Passed**
+       
+## 🛡️ VERIFICATION CHECKPOINT
 
-option_2_review_first:
-  behavior: "Clear and show summary"
-  steps:
-    1. ACKNOWLEDGE: "⏸️ Context cleared."
-    2. OUTPUT: Display design summary for user review
-    3. WAIT: For user approval
+> **⛔ BLOCKING**: Load Context Gate protocol NOW before proceeding.
+>
+> **LOAD**: `rules/CONTEXT-GATE.md` — Execute HARD MODE (Design variant)
+>
+> This is a MANDATORY checkpoint. Cannot skip or bypass.
 
-option_3_continue_no_clear:
-  behavior: "Proceed with caution"
-  steps:
-    1. WARN: "⚠️ Design exploration history retained."
-    2. PROCEED: Continue to review with existing context
+### ⚡ EXECUTION
+
+```yaml
+context_gate_execution:
+  mode: "HARD (User Choice)"
+  trigger: "After Phase 4 (Design Creation) completes"
+  protocol: "Follow rules/CONTEXT-GATE.md § HARD MODE § design_hard_variant"
+  
+  variant_adjustments:
+    deliverable_file: "./reports/designs/DESIGN-{request}.md"
+    remaining_phases: "Phase 5 (Design Review) → Implementation Handoff"
 ```
+
+**DO NOT proceed to Phase 5 until user selects option.**
 
 ---
 

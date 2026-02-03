@@ -7,12 +7,19 @@
  * - Cursor
  * - GitHub Copilot
  * - Antigravity (Gemini)
+ * - Claude Code
  * 
  * Usage:
  *   npx agent-assistant install [tool]
  *   npx agent-assistant install --all
  *   npx agent-assistant uninstall [tool]
  *   npx agent-assistant list
+ * 
+ * Features:
+ *   - Real-time progress bar with file count
+ *   - Verification phase to ensure all files are written
+ *   - Proper file system sync for reliability
+ *   - Summary report with statistics
  */
 
 const fs = require('node:fs');
@@ -162,13 +169,144 @@ const BUNDLED_AGENTS = [
 // Utility Functions
 // ============================================================================
 
+/**
+ * Progress tracking state
+ */
+const progressState = {
+    total: 0,
+    current: 0,
+    phase: '',
+    errors: [],
+    startTime: 0,
+    copiedFiles: [],
+    removedPaths: [],
+    lastDraw: 0,          // Throttle draws
+    lastPercent: -1       // Track last drawn percent
+};
+
+// Check if stdout is a TTY (interactive terminal)
+const isTTY = process.stdout.isTTY;
+
+/**
+ * Reset progress state for new operation
+ */
+function resetProgress() {
+    progressState.total = 0;
+    progressState.current = 0;
+    progressState.phase = '';
+    progressState.errors = [];
+    progressState.startTime = Date.now();
+    progressState.copiedFiles = [];
+    progressState.removedPaths = [];
+    progressState.lastDraw = 0;
+    progressState.lastPercent = -1;
+}
+
+/**
+ * Count total files in a directory (for progress estimation)
+ */
+function countFiles(dir) {
+    if (!fs.existsSync(dir)) return 0;
+    let count = 0;
+    const entries = fs.readdirSync(dir, { withFileTypes: true });
+    for (const entry of entries) {
+        if (entry.name.startsWith('.') || entry.name === 'node_modules') continue;
+        if (entry.isSymbolicLink()) continue;
+        const fullPath = path.join(dir, entry.name);
+        if (entry.isDirectory()) {
+            count += countFiles(fullPath);
+        } else {
+            count++;
+        }
+    }
+    return count;
+}
+
+/**
+ * Draw progress bar in terminal (real-time single line update)
+ * @param {number} current - Current progress
+ * @param {number} total - Total items
+ * @param {boolean} force - Force draw regardless of throttle
+ */
+function drawProgress(current, total, force = false) {
+    if (total === 0) return;
+    
+    const percent = Math.min(100, Math.round((current / total) * 100));
+    const now = Date.now();
+    
+    // Throttle: only draw every 50ms OR when percent changes OR forced
+    if (!force && percent === progressState.lastPercent && (now - progressState.lastDraw) < 50) {
+        return;
+    }
+    
+    progressState.lastDraw = now;
+    progressState.lastPercent = percent;
+    
+    const width = 40;
+    const filled = Math.round((percent / 100) * width);
+    const empty = width - filled;
+    
+    // Unicode progress bar characters
+    const filledChar = '█';
+    const emptyChar = '░';
+    
+    const bar = filledChar.repeat(filled) + emptyChar.repeat(empty);
+    const stats = `${current.toLocaleString()}/${total.toLocaleString()}`;
+    const elapsed = ((now - progressState.startTime) / 1000).toFixed(1);
+    
+    const line = `  ${bar} ${percent}% (${stats}) ${elapsed}s`;
+    
+    if (isTTY) {
+        // Real TTY: clear line and rewrite on same line
+        process.stdout.clearLine(0);
+        process.stdout.cursorTo(0);
+        process.stdout.write(line);
+    } else {
+        // Non-TTY (piped): only print on percent milestones
+        if (percent % 10 === 0 && percent !== progressState.lastPercent) {
+            console.log(line);
+        }
+    }
+}
+
+/**
+ * Update progress counter (no draw - for batch updates)
+ */
+function updateProgress(phase) {
+    progressState.current++;
+    progressState.phase = phase;
+    drawProgress(progressState.current, progressState.total);
+}
+
+/**
+ * Complete progress bar and move to next line
+ */
+function completeProgress() {
+    if (progressState.total > 0) {
+        drawProgress(progressState.total, progressState.total, true);
+        console.log(''); // New line after progress bar
+    }
+}
+
+/**
+ * Log error to progress state
+ */
+function logError(operation, path, error) {
+    progressState.errors.push({
+        operation,
+        path,
+        error: error.message || String(error),
+        timestamp: new Date().toISOString()
+    });
+}
+
 function ensureDir(dir) {
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
     }
 }
 
-function copyWithReplace(src, dest, replacements = {}) {
+function copyWithReplace(src, dest, replacements = {}, trackProgress = true) {
     if (!fs.existsSync(src)) return 0;
     ensureDir(dest);
     let count = 0;
@@ -180,7 +318,9 @@ function copyWithReplace(src, dest, replacements = {}) {
         
         // Skip symbolic links for security (prevents path traversal attacks)
         if (entry.isSymbolicLink()) {
-            console.log(`  ⚠️ Skipping symlink: ${entry.name}`);
+            if (process.env.DEBUG) {
+                console.log(`  ⚠️ Skipping symlink: ${entry.name}`);
+            }
             continue;
         }
 
@@ -188,55 +328,118 @@ function copyWithReplace(src, dest, replacements = {}) {
         const destPath = path.join(dest, entry.name);
 
         if (entry.isDirectory()) {
-            count += copyWithReplace(srcPath, destPath, replacements);
+            count += copyWithReplace(srcPath, destPath, replacements, trackProgress);
         } else {
-            // Apply replacements for text files
-            const textExtensions = ['.md', '.txt', '.json', '.mdc', '.yaml', '.yml'];
-            const ext = path.extname(entry.name).toLowerCase();
+            try {
+                // Apply replacements for text files
+                const textExtensions = ['.md', '.txt', '.json', '.mdc', '.yaml', '.yml'];
+                const ext = path.extname(entry.name).toLowerCase();
 
-            if (textExtensions.includes(ext)) {
-                try {
+                if (textExtensions.includes(ext)) {
                     let content = fs.readFileSync(srcPath, 'utf8');
                     // Sort keys by length (longer first) to prevent partial replacements
                     const keys = Object.keys(replacements).sort((a, b) => b.length - a.length);
                     for (const search of keys) {
                         content = content.replaceAll(search, replacements[search]);
                     }
-                    fs.writeFileSync(destPath, content);
-                } catch (e) {
-                    // Log warning but continue with binary copy as fallback
-                    if (process.env.DEBUG) {
-                        console.warn(`  ⚠️ Could not process ${entry.name} as text, copying as binary`);
-                    }
+                    // Write with fsync for reliability
+                    const fd = fs.openSync(destPath, 'w');
+                    fs.writeSync(fd, content);
+                    fs.fsyncSync(fd);
+                    fs.closeSync(fd);
+                } else {
                     fs.copyFileSync(srcPath, destPath);
                 }
-            } else {
-                fs.copyFileSync(srcPath, destPath);
+                
+                // Track copied file for verification
+                progressState.copiedFiles.push(destPath);
+                
+                // Update progress
+                if (trackProgress) {
+                    updateProgress(entry.name);
+                }
+                
+                count++;
+            } catch (e) {
+                logError('copy', srcPath, e);
+                if (process.env.DEBUG) {
+                    console.warn(`\n  ⚠️ Could not copy ${entry.name}: ${e.message}`);
+                }
             }
-            count++;
         }
     }
     return count;
 }
 
-function copyFileWithReplace(src, dest, replacements = {}) {
+function copyFileWithReplace(src, dest, replacements = {}, trackProgress = true) {
     if (!fs.existsSync(src)) return false;
 
     ensureDir(path.dirname(dest));
 
-    let content = fs.readFileSync(src, 'utf8');
-    const keys = Object.keys(replacements).sort((a, b) => b.length - a.length);
-    for (const search of keys) {
-        content = content.replaceAll(search, replacements[search]);
+    try {
+        let content = fs.readFileSync(src, 'utf8');
+        const keys = Object.keys(replacements).sort((a, b) => b.length - a.length);
+        for (const search of keys) {
+            content = content.replaceAll(search, replacements[search]);
+        }
+        
+        // Write with fsync for reliability
+        const fd = fs.openSync(dest, 'w');
+        fs.writeSync(fd, content);
+        fs.fsyncSync(fd);
+        fs.closeSync(fd);
+        
+        // Track copied file for verification
+        progressState.copiedFiles.push(dest);
+        
+        // Update progress
+        if (trackProgress) {
+            updateProgress(path.basename(dest));
+        }
+        
+        return true;
+    } catch (e) {
+        logError('copy', src, e);
+        if (process.env.DEBUG) {
+            console.warn(`\n  ⚠️ Could not copy ${path.basename(src)}: ${e.message}`);
+        }
+        return false;
     }
-    fs.writeFileSync(dest, content);
-    return true;
 }
 
-function removeDir(dir) {
+function removeDir(dir, trackProgress = true) {
     if (fs.existsSync(dir)) {
-        fs.rmSync(dir, { recursive: true, force: true });
-        return true;
+        try {
+            fs.rmSync(dir, { recursive: true, force: true });
+            progressState.removedPaths.push(dir);
+            if (trackProgress) {
+                updateProgress(`Removed ${path.basename(dir)}`);
+            }
+            return true;
+        } catch (e) {
+            logError('remove', dir, e);
+            return false;
+        }
+    }
+    return false;
+}
+
+/**
+ * Remove a single file with tracking
+ */
+function removeFile(filePath, trackProgress = true) {
+    if (fs.existsSync(filePath)) {
+        try {
+            fs.unlinkSync(filePath);
+            progressState.removedPaths.push(filePath);
+            if (trackProgress) {
+                updateProgress(`Removed ${path.basename(filePath)}`);
+            }
+            return true;
+        } catch (e) {
+            logError('remove', filePath, e);
+            return false;
+        }
     }
     return false;
 }
@@ -245,29 +448,145 @@ function formatNumber(num) {
     return num.toLocaleString();
 }
 
+/**
+ * Estimate total files for installation
+ */
+function estimateInstallFiles() {
+    let total = 0;
+    
+    // Count files in core directories
+    for (const dir of CORE_DIRS) {
+        const srcDir = path.join(ROOT, dir);
+        total += countFiles(srcDir);
+    }
+    
+    // Count skills
+    const skillsDir = path.join(ROOT, 'skills');
+    total += countFiles(skillsDir);
+    
+    // Count agents
+    const agentsDir = path.join(ROOT, 'agents');
+    total += countFiles(agentsDir);
+    
+    // Commands (copied twice - once to commands, once to workflows for backward compat)
+    const commandsDir = path.join(ROOT, 'commands');
+    total += countFiles(commandsDir) * 2;
+    
+    // Root files
+    total += ROOT_FILES.length;
+    
+    // Config files (estimate)
+    total += 5;
+    
+    return total;
+}
+
+/**
+ * Verify installation by checking copied files exist
+ * @returns {Object} Verification result
+ */
+function verifyInstallation() {
+    const verified = [];
+    const failed = [];
+    
+    for (const filePath of progressState.copiedFiles) {
+        if (fs.existsSync(filePath)) {
+            verified.push(filePath);
+        } else {
+            failed.push(filePath);
+        }
+    }
+    
+    return {
+        total: progressState.copiedFiles.length,
+        verified: verified.length,
+        failed: failed.length,
+        failedPaths: failed,
+        success: failed.length === 0
+    };
+}
+
+/**
+ * Print summary report
+ */
+function printSummary(toolName, operation = 'install') {
+    const duration = ((Date.now() - progressState.startTime) / 1000).toFixed(2);
+    const verification = operation === 'install' ? verifyInstallation() : null;
+    
+    console.log('\n' + '─'.repeat(60));
+    console.log(`📊 ${operation === 'install' ? 'Installation' : 'Uninstallation'} Summary`);
+    console.log('─'.repeat(60));
+    
+    if (operation === 'install') {
+        console.log(`   Tool:        ${toolName}`);
+        console.log(`   Files:       ${formatNumber(progressState.copiedFiles.length)} copied`);
+        console.log(`   Duration:    ${duration}s`);
+        
+        if (verification) {
+            console.log(`   Verified:    ${verification.verified}/${verification.total} files`);
+            if (verification.failed > 0) {
+                console.log(`   ⚠️  Failed:    ${verification.failed} files`);
+                verification.failedPaths.slice(0, 5).forEach(p => {
+                    console.log(`                 - ${p}`);
+                });
+                if (verification.failedPaths.length > 5) {
+                    console.log(`                 ... and ${verification.failedPaths.length - 5} more`);
+                }
+            }
+        }
+    } else {
+        console.log(`   Tool:        ${toolName}`);
+        console.log(`   Removed:     ${formatNumber(progressState.removedPaths.length)} paths`);
+        console.log(`   Duration:    ${duration}s`);
+    }
+    
+    if (progressState.errors.length > 0) {
+        console.log(`   ⚠️  Errors:    ${progressState.errors.length}`);
+        progressState.errors.slice(0, 3).forEach(e => {
+            console.log(`                 - ${e.operation}: ${path.basename(e.path)} (${e.error})`);
+        });
+        if (progressState.errors.length > 3) {
+            console.log(`                 ... and ${progressState.errors.length - 3} more`);
+        }
+    }
+    
+    console.log('─'.repeat(60));
+    
+    if (operation === 'install' && verification && verification.success && progressState.errors.length === 0) {
+        console.log('✅ Installation completed successfully!');
+    } else if (operation === 'uninstall' && progressState.errors.length === 0) {
+        console.log('✅ Uninstallation completed successfully!');
+    } else {
+        console.log('⚠️  Operation completed with warnings. Check errors above.');
+    }
+}
+
 // ============================================================================
 // Installation Functions
 // ============================================================================
 
 function installCursor() {
     const tool = TOOLS.cursor;
-    console.log(`\n📦 Installing Agent Assistant for ${tool.name}...\n`);
+    
+    // Reset and estimate progress
+    resetProgress();
+    progressState.total = estimateInstallFiles();
+    
+    console.log(`\n📦 Installing Agent Assistant for ${tool.name}...`);
+    console.log(`   Estimated files: ~${formatNumber(progressState.total)}\n`);
 
     let total = 0;
 
     // --- 1. INSTALL EDITOR CONFIG (~/.cursor) ---
     // 1.1 Global MDCs (Rules)
-    console.log('  1. Installing global rules (MDC files)...');
     if (tool.assets.rules && fs.existsSync(tool.assets.rules)) {
         total += copyWithReplace(tool.assets.rules, tool.paths.rules, tool.replacements);
     }
 
     // 1.2 Global Commands (Suggestions)
-    console.log('  2. Installing global commands...');
     total += copyWithReplace(path.join(ROOT, 'commands'), tool.paths.commands, tool.replacements);
 
     // --- 1.2 Global Config Files (CURSOR.md, AGENT.md, CLAUDE.md) ---
-    console.log('  2.1 Installing global config files...');
     // We want CURSOR.md, AGENT.md, CLAUDE.md in ~/.cursor/
     // .cursorrules from extension becomes CURSOR.md
     if (tool.assets.cursorRules && fs.existsSync(tool.assets.cursorRules)) {
@@ -286,8 +605,6 @@ function installCursor() {
     }
 
     // --- 2. INSTALL EXTENSION BRAIN (~/.cursor/skills/agent-assistant) ---
-    console.log('  3. Installing core framework...');
-
     // Clean install - remove old framework
     if (fs.existsSync(tool.paths.agentAssistant)) {
         fs.rmSync(tool.paths.agentAssistant, { recursive: true, force: true });
@@ -319,44 +636,51 @@ function installCursor() {
     }
 
     // --- 3. INSTALL USER SKILLS (~/.cursor/skills/) ---
-    console.log('  4. Installing skills...');
     total += copyWithReplace(path.join(ROOT, 'skills'), tool.paths.skills, tool.replacements);
 
     // --- 4. NATIVE SUBAGENT SUPPORT (~/.cursor/agents/) ---
-    console.log('  5. Installing native agents...');
     // Only copy bundled agents (merge/update)
     total += copyWithReplace(path.join(ROOT, 'agents'), tool.paths.agents, tool.replacements);
 
-    console.log(`\n✅ ${tool.name}: ${formatNumber(total)} files installed`);
-    console.log(`   Rules: ${tool.paths.rules}`);
-    console.log(`   Commands: ${tool.paths.commands}`);
-    console.log(`   Core Framework: ${tool.paths.agentAssistant}`);
-    console.log(`   Skills: ${tool.paths.skills}`);
-    console.log(`   Native Agents: ${tool.paths.agents}`);
+    // Complete progress bar
+    completeProgress();
+    
+    // Print summary with verification
+    printSummary(tool.name, 'install');
+    
+    console.log(`\n   📁 Paths:`);
+    console.log(`      Rules:          ${tool.paths.rules}`);
+    console.log(`      Commands:       ${tool.paths.commands}`);
+    console.log(`      Core Framework: ${tool.paths.agentAssistant}`);
+    console.log(`      Skills:         ${tool.paths.skills}`);
+    console.log(`      Native Agents:  ${tool.paths.agents}`);
 
     return total;
 }
 
 function installCopilot() {
     const tool = TOOLS.copilot;
-    console.log(`\n📦 Installing Agent Assistant for ${tool.name}...\n`);
+    
+    // Reset and estimate progress
+    resetProgress();
+    progressState.total = estimateInstallFiles();
+    
+    console.log(`\n📦 Installing Agent Assistant for ${tool.name}...`);
+    console.log(`   Estimated files: ~${formatNumber(progressState.total)}\n`);
 
     let total = 0;
 
     // --- 1. INSTALL TO VS CODE PROMPTS & GLOBAL CONFIG ---
-    console.log('  1. Installing agent definitions...');
     if (tool.assets.agentFile && fs.existsSync(tool.assets.agentFile)) {
         // 1.1 Custom Prompt (VS Code) -> agent-assistant.agent.md
         ensureDir(tool.paths.vsCodePrompts);
         const promptDest = path.join(tool.paths.vsCodePrompts, 'agent-assistant.agent.md');
         if (copyFileWithReplace(tool.assets.agentFile, promptDest, tool.replacements)) {
             total++;
-            console.log(`     → Custom Prompt: ${promptDest}`);
         }
     }
 
     // --- 1.2 Global Config Files (COPILOT.md, AGENT.md, CLAUDE.md) ---
-    console.log('  1.2 Installing global config files...');
     ensureDir(tool.paths.home);
     const globalFiles = ['COPILOT.md', 'AGENT.md', 'CLAUDE.md'];
     for (const file of globalFiles) {
@@ -365,14 +689,11 @@ function installCopilot() {
         if (fs.existsSync(src)) {
             if (copyFileWithReplace(src, dest, tool.replacements)) {
                 total++;
-                console.log(`     → ${file}: ${dest}`);
             }
         }
     }
 
     // --- 2. INSTALL CORE FRAMEWORK (~/.copilot/skills/agent-assistant) ---
-    console.log('  2. Installing core framework...');
-
     // Clean install - remove old framework
     if (fs.existsSync(tool.paths.agentAssistant)) {
         fs.rmSync(tool.paths.agentAssistant, { recursive: true, force: true });
@@ -388,7 +709,6 @@ function installCopilot() {
     }
 
     // Install commands to ~/.copilot/commands
-    console.log('  2.1 Installing commands...');
     if (fs.existsSync(path.join(ROOT, 'commands'))) {
         ensureDir(tool.paths.commands);
         total += copyWithReplace(path.join(ROOT, 'commands'), tool.paths.commands, tool.replacements);
@@ -411,38 +731,42 @@ function installCopilot() {
     }
 
     // --- 3. INSTALL USER SKILLS (~/.copilot/skills/) ---
-    console.log('  3. Installing skills...');
     total += copyWithReplace(path.join(ROOT, 'skills'), tool.paths.skills, tool.replacements);
 
     // --- 4. NATIVE SUBAGENT SUPPORT (~/.copilot/agents/) ---
-    console.log('  4. Installing native agents...');
-    // We overwrite/update user agents on install as per user request (sync logic)
-    // But typically we'd just ensure dir.
-    // The previous logic for other tools was just copy.
-    // For copilot, we want agents in ~/.copilot/agents
     ensureDir(tool.paths.agents);
     total += copyWithReplace(path.join(ROOT, 'agents'), tool.paths.agents, tool.replacements);
 
-    console.log(`\n✅ ${tool.name}: ${formatNumber(total)} files installed`);
-    console.log(`   VS Code Prompts: ${tool.paths.vsCodePrompts}`);
-    console.log(`   Global Config: ${tool.paths.home}`);
-    console.log(`   Commands: ${tool.paths.commands}`);
-    console.log(`   Core Framework: ${tool.paths.agentAssistant}`);
-    console.log(`   Skills: ${tool.paths.skills}`);
-    console.log(`   Native Agents: ${tool.paths.agents}`);
+    // Complete progress bar
+    completeProgress();
+    
+    // Print summary with verification
+    printSummary(tool.name, 'install');
+    
+    console.log(`\n   📁 Paths:`);
+    console.log(`      VS Code Prompts: ${tool.paths.vsCodePrompts}`);
+    console.log(`      Global Config:   ${tool.paths.home}`);
+    console.log(`      Commands:        ${tool.paths.commands}`);
+    console.log(`      Core Framework:  ${tool.paths.agentAssistant}`);
+    console.log(`      Skills:          ${tool.paths.skills}`);
+    console.log(`      Native Agents:   ${tool.paths.agents}`);
 
     return total;
 }
 
 function installAntigravity() {
     const tool = TOOLS.antigravity;
-    console.log(`\n📦 Installing Agent Assistant for ${tool.name}...\n`);
+    
+    // Reset and estimate progress
+    resetProgress();
+    progressState.total = estimateInstallFiles() * 1.5; // Antigravity has more destinations
+    
+    console.log(`\n📦 Installing Agent Assistant for ${tool.name}...`);
+    console.log(`   Estimated files: ~${formatNumber(Math.round(progressState.total))}\n`);
 
     let total = 0;
 
     // --- 1. INSTALL EDITOR CONFIG (~/.antigravity) ---
-    console.log('  1. Installing editor config (~/.antigravity)...');
-
     // 1.1 Workflows (from commands) -> ~/.antigravity/workflows
     ensureDir(tool.paths.workflows);
     total += copyWithReplace(path.join(ROOT, 'commands'), tool.paths.workflows, tool.replacements);
@@ -453,7 +777,6 @@ function installAntigravity() {
 
 
     // --- 2. INSTALL PLATFORM CONFIG (~/.gemini) ---
-    console.log('  2. Installing platform config (~/.gemini)...');
     ensureDir(tool.paths.gemini);
 
     // 2.1 GEMINI.md
@@ -475,11 +798,19 @@ function installAntigravity() {
 
         if (existingContent.includes(MARKER_START)) {
             const regex = new RegExp(`${MARKER_START}[\\s\\S]*?${MARKER_END}`, 'g');
-            fs.writeFileSync(destFile, existingContent.replace(regex, wrappedContent));
+            const fd = fs.openSync(destFile, 'w');
+            fs.writeSync(fd, existingContent.replace(regex, wrappedContent));
+            fs.fsyncSync(fd);
+            fs.closeSync(fd);
         } else {
             const separator = existingContent.trim() === '' ? '' : '\n\n';
-            fs.writeFileSync(destFile, existingContent + separator + wrappedContent);
+            const fd = fs.openSync(destFile, 'w');
+            fs.writeSync(fd, existingContent + separator + wrappedContent);
+            fs.fsyncSync(fd);
+            fs.closeSync(fd);
         }
+        progressState.copiedFiles.push(destFile);
+        updateProgress('GEMINI.md');
         total++;
     }
 
@@ -494,7 +825,6 @@ function installAntigravity() {
     }
 
     // 2.3 Global Agents (~/.gemini/agents)
-    console.log('  2.3 Installing global agents...');
     ensureDir(tool.paths.globalAgents);
 
     // AntigravityGlobal.agent.md
@@ -508,14 +838,11 @@ function installAntigravity() {
 
 
     // --- 3. INSTALL EXTENSION BRAIN (~/.gemini/antigravity) ---
-    console.log('  3. Installing extension brain...');
-
     // 3.1 Global Workflows (~/.gemini/antigravity/global_workflows)
     ensureDir(tool.paths.globalWorkflows);
     total += copyWithReplace(path.join(ROOT, 'commands'), tool.paths.globalWorkflows, tool.replacements);
 
     // 3.2 Core Framework (~/.gemini/antigravity/skills/agent-assistant)
-    console.log('  3.2 Installing core framework...');
     if (fs.existsSync(tool.paths.agentAssistant)) {
         fs.rmSync(tool.paths.agentAssistant, { recursive: true, force: true });
     }
@@ -542,25 +869,35 @@ function installAntigravity() {
     }
 
     // 3.3 Skills (~/.gemini/antigravity/skills)
-    console.log('  3.3 Installing skills...');
     total += copyWithReplace(path.join(ROOT, 'skills'), tool.paths.skills, tool.replacements);
 
-    console.log(`\n✅ ${tool.name}: ${formatNumber(total)} files installed`);
-    console.log(`   Editor Config: ${tool.paths.editorHome}`);
-    console.log(`   Platform Config: ${tool.paths.gemini}`);
-    console.log(`   Extension Brain: ${tool.paths.antigravity}`);
+    // Complete progress bar
+    completeProgress();
+    
+    // Print summary with verification
+    printSummary(tool.name, 'install');
+    
+    console.log(`\n   📁 Paths:`);
+    console.log(`      Editor Config:   ${tool.paths.editorHome}`);
+    console.log(`      Platform Config: ${tool.paths.gemini}`);
+    console.log(`      Extension Brain: ${tool.paths.antigravity}`);
 
     return total;
 }
 
 function installClaude() {
     const tool = TOOLS.claude;
-    console.log(`\n📦 Installing Agent Assistant for ${tool.name}...\n`);
+    
+    // Reset and estimate progress
+    resetProgress();
+    progressState.total = estimateInstallFiles();
+    
+    console.log(`\n📦 Installing Agent Assistant for ${tool.name}...`);
+    console.log(`   Estimated files: ~${formatNumber(progressState.total)}\n`);
 
     let total = 0;
 
     // --- 1. INSTALL GLOBAL CONFIG (~/.claude) ---
-    console.log('  1. Installing global config...');
     ensureDir(tool.paths.home);
 
     // 1.1 CLAUDE.md (Global Instructions)
@@ -570,17 +907,14 @@ function installClaude() {
     }
 
     // 1.2 Commands (~/.claude/commands)
-    console.log('  1.2 Installing commands...');
     ensureDir(tool.paths.commands);
     total += copyWithReplace(path.join(ROOT, 'commands'), tool.paths.commands, tool.replacements);
 
     // 1.3 Native Agents (~/.claude/agents)
-    console.log('  1.3 Installing native agents...');
     ensureDir(tool.paths.agents);
     total += copyWithReplace(path.join(ROOT, 'agents'), tool.paths.agents, tool.replacements);
 
     // --- 2. INSTALL CORE FRAMEWORK (~/.claude/skills/agent-assistant) ---
-    console.log('  2. Installing core framework...');
     if (fs.existsSync(tool.paths.agentAssistant)) {
         fs.rmSync(tool.paths.agentAssistant, { recursive: true, force: true });
     }
@@ -608,13 +942,18 @@ function installClaude() {
     }
 
     // --- 3. INSTALL SKILLS (~/.claude/skills) ---
-    console.log('  3. Installing skills...');
     total += copyWithReplace(path.join(ROOT, 'skills'), tool.paths.skills, tool.replacements);
 
-    console.log(`\n✅ ${tool.name}: ${formatNumber(total)} files installed`);
-    console.log(`   Home: ${tool.paths.home}`);
-    console.log(`   Commands: ${tool.paths.commands}`);
-    console.log(`   Skills: ${tool.paths.skills}`);
+    // Complete progress bar
+    completeProgress();
+    
+    // Print summary with verification
+    printSummary(tool.name, 'install');
+    
+    console.log(`\n   📁 Paths:`);
+    console.log(`      Home:     ${tool.paths.home}`);
+    console.log(`      Commands: ${tool.paths.commands}`);
+    console.log(`      Skills:   ${tool.paths.skills}`);
 
     return total;
 }
@@ -630,12 +969,8 @@ function removeBundledAgents(agentsDir) {
     for (const agentFile of BUNDLED_AGENTS) {
         const agentPath = path.join(agentsDir, agentFile);
         if (fs.existsSync(agentPath)) {
-            try {
-                fs.unlinkSync(agentPath);
-                console.log(`    ✓ Removed bundled agent: ${agentFile}`);
+            if (removeFile(agentPath)) {
                 removed++;
-            } catch (e) {
-                console.error(`    ✗ Failed to remove: ${agentPath}`);
             }
         }
     }
@@ -644,10 +979,7 @@ function removeBundledAgents(agentsDir) {
     try {
         const remaining = fs.readdirSync(agentsDir);
         if (remaining.length === 0) {
-            fs.rmdirSync(agentsDir);
-            console.log(`    ✓ Removed empty agents folder`);
-        } else {
-            console.log(`    ℹ Kept ${remaining.length} user-custom agents`);
+            removeDir(agentsDir, false);
         }
     } catch (e) {
         // Ignore
@@ -658,12 +990,17 @@ function removeBundledAgents(agentsDir) {
 
 function uninstallCursor() {
     const tool = TOOLS.cursor;
-    console.log(`\n🗑️  Uninstalling Agent Assistant from ${tool.name}...\n`);
+    
+    // Reset progress - estimate items to remove
+    resetProgress();
+    progressState.total = 10; // Approximate count of remove operations
+    
+    console.log(`\n🗑️  Uninstalling Agent Assistant from ${tool.name}...`);
+    console.log(`   This will remove the framework while preserving user skills.\n`);
 
     let removed = 0;
 
     // 1. Remove Rules & Global Configs
-    console.log('  1. Removing rules and global configs...');
     const filesToRemove = [
         path.join(tool.paths.rules, 'agent-assistant.mdc'),
         path.join(tool.paths.editorHome, 'CURSOR.md'),
@@ -672,199 +1009,192 @@ function uninstallCursor() {
     ];
 
     for (const file of filesToRemove) {
-        if (fs.existsSync(file)) {
-            try {
-                fs.unlinkSync(file);
-                console.log(`    ✓ Removed: ${file}`);
-                removed++;
-            } catch (e) {
-                console.error(`    ✗ Failed to remove: ${file}`, e);
-            }
+        if (removeFile(file)) {
+            removed++;
         }
     }
 
     // 2. Remove Commands (Entire folder)
-    console.log('  2. Removing commands...');
     if (removeDir(tool.paths.commands)) {
-        console.log(`    ✓ Removed: ${tool.paths.commands}`);
         removed++;
     }
 
     // 3. Remove Core Framework
-    console.log('  3. Removing core framework...');
     if (removeDir(tool.paths.agentAssistant)) {
-        console.log(`    ✓ Removed: ${tool.paths.agentAssistant}`);
         removed++;
     }
 
     // 4. Remove Native Agents (Entire folder)
-    console.log('  4. Removing native agents...');
     if (removeDir(tool.paths.agents)) {
-        console.log(`    ✓ Removed: ${tool.paths.agents}`);
         removed++;
     }
 
-    // Note: User skills are preserved
+    // Complete progress bar
+    completeProgress();
+    
+    // Print summary
+    printSummary(tool.name, 'uninstall');
+    
+    console.log(`\n   ℹ️  User skills preserved at: ${tool.paths.skills}`);
 
-    console.log(`\n✅ ${tool.name}: Uninstalled (user skills preserved, everything else removed)`);
     return removed;
 }
 
 function uninstallCopilot() {
     const tool = TOOLS.copilot;
-    console.log(`\n🗑️  Uninstalling Agent Assistant from ${tool.name}...\n`);
+    
+    // Reset progress
+    resetProgress();
+    progressState.total = 10;
+    
+    console.log(`\n🗑️  Uninstalling Agent Assistant from ${tool.name}...`);
+    console.log(`   This will remove the framework while preserving user skills.\n`);
 
     let removed = 0;
 
     // 1. Remove from VS Code Prompts
-    console.log('  1. Removing from VS Code Prompts...');
     const promptFile = path.join(tool.paths.vsCodePrompts, 'agent-assistant.agent.md');
-    if (fs.existsSync(promptFile)) {
-        fs.unlinkSync(promptFile);
-        console.log(`    ✓ Removed: ${promptFile}`);
+    if (removeFile(promptFile)) {
         removed++;
     }
 
     // 2. Remove core framework
-    console.log('  2. Removing core framework...');
     if (removeDir(tool.paths.agentAssistant)) {
-        console.log(`    ✓ Removed: ${tool.paths.agentAssistant}`);
         removed++;
     }
 
     // 3. Remove commands
-    console.log('  3. Removing commands...');
     if (removeDir(tool.paths.commands)) {
-        console.log(`    ✓ Removed: ${tool.paths.commands}`);
         removed++;
     }
 
     // 4. Remove Global Config Files
-    console.log('  4. Removing global config files...');
     const globalFiles = ['AGENT.md', 'COPILOT.md', 'CLAUDE.md'];
     for (const file of globalFiles) {
         const filePath = path.join(tool.paths.home, file);
-        if (fs.existsSync(filePath)) {
-            fs.unlinkSync(filePath);
-            console.log(`    ✓ Removed: ${filePath}`);
+        if (removeFile(filePath)) {
             removed++;
         }
     }
 
     // 5. Remove native agents (Entire folder)
-    console.log('  5. Removing native agents...');
     if (removeDir(tool.paths.agents)) {
-        console.log(`    ✓ Removed: ${tool.paths.agents}`);
         removed++;
     }
 
-    // Note: Skills are preserved (user may have custom ones)
+    // Complete progress bar
+    completeProgress();
+    
+    // Print summary
+    printSummary(tool.name, 'uninstall');
+    
+    console.log(`\n   ℹ️  User skills preserved at: ${tool.paths.skills}`);
 
-    console.log(`\n✅ ${tool.name}: Uninstalled (skills preserved, everything else removed)`);
     return removed;
 }
 
 function uninstallAntigravity() {
     const tool = TOOLS.antigravity;
-    console.log(`\n🗑️  Uninstalling Agent Assistant from ${tool.name}...\n`);
+    
+    // Reset progress
+    resetProgress();
+    progressState.total = 12;
+    
+    console.log(`\n🗑️  Uninstalling Agent Assistant from ${tool.name}...`);
+    console.log(`   This will remove the framework while preserving user skills.\n`);
 
     let removed = 0;
 
     // 1. Remove Editor Config (~/.antigravity)
-    console.log('  1. Removing editor config...');
-
     // 1.1 Remove Workflows (~/.antigravity/workflows/)
     if (removeDir(tool.paths.workflows)) {
-        console.log(`    ✓ Removed: ${tool.paths.workflows}`);
         removed++;
     }
 
     // 1.2 Remove Agents (~/.antigravity/agents/)
     if (removeDir(tool.paths.agents)) {
-        console.log(`    ✓ Removed: ${tool.paths.agents}`);
         removed++;
     }
 
 
     // 2. Remove Platform Config (~/.gemini)
-    console.log('  2. Removing platform config...');
-
     // 2.1 Remove GEMINI.md, AGENT.md, CLAUDE.md
     const globalFiles = ["GEMINI.md", "AGENT.md", "CLAUDE.md"];
     for (const file of globalFiles) {
         const filePath = path.join(tool.paths.gemini, file);
-        if (fs.existsSync(filePath)) {
-            try { fs.unlinkSync(filePath); removed++; } catch (e) { }
-            console.log(`    ✓ Removed: ${filePath}`);
+        if (removeFile(filePath)) {
+            removed++;
         }
     }
 
     // 2.2 Remove Global Agents Folder (~/.gemini/agents/)
     if (removeDir(tool.paths.globalAgents)) {
-        console.log(`    ✓ Removed: ${tool.paths.globalAgents}`);
         removed++;
     }
 
     // 3. Remove Extension Brain (~/.gemini/antigravity)
-    console.log('  3. Removing extension brain...');
-
     // 3.1 Remove Global Workflows (~/.gemini/antigravity/global_workflows)
     if (removeDir(tool.paths.globalWorkflows)) {
-        console.log(`    ✓ Removed: ${tool.paths.globalWorkflows}`);
         removed++;
     }
 
     // 3.2 Remove Core Framework (~/.gemini/antigravity/skills/agent-assistant)
-    console.log('    - Removing core framework...');
     if (removeDir(tool.paths.agentAssistant)) {
-        console.log(`    ✓ Removed: ${tool.paths.agentAssistant}`);
         removed++;
     }
 
-    // Note: Skills in ~/.gemini/antigravity/skills are preserved (except agent-assistant)
+    // Complete progress bar
+    completeProgress();
+    
+    // Print summary
+    printSummary(tool.name, 'uninstall');
+    
+    console.log(`\n   ℹ️  User skills preserved at: ${tool.paths.skills}`);
 
-    console.log(`\n✅ ${tool.name}: Uninstalled (skills preserved, everything else removed)`);
     return removed;
 }
 
 function uninstallClaude() {
     const tool = TOOLS.claude;
-    console.log(`\n🗑️  Uninstalling Agent Assistant from ${tool.name}...\n`);
+    
+    // Reset progress
+    resetProgress();
+    progressState.total = 6;
+    
+    console.log(`\n🗑️  Uninstalling Agent Assistant from ${tool.name}...`);
+    console.log(`   This will remove the framework while preserving user skills.\n`);
 
     let removed = 0;
 
     // 1. Remove Global Config
-    console.log('  1. Removing global config...');
     const claudeMd = path.join(tool.paths.home, 'CLAUDE.md');
-    if (fs.existsSync(claudeMd)) {
-        try { fs.unlinkSync(claudeMd); removed++; } catch (e) { }
-        console.log(`    ✓ Removed: ${claudeMd}`);
+    if (removeFile(claudeMd)) {
+        removed++;
     }
 
     // 2. Remove Commands
-    console.log('  2. Removing commands...');
     if (removeDir(tool.paths.commands)) {
-        console.log(`    ✓ Removed: ${tool.paths.commands}`);
         removed++;
     }
 
     // 3. Remove Native Agents
-    console.log('  3. Removing native agents...');
     if (removeDir(tool.paths.agents)) {
-        console.log(`    ✓ Removed: ${tool.paths.agents}`);
         removed++;
     }
 
     // 4. Remove Core Framework
-    console.log('  4. Removing core framework...');
     if (removeDir(tool.paths.agentAssistant)) {
-        console.log(`    ✓ Removed: ${tool.paths.agentAssistant}`);
         removed++;
     }
 
-    // Note: Skills in ~/.claude/skills are preserved (except agent-assistant)
+    // Complete progress bar
+    completeProgress();
+    
+    // Print summary
+    printSummary(tool.name, 'uninstall');
+    
+    console.log(`\n   ℹ️  User skills preserved at: ${tool.paths.skills}`);
 
-    console.log(`\n✅ ${tool.name}: Uninstalled (skills preserved, everything else removed)`);
     return removed;
 }
 
@@ -1016,15 +1346,25 @@ async function main() {
         return;
     }
 
+    const startTime = Date.now();
+    let totalFiles = 0;
+
     switch (command) {
         case 'install':
             if (target === '--all' || target === 'all') {
                 console.log('🚀 Installing for all supported tools...');
-                installCursor();
-                installCopilot();
-                installAntigravity();
-                installClaude();
-                console.log('\n🎉 All installations complete!\n');
+                console.log('   This may take a moment. Progress will be shown for each tool.\n');
+                totalFiles += installCursor();
+                totalFiles += installCopilot();
+                totalFiles += installAntigravity();
+                totalFiles += installClaude();
+                
+                const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+                console.log('\n' + '═'.repeat(60));
+                console.log('🎉 All installations complete!');
+                console.log(`   Total files: ${formatNumber(totalFiles)}`);
+                console.log(`   Total time:  ${duration}s`);
+                console.log('═'.repeat(60) + '\n');
             } else if (target === 'cursor') {
                 installCursor();
             } else if (target === 'copilot') {
@@ -1043,12 +1383,17 @@ async function main() {
 
         case 'uninstall':
             if (target === '--all' || target === 'all') {
-                console.log('🗑️  Uninstalling from all tools...');
+                console.log('🗑️  Uninstalling from all tools...\n');
                 uninstallCursor();
                 uninstallCopilot();
                 uninstallAntigravity();
                 uninstallClaude();
-                console.log('\n✅ All uninstallations complete!\n');
+                
+                const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+                console.log('\n' + '═'.repeat(60));
+                console.log('✅ All uninstallations complete!');
+                console.log(`   Total time: ${duration}s`);
+                console.log('═'.repeat(60) + '\n');
             } else if (target === 'cursor') {
                 uninstallCursor();
             } else if (target === 'copilot') {

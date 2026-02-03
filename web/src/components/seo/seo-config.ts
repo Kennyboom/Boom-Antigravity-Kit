@@ -35,8 +35,8 @@ export const pageSEO = {
     pathname: '/features/commands-workflows',
   },
   matrixSkills: {
-    title: 'Matrix Skills',
-    description: '310+ specialized skills across 19 domains, automatically injected into agents based on their expertise profile for deep knowledge on demand.',
+    title: 'Hybrid Skill Orchestration (HSOL)',
+    description: 'Matrix + dynamic skills: 310+ curated skills across 19 domains plus on-demand community skills via find-skills. Variant-aware discovery, fitness thresholds, deep knowledge on demand.',
     pathname: '/features/matrix-skills',
   },
   multiPlatform: {
@@ -58,5 +58,10 @@ export const pageSEO = {
     title: 'Sub-Agent Orchestration',
     description: 'Intelligent orchestration coordinates multiple specialist agents to complete complex tasks. The orchestrator delegates, coordinates, and synthesizes.',
     pathname: '/features/sub-agent-orchestration',
+  },
+  workflow: {
+    title: 'System Architecture',
+    description: 'Interactive architecture diagram showing how Agent Assistant orchestrates 21 specialist agents, 310+ skills, and tiered execution through the Orchestrator Pattern.',
+    pathname: '/features/workflow',
   },
 } as const

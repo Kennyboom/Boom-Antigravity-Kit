@@ -57,19 +57,19 @@ A **concrete output** produced by an agent during workflow execution. Deliverabl
 
 ---
 
-### Matrix Skill Discovery
+### Matrix Skill Discovery (HSOL)
 
-A **centralized system** that automatically resolves and injects relevant skills into agents based on their declared profile. Replaces hardcoded skill lists with dynamic resolution.
+A **Hybrid Skill Orchestration Layer (HSOL)** that combines static matrix-skills with dynamic community skills. Skills are resolved by agent profile and request context; dynamic discovery runs only for `hard`/`focus` variants when matrix fitness &lt; 0.8 (blocking when &lt; 0.75 so the current task uses the new skill; async when 0.75–0.8 for recommendations only). See `rules/SKILL-DISCOVERY.md` and `rules/SKILL-ORCHESTRATION.md`.
 
 **Resolution Flow**:
 ```
-Agent Profile → _index.yaml → Domain Files → Skill Selection → Injection
+Agent Profile → _index.yaml → Domain Files + _dynamic.yaml → Fitness → Inject; optionally discover (find-skills) by variant
 ```
 
 **Benefits**:
-- Single source of truth
-- Add skill = update 1 file
-- Consistent skill-agent mapping
+- Single source of truth (matrix + dynamic manifest)
+- Variant-aware: fast skips discovery; hard/focus use blocking/async by fitness
+- Current task can use newly installed skill when matrix insufficient (&lt; 0.75)
 
 ---
 

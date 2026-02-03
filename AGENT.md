@@ -4,8 +4,8 @@ Universal entry point for AI Coding Assistants (Cursor, Windsurf, Aider, Continu
 
 ## ⚡ MANDATORY FIRST ACTION
 
-> **READ `~/.{TOOL}/skills/agent-assistant/rules/BOOTSTRAP.md` BEFORE ANY ACTION.**
-> This is NON-NEGOTIABLE. BOOTSTRAP.md contains all orchestration rules.
+> **READ `~/.{TOOL}/skills/agent-assistant/rules/CORE.md` BEFORE ANY ACTION.**
+> This is NON-NEGOTIABLE. CORE.md contains all orchestration rules v2.0.
 
 ---
 
@@ -101,11 +101,12 @@ TIER_2 (FALLBACK on system error only):
 
 | Situation     | Load                          |
 | ------------- | ----------------------------- |
-| Orchestration | `~/.{TOOL}/skills/agent-assistant/BOOTSTRAP.md`          |
-| Laws          | `~/.{TOOL}/skills/agent-assistant/ORCHESTRATION-LAWS.md` |
-| Execution     | `~/.{TOOL}/skills/agent-assistant/EXECUTION-PROTOCOL.md` |
-| Tiers         | `~/.{TOOL}/skills/agent-assistant/ADAPTIVE-EXECUTION.md` |
-| Errors        | `~/.{TOOL}/skills/agent-assistant/ERROR-RECOVERY.md`     |
+| Core Entry    | `~/.{TOOL}/skills/agent-assistant/CORE.md`      |
+| Phase Rules   | `~/.{TOOL}/skills/agent-assistant/PHASES.md`    |
+| Agent Handling| `~/.{TOOL}/skills/agent-assistant/AGENTS.md`    |
+| Skills (HSOL) | `~/.{TOOL}/skills/agent-assistant/SKILLS.md`    |
+| Error Recovery| `~/.{TOOL}/skills/agent-assistant/ERRORS.md`    |
+| Quick Ref     | `~/.{TOOL}/skills/agent-assistant/REFERENCE.md` |
 
 ---
 

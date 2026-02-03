@@ -80,8 +80,7 @@ category: {execution|planning|validation|research|debugging|orchestration}
 ```markdown
 ## ⚡ Skills
 
-> **MATRIX DISCOVERY**: Skills auto-injected from domain files in `~/.{TOOL}/skills/agent-assistant/matrix-skills/`
-> Profile: `{domain}:{category}` | Domains: `{primary}`, `{secondary}`, `{tertiary}`
+> **MATRIX DISCOVERY (HSOL)**: Skills auto-injected from `matrix-skills/` (domain files + `_dynamic.yaml`). Profile: `{domain}:{category}` | Domains: `{primary}`, `{secondary}`, `{tertiary}`. Dynamic discovery (find-skills) may add skills for `hard`/`focus` when matrix fitness &lt; 0.8.
 
 | Domain File | Key Skills |
 |-------------|------------|

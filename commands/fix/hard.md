@@ -16,11 +16,13 @@ execution-mode: execute
 ## 🛑 PRE-FLIGHT (DO FIRST — BLOCKS PHASE 1)
 
 **LOAD now** (in order; path `./rules/` or `~/.{TOOL}/skills/agent-assistant/rules/`):
-1. ORCHESTRATION-LAWS.md  
-2. ADAPTIVE-EXECUTION.md  
-3. EXECUTION-PROTOCOL.md  
+1. CORE.md — Identity, Laws, Routing  
+2. PHASES.md — Phase Execution  
+3. AGENTS.md — Tiered Execution  
 
 **⛔ Do not run Phase 1 until all are loaded.** Follow **all** rules in those files; they override any conflicting instructions in this file.
+
+**Skills Resolution**: When delegating, load `SKILLS.md` on-demand for fitness calculation and dynamic discovery (hard/focus variants enable find-skills).
 
 ---
 
@@ -48,7 +50,7 @@ All files in `./reports/` → English only.
 
 ## ⛔ INCREMENTAL EXECUTION (MANDATORY)
 
-One phase at a time, each phase independent: Phase 1 → then Phase 2 → … in one reply. No batching (load only what each phase needs). **Within each phase:** when doing a part, output it in format so user sees what’s happening (announce before doing). Format: rules/EXECUTION-PROTOCOL.md § Phase output structure.
+One phase at a time, each phase independent: Phase 1 → then Phase 2 → … in one reply. No batching (load only what each phase needs). **Within each phase:** when doing a part, output it in format so user sees what’s happening (announce before doing). Format: rules/PHASES.md § Phase output structure.
 
 ---
 
@@ -95,44 +97,28 @@ One phase at a time, each phase independent: Phase 1 → then Phase 2 → … in
 
 **Choose how to proceed with implementation:**
 
-| Option | Action | Description |
-|--------|--------|-------------|
-| **1. 🚀 Clear context & Auto-Implement** | `RECOMMENDED` | Fresh start: Reload Plan, ignore chat history, begin fix immediately |
-| **2. ⏸️ Clear context & Manual** | `SAFE` | Clear context, reload Plan, pause for your command before coding |
-| **3. ⚠️ Continue (No Clear)** | `RISKY` | Proceed with full history attached (may cause hallucination) |
+## 🛡️ VERIFICATION CHECKPOINT
 
-⏳ Awaiting selection...
-```
+> **⛔ BLOCKING**: Load Context Gate protocol NOW before proceeding.
+>
+> **LOAD**: `rules/CONTEXT-GATE.md` — Execute HARD MODE protocol
+>
+> This is a MANDATORY checkpoint. Cannot skip or bypass.
 
-### 🔄 EXECUTION BEHAVIOR
+### ⚡ EXECUTION
 
 ```yaml
-option_1_clear_auto_implement:
-  behavior: "RECOMMENDED - Simulate fresh start"
-  steps:
-    1. ACKNOWLEDGE: "🚀 Executing Clear context & Auto-Implement..."
-    2. CONTEXT_DIRECTIVE: |
-       ⛔ IGNORE all previous chat messages and reasoning chains.
-       ✅ RELOAD: Fix plan as SOLE SOURCE OF TRUTH.
-       ✅ PROCEED: Begin Phase 4 (Implementation) immediately.
-    3. EXECUTE: Start Implementation phase with fresh context mindset
-
-option_2_clear_manual:
-  behavior: "Clear and wait for explicit command"
-  steps:
-    1. ACKNOWLEDGE: "⏸️ Context cleared. Plan reloaded."
-    2. CONTEXT_DIRECTIVE: |
-       ⛔ IGNORE all previous chat messages and reasoning chains.
-       ✅ RELOAD: Fix plan as SOLE SOURCE OF TRUTH.
-    3. OUTPUT: "Ready for fix implementation. Type `/continue` or give specific instructions."
-    4. WAIT: For user command before proceeding
-
-option_3_continue_no_clear:
-  behavior: "Proceed with caution - context rot risk"
-  steps:
-    1. WARN: "⚠️ Continuing with full history. Higher hallucination risk."
-    2. PROCEED: Continue to Phase 4 with existing context
+context_gate_execution:
+  mode: "HARD (User Choice)"
+  trigger: "After Phase 3 (Fix Planning) completes"
+  protocol: "Follow rules/CONTEXT-GATE.md § HARD MODE"
+  
+  variant_adjustments:
+    plan_type: "Fix plan with rollback strategy"
+    remaining_phases: "Phase 4 → 5 → 5.5"
 ```
+
+**DO NOT proceed to Phase 4 until user selects option.**
 
 ---
 

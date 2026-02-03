@@ -18,6 +18,7 @@ const MatrixSkills = lazy(() => import('./pages/features/MatrixSkills'))
 const SpecialistAgents = lazy(() => import('./pages/features/SpecialistAgents'))
 const Commands = lazy(() => import('./pages/features/Commands'))
 const QualityGates = lazy(() => import('./pages/features/QualityGates'))
+const Workflow = lazy(() => import('./pages/features/Workflow'))
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
             <Route path="/features/specialist-agents" element={<SpecialistAgents />} />
             <Route path="/features/commands-workflows" element={<Commands />} />
             <Route path="/features/quality-gates" element={<QualityGates />} />
+            <Route path="/features/workflow" element={<Workflow />} />
             
             {/* Other pages */}
             <Route path="/installation" element={<Installation />} />

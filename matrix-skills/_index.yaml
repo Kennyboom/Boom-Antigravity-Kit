@@ -1,23 +1,92 @@
 # ============================================================================
-# MATRIX SKILLS INDEX v1.0
+# MATRIX SKILLS INDEX v1.1
 # ============================================================================
-# Central registry for the distributed Matrix Skill Discovery System.
+# Central registry for the Hybrid Skill Orchestration Layer (HSOL).
 #
 # ARCHITECTURE:
-#   Each domain has its own file: {domain}.yaml
-#   Agents reference specific domain files based on their profile.
+#   - Static Layer: Domain files ({domain}.yaml) with pre-curated skills
+#   - Dynamic Layer: _dynamic.yaml with community-installed skills
+#   - Discovery: find-skills skill ({SKILLS_PATH}/find-skills/SKILL.md)
+#   - Unified resolution: Matrix-first, dynamic-enhanced
 #
-# TOTAL: 310 skills across 19 domains
+# TOTAL: 310 matrix skills across 19 domains + dynamic skills
 #
 # USAGE:
 #   1. Agent declares profile in frontmatter (e.g., "backend:execution")
-#   2. System loads relevant domain files based on agent's inherit_from
-#   3. Skills are injected based on relevance_mapping and priority
+#   2. HSOL loads relevant domain files based on agent's inherit_from
+#   3. Matrix skills are injected based on relevance_mapping and priority
+#   4. Dynamic discovery via find-skills runs async for potential enhancements
+#   5. Superior dynamic skills are surfaced as recommendations
+#
+# REFERENCE: 
+#   - documents/SMART-SKILL-ORCHESTRATION-BLUEPRINT.md
+#   - rules/SKILL-ORCHESTRATION.md
+#   - {SKILLS_PATH}/find-skills/SKILL.md
 # ============================================================================
 
-version: "1.0"
+version: "1.1"
 last_updated: "2026-01-30"
-total_skills: 310
+total_matrix_skills: 310
+
+# ============================================================================
+# HYBRID SKILL ORCHESTRATION LAYER (HSOL) CONFIGURATION
+# ============================================================================
+hsol:
+  enabled: true
+  version: "1.1"
+  
+  # Dynamic skill discovery via find-skills
+  find_skills:
+    skill_path: "{SKILLS_PATH}/find-skills/SKILL.md"
+    browse_url: "https://skills.sh/"
+    # install = global for CURRENT TOOL only, skip confirmation; do not install to all tools
+    cli_commands:
+      search: "npx skills find [query]"
+      install: "npx skills add <owner/repo@skill> -g -y"
+      check: "npx skills check"
+      update: "npx skills update"
+  
+  # Dynamic skill manifest location
+  dynamic_manifest: "_dynamic.yaml"
+  
+  # Discovery settings
+  discovery:
+    enabled: true
+    timeout_ms: 5000
+    cache_ttl_seconds: 3600
+    async_threshold: 0.8  # Matrix fitness above this skips discovery
+    # Only run dynamic discovery (find-skills) for these variants; "fast" skips discovery so fast stays fast
+    apply_for_variants: ["hard", "focus"]
+    
+  # Fitness scoring weights
+  fitness_weights:
+    semantic_match: 0.35
+    specificity_score: 0.25
+    trust_level: 0.20
+    freshness_score: 0.10
+    success_rate: 0.10
+    
+  # Decision thresholds
+  thresholds:
+    matrix_sufficient: 0.8     # Execute matrix, skip discovery
+    matrix_adequate: 0.75     # Below this: blocking discovery (use for current task); 0.75–0.8: async only
+    superiority_delta: 0.15    # Dynamic must exceed matrix by this
+    
+  # Trust progression
+  trust:
+    new_skill: 0.3
+    after_3_executions: 0.5
+    after_10_executions: 0.7
+    matrix_promoted: 1.0
+    decay_after_days: 90
+    
+  # Promotion to matrix-skills — automatic when criteria met (no queue)
+  promotion:
+    enabled: true
+    min_executions: 10
+    min_success_rate: 0.85
+    max_inactive_days: 30
+    automatic: true   # Auto-promote when criteria met; no human review queue
 
 # ============================================================================
 # DOMAIN REGISTRY

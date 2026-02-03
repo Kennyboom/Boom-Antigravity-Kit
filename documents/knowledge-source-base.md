@@ -323,7 +323,7 @@ assets/
 All tool entry points follow the same pattern:
 
 ```markdown
-# ⚡ AGENT ASSISTANT v3.0
+# ⚡ AGENT ASSISTANT v2.0
 
 > **LOAD**: `{HOME}/.cursor/skills/agent-assistant/rules/BOOTSTRAP.md`
 > **This file is the ENTRY POINT. BOOTSTRAP.md contains all orchestration rules.**
@@ -386,19 +386,24 @@ node cli/install.js uninstall copilot
 node cli/install.js list
 ```
 
-### 4.2 Matrix Skill Discovery (`matrix-skills/_index.yaml`)
+### 4.2 Matrix Skill Discovery (HSOL: `matrix-skills/_index.yaml` + `_dynamic.yaml`)
 
-**Purpose**: Central registry for skill resolution.
+**Purpose**: Central registry for skill resolution and HSOL (Hybrid Skill Orchestration Layer). Combines static matrix domains with dynamic skills; discovery runs only for `hard`/`focus` variants when matrix fitness &lt; 0.8 (blocking when &lt; 0.75). See `rules/SKILL-DISCOVERY.md` and `rules/SKILL-ORCHESTRATION.md`.
 
 **Key Sections**:
 
 ```yaml
-version: "1.0"
-total_skills: 310
+version: "1.1"
+total_matrix_skills: 310
+
+hsol:                            # HSOL config (discovery, thresholds 0.75/0.8, apply_for_variants: [hard, focus])
+  enabled: true
+  dynamic_manifest: "_dynamic.yaml"
+  discovery: { apply_for_variants: [hard, focus], ... }
+  thresholds: { matrix_sufficient: 0.8, matrix_adequate: 0.75, ... }
 
 domains:                         # 19 domain registrations
   backend: { file: "backend.yaml", ... }
-  frontend: { file: "frontend.yaml", ... }
   # ...
 
 agent_profiles:                  # 21 agent-to-domain mappings
@@ -410,7 +415,6 @@ agent_profiles:                  # 21 agent-to-domain mappings
 
 resolution:                      # Resolution rules
   precedence: [direct_agent_match, profile_match, domain_inheritance]
-  wildcards: { "*:orchestration": "...", "backend:*": "..." }
   thresholds: { minimum_priority: 5, core_priority: 7, critical_priority: 9 }
 ```
 
@@ -456,7 +460,8 @@ handoffs: [agent1, agent2, ...]
 
 | File | Purpose |
 |------|---------|
-| `_index.yaml` | Central matrix registry |
+| `_index.yaml` | Central matrix registry + HSOL config |
+| `_dynamic.yaml` | Dynamic skill manifest (updated when agents run `npx skills add ... -g -y`) |
 | `AGENT-TEMPLATE.md` | Agent creation template |
 | `README.md` | Public documentation |
 | `LICENSE` | MIT license file |
@@ -473,8 +478,8 @@ handoffs: [agent1, agent2, ...]
 ```json
 {
   "name": "agent-assistant",
-  "version": "1.0.0",
-  "description": "Multi-agent orchestration framework for AI coding assistants",
+  "version": "1.1.0",
+  "description": "Multi-agent orchestration framework for AI coding assistants (with HSOL)",
   "main": "cli/install.js",
   "bin": {
     "agent-assistant": "./cli/install.js"

@@ -45,19 +45,41 @@ THINK_LIKE:
   - "What could go wrong? How do we recover?"
   - "Are dependencies explicit?"
   - "Is each task measurable?"
+  - "If context is cleared, does this plan have EVERYTHING needed?"
 
 ALWAYS:
+  - Capture user request VERBATIM at top of plan
   - Read prior deliverables first
   - Define acceptance criteria for every task
   - Include rollback strategy
-  - Make plan self-contained
+  - Make plan SELF-CONTAINED (assume no chat history)
+  - Link every task back to user's acceptance criteria
 ```
 
 ---
 
 ## 🧠 Thinking Protocol
 
-### Step 0: CONTEXT CONSUMPTION (MANDATORY)
+### Step 0: USER REQUEST CAPTURE (MANDATORY FIRST)
+
+```
+⚠️ CRITICAL: This step MUST be done FIRST before anything else.
+
+1. EXTRACT user's original request VERBATIM
+   - Copy EXACT words from user's message
+   - Do NOT paraphrase, interpret, or summarize
+   - Include any specific requirements, constraints, or preferences mentioned
+
+2. DERIVE acceptance criteria from user request
+   - Each criterion MUST trace back to user's words
+   - Use format: "User said X → AC: Y is verified by Z"
+
+3. DOCUMENT in plan header:
+   - User Request (verbatim quote)
+   - Acceptance Criteria table
+```
+
+### Step 1: CONTEXT CONSUMPTION (MANDATORY)
 
 ```
 1. CHECK PROJECT DOCS (CRITICAL):
@@ -125,29 +147,55 @@ ALWAYS:
 ```markdown
 # Implementation Plan: {Feature}
 
+## 📌 User Request (VERBATIM)
+> {Copy user's original request EXACTLY as written}
+> {Do NOT paraphrase or interpret}
+
+## 🎯 Acceptance Criteria (Derived from User Request)
+| ID | Criterion | Verification Method |
+|----|-----------|---------------------|
+| AC1 | {specific measurable criterion} | {how to verify} |
+| AC2 | {specific measurable criterion} | {how to verify} |
+
+## 📋 Context Summary
+**Architecture**: {relevant architecture from scout}
+**Patterns**: {patterns to follow from research}
+**Constraints**: {technical/business constraints}
+
 ## Overview
-{Brief description, constraints from prior phases}
+{Brief description referencing user request}
 
 ## Prerequisites
-- [ ] {prerequisite}
+- [ ] {prerequisite with verification}
 
 ## Phase 1: {Name}
 ### Tasks
 - [ ] Task 1.1: {description}
   - Agent: `{agent}`
-  - Acceptance: {criteria}
+  - File(s): `{exact file paths}`
+  - Acceptance: {criteria linking to AC above}
+  - Verification: {how implementer confirms done}
 
 ### Exit Criteria
-- [ ] {what must be true}
+- [ ] {what must be true, linked to AC}
+
+## Phase 2: {Name}
+{Same detailed structure...}
 
 ## Risks
-| Risk   | Impact | Mitigation |
-| ------ | ------ | ---------- |
-| {risk} | H/M/L  | {strategy} |
+| Risk | Impact | Mitigation | Rollback |
+|------|--------|------------|----------|
+| {risk} | H/M/L | {strategy} | {how to undo} |
 
-## Rollback
-{Steps to revert if needed}
+## Rollback Strategy
+{Steps to revert if implementation fails}
+
+## Implementation Notes
+{Any context implementer needs that won't be in chat history}
+{Assume implementer has ONLY this file - no other context}
 ```
+
+**⚠️ CRITICAL**: Plan must be **self-contained**. After Context Clear, implementer has ONLY this file. Include ALL necessary context.
 
 ---
 

@@ -17,9 +17,9 @@ execution-mode: execute
 
 **LOAD now** (in order; path `./rules/` or `~/.{TOOL}/skills/agent-assistant/rules/`):
 
-1. ORCHESTRATION-LAWS.md
-2. ADAPTIVE-EXECUTION.md
-3. EXECUTION-PROTOCOL.md
+1. CORE.md — Identity, Laws, Routing
+2. PHASES.md — Phase Execution
+3. AGENTS.md — Tiered Execution
 
 **⛔ Do not run Phase 1 until all are loaded.** Follow **all** rules in those files; they override any conflicting instructions in this file.
 
@@ -27,7 +27,7 @@ execution-mode: execute
 
 ## 🔀 TIERED EXECUTION PROTOCOL (MANDATORY)
 
-> **Reference**: `{RULES_PATH}/ADAPTIVE-EXECUTION.md`
+> **Reference: AGENTS.md (Tiered Execution)`
 
 ```yaml
 tiered_execution:
@@ -48,7 +48,7 @@ tiered_execution:
 > **MUST CREATE ALL 4 FILES**. Incomplete = FAILED execution.
 
 > **⛔ DOCUMENT LANGUAGE — NON-NEGOTIABLE**  
-> Every file under `./documents/` must be written in **English only**. Do not use the user's language (e.g. Vietnamese) for file content. (ORCHESTRATION-LAWS § LAW 6.)
+> Every file under `./documents/` must be written in **English only**. Do not use the user's language (e.g. Vietnamese) for file content. (CORE § LAW 6.)
 
 | File                                         | Purpose                          |
 | -------------------------------------------- | -------------------------------- |

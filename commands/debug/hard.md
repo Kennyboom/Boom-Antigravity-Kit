@@ -17,11 +17,13 @@ execution-mode: execute
 
 **LOAD now** (in order; path `./rules/` or `~/.{TOOL}/skills/agent-assistant/rules/`):
 
-1. ORCHESTRATION-LAWS.md
-2. ADAPTIVE-EXECUTION.md
-3. EXECUTION-PROTOCOL.md
+1. CORE.md — Identity, Laws, Routing
+2. PHASES.md — Phase Execution
+3. AGENTS.md — Tiered Execution
 
 **⛔ Do not run Phase 1 until all are loaded.** Follow **all** rules in those files; they override any conflicting instructions in this file.
+
+**Skills Resolution**: When delegating, load `SKILLS.md` on-demand for fitness calculation and dynamic discovery (hard/focus variants enable find-skills).
 
 ---
 
@@ -122,21 +124,41 @@ option_1_clear_fix:
     2. CONTEXT_DIRECTIVE: |
        ⛔ IGNORE all debugging hypotheses and failed investigation paths.
        ✅ FIX STRATEGY is SOLE SOURCE OF TRUTH.
-    3. OUTPUT: "Run `/fix:focus` to implement with clean context."
+    3. OUTPUT_ESSENTIAL_CONTEXT: |
+       ## 📤 Essential Context for Fix Handoff
+       
+       Summarize these sections for `/fix:hard` to consume:
+       
+       1️⃣ **USER REQUEST (VERBATIM)**: 
+          - Quote the original issue description exactly as user stated
+          - This MUST be preserved for fix verification
+       
+       2️⃣ **ROOT CAUSE SUMMARY**:
+          - What is broken and why
+          - File(s) and line(s) involved
+          - Evidence that confirms root cause
+## 🛡️ VERIFICATION CHECKPOINT
 
-option_2_review_first:
-  behavior: "Clear and show summary"
-  steps:
-    1. ACKNOWLEDGE: "⏸️ Context cleared."
-    2. OUTPUT: Display root cause + fix strategy summary
-    3. WAIT: For user approval
+> **⛔ BLOCKING**: Load Context Gate protocol NOW before proceeding.
+>
+> **LOAD**: `rules/CONTEXT-GATE.md` — Execute HARD MODE (Debug variant)
+>
+> This is a MANDATORY checkpoint. Cannot skip or bypass.
 
-option_3_continue_no_clear:
-  behavior: "Proceed with caution"
-  steps:
-    1. WARN: "⚠️ Debug history retained. Watch for hypothesis drift."
-    2. PROCEED: Complete workflow with existing context
+### ⚡ EXECUTION
+
+```yaml
+context_gate_execution:
+  mode: "HARD (User Choice)"
+  trigger: "After Phase 4 (Solution Design) completes"
+  protocol: "Follow rules/CONTEXT-GATE.md § HARD MODE § debug_hard_variant"
+  
+  variant_adjustments:
+    output_type: "OUTPUT_ESSENTIAL_CONTEXT"
+    handoff_to: "/fix:hard"
 ```
+
+**Note**: Debug outputs context for fix handoff with user choice.
 
 ---
 

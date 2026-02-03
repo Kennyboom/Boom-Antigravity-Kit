@@ -20,11 +20,13 @@ execution-mode: execute
 
 **LOAD now** (in order; path `./rules/` or `~/.{TOOL}/skills/agent-assistant/rules/`):
 
-1. ORCHESTRATION-LAWS.md
-2. ADAPTIVE-EXECUTION.md
-3. EXECUTION-PROTOCOL.md
+1. CORE.md — Identity, Laws, Routing
+2. PHASES.md — Phase Execution
+3. AGENTS.md — Tiered Execution
 
 **⛔ Do not run Phase 1 until all are loaded.** Follow **all** rules in those files; they override any conflicting instructions in this file.
+
+**Skills Resolution**: When delegating, load `SKILLS.md` on-demand for fitness calculation and dynamic discovery (focus variant enables find-skills for superior skill matching).
 
 ---
 
@@ -64,54 +66,33 @@ One phase at a time, each phase independent: Phase 1 → then Phase 2 → … in
 
 ---
 
-## 🛡️ STRICT CONTEXT GATE — Automatic Context Optimization
+## 🛡️ CONTEXT GATE CHECKPOINT
 
-> **⚡ FOCUS MODE**: This checkpoint executes automatically. NO user input required.
-> 
-> **PURPOSE**: Prevent "context rot" by forcibly clearing strategy discussion noise.
-> This acts as a mandatory "firewall" before test execution phases.
+> **⛔ BLOCKING**: Load Context Gate protocol NOW before proceeding.
+>
+> **LOAD**: `rules/CONTEXT-GATE.md` — Execute FOCUS MODE (Test variant)
+>
+> This is a MANDATORY checkpoint. Cannot skip or bypass.
 
-### 🔒 AUTOMATIC EXECUTION (NO PROMPT)
+### ⚡ EXECUTION
 
 ```yaml
-strict_context_gate:
-  mode: "AUTOMATIC - No user interaction"
-  behavior: "Force Clear context & Execute"
+context_gate_execution:
+  mode: "FOCUS (Automatic)"
+  trigger: "After Phase 1 (Test Strategy) completes"
+  protocol: "Follow rules/CONTEXT-GATE.md § FOCUS MODE § test_focus_variant"
   
-  execution:
-    1. ANNOUNCE: |
-       ## 🛡️ Strict Context Gate — Automatic
-       
-       ✅ **Test Strategy Complete**: Strategy defined, test types identified.
-       🔒 **Focus Mode**: Automatically clearing context for test execution.
-       
-       ⚡ Executing: **Clear context & Execute**...
-    
-    2. CONTEXT_DIRECTIVE: |
-       ╔══════════════════════════════════════════════════════════════════╗
-       ║  ⛔ MANDATORY CONTEXT RESET — FOCUS MODE                         ║
-       ╠══════════════════════════════════════════════════════════════════╣
-       ║  IGNORE: All strategy discussions, rejected approaches,          ║
-       ║          and intermediate test planning reasoning.               ║
-       ║                                                                  ║
-       ║  SOLE SOURCE OF TRUTH: Finalized test strategy.                  ║
-       ║                                                                  ║
-       ║  PROCEED: Execute test phases with FRESH context mindset.        ║
-       ║           Focus purely on test execution and verification.       ║
-       ╚══════════════════════════════════════════════════════════════════╝
-    
-    3. LOAD: Finalized test strategy as if seeing it for the first time
-    
-    4. PROCEED: Start Phase 2 (Dependency Mapping) immediately
+  variant_adjustments:
+    plan_source: "Finalized test strategy from Phase 1"
+    remaining_phases: "Phase 2 → 3 → 4 → 5"
 ```
 
-### 📋 Post-Gate Status
+**DO NOT proceed to Phase 2 until Context Gate completes.**
+- Rejected approaches
+- Planning noise
+- Chat history
 
-```markdown
-🔒 **Context Gate Passed**
-- Previous context: DISCARDED
-- Active context: Test strategy only
-- Mode: Fresh execution start
+Mode: Fresh execution start
 
 Proceeding to Test Execution...
 ```

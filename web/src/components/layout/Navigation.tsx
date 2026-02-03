@@ -22,6 +22,7 @@ const FEATURES_ITEMS: NavItem[] = [
   { label: 'Specialist Agents', href: '/features/specialist-agents' },
   { label: 'Commands & Workflows', href: '/features/commands-workflows' },
   { label: 'Quality Gates', href: '/features/quality-gates' },
+  { label: 'System Architecture', href: '/features/workflow' },
 ]
 
 const NAV_ITEMS: NavItem[] = [

@@ -17,11 +17,13 @@ execution-mode: execute
 
 **LOAD now** (in order; path `./rules/` or `~/.{TOOL}/skills/agent-assistant/rules/`):
 
-1. ORCHESTRATION-LAWS.md
-2. ADAPTIVE-EXECUTION.md
-3. EXECUTION-PROTOCOL.md
+1. CORE.md — Identity, Laws, Routing
+2. PHASES.md — Phase Execution
+3. AGENTS.md — Tiered Execution
 
 **⛔ Do not run Phase 1 until all are loaded.** Follow **all** rules in those files; they override any conflicting instructions in this file.
+
+**Skills Resolution**: When delegating, load `SKILLS.md` on-demand for fitness calculation and dynamic discovery (hard/focus variants enable find-skills).
 
 ---
 
@@ -95,22 +97,28 @@ option_1_clear_execute:
     1. ACKNOWLEDGE: "🚀 Context optimized. Executing test strategy."
     2. CONTEXT_DIRECTIVE: |
        ⛔ IGNORE strategy discussion and rejected approaches.
-       ✅ FINALIZED STRATEGY is SOLE SOURCE OF TRUTH.
-    3. PROCEED: Continue to test execution phases
+## 🛡️ VERIFICATION CHECKPOINT
 
-option_2_review_strategy:
-  behavior: "Clear and show summary"
-  steps:
-    1. ACKNOWLEDGE: "⏸️ Context cleared."
-    2. OUTPUT: Display strategy summary
-    3. WAIT: For user approval
+> **⛔ BLOCKING**: Load Context Gate protocol NOW before proceeding.
+>
+> **LOAD**: `rules/CONTEXT-GATE.md` — Execute HARD MODE (Test variant)
+>
+> This is a MANDATORY checkpoint. Cannot skip or bypass.
 
-option_3_continue_no_clear:
-  behavior: "Proceed with caution"
-  steps:
-    1. WARN: "⚠️ Discussion history retained."
-    2. PROCEED: Continue with existing context
+### ⚡ EXECUTION
+
+```yaml
+context_gate_execution:
+  mode: "HARD (User Choice)"
+  trigger: "After Phase 1 (Test Strategy) completes"
+  protocol: "Follow rules/CONTEXT-GATE.md § HARD MODE § test_hard_variant"
+  
+  variant_adjustments:
+    plan_source: "Finalized test strategy from Phase 1"
+    remaining_phases: "Phase 2 → 3 → 4 → 5"
 ```
+
+**DO NOT proceed to Phase 2 until user selects option.**
 
 ---
 

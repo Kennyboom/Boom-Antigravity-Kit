@@ -20,17 +20,19 @@ execution-mode: execute
 
 **LOAD now** (in order; path `./rules/` or `~/.{TOOL}/skills/agent-assistant/rules/`):
 
-1. ORCHESTRATION-LAWS.md
-2. ADAPTIVE-EXECUTION.md
-3. EXECUTION-PROTOCOL.md
+1. CORE.md — Identity, Laws, Routing
+2. PHASES.md — Phase Execution
+3. AGENTS.md — Tiered Execution
 
 **⛔ Do not run Phase 1 until all are loaded.** Follow **all** rules in those files; they override any conflicting instructions in this file.
+
+**Skills Resolution**: When delegating, load `SKILLS.md` on-demand for fitness calculation and dynamic discovery (focus variant enables find-skills for superior skill matching).
 
 ---
 
 ## 🔀 TIERED EXECUTION PROTOCOL (MANDATORY)
 
-> **Reference**: `{RULES_PATH}/ADAPTIVE-EXECUTION.md`
+> **Reference: AGENTS.md (Tiered Execution)`
 
 ```yaml
 tiered_execution:
@@ -176,54 +178,36 @@ One phase at a time, each phase independent: Phase 1 → then Phase 2 → … in
 
 ---
 
-## 🛡️ STRICT CONTEXT GATE — Automatic Context Optimization
+## 🛡️ CONTEXT GATE CHECKPOINT
 
-> **⚡ FOCUS MODE**: This checkpoint executes automatically. NO user input required.
-> 
-> **PURPOSE**: Prevent "context rot" by forcibly clearing noisy design exploration history.
-> This acts as a mandatory "firewall" before review and implementation handoff.
+> **⛔ BLOCKING**: Load Context Gate protocol NOW before proceeding.
+>
+> **LOAD**: `rules/CONTEXT-GATE.md` — Execute FOCUS MODE (Design variant)
+>
+> This is a MANDATORY checkpoint. Cannot skip or bypass.
 
-### 🔒 AUTOMATIC EXECUTION (NO PROMPT)
+### ⚡ EXECUTION
 
 ```yaml
-strict_context_gate:
-  mode: "AUTOMATIC - No user interaction"
-  behavior: "Force Clear context & Ready"
+context_gate_execution:
+  mode: "FOCUS (Automatic)"
+  trigger: "After Phase 4 (Design Creation) completes"
+  protocol: "Follow rules/CONTEXT-GATE.md § FOCUS MODE § design_focus_variant"
   
-  execution:
-    1. ANNOUNCE: |
-       ## 🛡️ Strict Context Gate — Automatic
-       
-       ✅ **Design Complete**: `./reports/designs/DESIGN-{request}.md`
-       🔒 **Focus Mode**: Automatically clearing context for review/implementation.
-       
-       ⚡ Executing: **Clear context & Ready**...
-    
-    2. CONTEXT_DIRECTIVE: |
-       ╔══════════════════════════════════════════════════════════════════╗
-       ║  ⛔ MANDATORY CONTEXT RESET — FOCUS  MODE                        ║
-       ╠══════════════════════════════════════════════════════════════════╣
-       ║  IGNORE: All design exploration, rejected alternatives,          ║
-       ║          iteration history, and intermediate reasoning.          ║
-       ║                                                                  ║
-       ║  SOLE SOURCE OF TRUTH: Design file in ./reports/designs/         ║
-       ║                                                                  ║
-       ║  PROCEED: Continue to Design Review with clean context.          ║
-       ║           Then handoff to implementation.                        ║
-       ╚══════════════════════════════════════════════════════════════════╝
-    
-    3. LOAD: Read Design file as if seeing it for the first time
-    
-    4. PROCEED: Continue to Phase 5 (Design Review)
+  variant_adjustments:
+    remaining_phases: "Phase 5 (Design Review) → Implementation Handoff"
+    deliverable_file: "./reports/designs/DESIGN-{request}.md"
 ```
 
-### 📋 Post-Gate Status
+**DO NOT proceed to Phase 5 until Context Gate completes.**
 
-```markdown
-🔒 **Context Gate Passed**
-- Previous context: DISCARDED
-- Active context: Design file only
-- Mode: Clean review start
+## ❌ Discarded:
+- Design exploration noise
+- Rejected alternatives
+- Iteration history
+- Chat history
+
+Mode: Clean review start
 
 Proceeding to Design Review...
 ```

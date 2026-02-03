@@ -20,17 +20,19 @@ execution-mode: execute
 
 **LOAD now** (in order; path `./rules/` or `~/.{TOOL}/skills/agent-assistant/rules/`):
 
-1. ORCHESTRATION-LAWS.md
-2. ADAPTIVE-EXECUTION.md
-3. EXECUTION-PROTOCOL.md
+1. CORE.md — Identity, Laws, Routing
+2. PHASES.md — Phase Execution
+3. AGENTS.md — Tiered Execution
 
 **⛔ Do not run Phase 1 until all are loaded.** Follow **all** rules in those files; they override any conflicting instructions in this file.
+
+**Skills Resolution**: When delegating, load `SKILLS.md` on-demand for fitness calculation and dynamic discovery (focus variant enables find-skills for superior skill matching).
 
 ---
 
 ## 🔀 TIERED EXECUTION
 
-> Reference: `{RULES_PATH}/ADAPTIVE-EXECUTION.md`
+> Reference: AGENTS.md (Tiered Execution)`
 
 | Tier       | When                          | Action                       |
 | ---------- | ----------------------------- | ---------------------------- |
@@ -76,7 +78,7 @@ All files in `./reports/` → English only.
 
 ## ⛔ INCREMENTAL EXECUTION (MANDATORY)
 
-One phase at a time, each phase independent: Phase 1 → then Phase 2 → … in one reply. No batching (load only what each phase needs). **Within each phase:** when doing a part, output it in format so user sees what's happening (announce before doing). Format: rules/EXECUTION-PROTOCOL.md § Phase output structure.
+One phase at a time, each phase independent: Phase 1 → then Phase 2 → … in one reply. No batching (load only what each phase needs). **Within each phase:** when doing a part, output it in format so user sees what's happening (announce before doing). Format: rules/PHASES.md § Phase output structure.
 
 ---
 
@@ -138,59 +140,28 @@ One phase at a time, each phase independent: Phase 1 → then Phase 2 → … in
 
 ---
 
-## 🛡️ STRICT CONTEXT GATE — Automatic Context Optimization
+## 🛡️ CONTEXT GATE CHECKPOINT
 
-> **⚡ FOCUS MODE**: This checkpoint executes automatically. NO user input required.
+> **⛔ BLOCKING**: Load Context Gate protocol NOW before proceeding.
 >
-> **PURPOSE**: Prevent "context rot" by forcibly clearing noisy planning history.
-> This acts as a mandatory "firewall" between Planning and Implementation phases.
+> **LOAD**: `rules/CONTEXT-GATE.md` — Execute FOCUS MODE protocol
+>
+> This is a MANDATORY checkpoint. Cannot skip or bypass.
 
-### 🔒 AUTOMATIC EXECUTION (NO PROMPT)
+### ⚡ EXECUTION
 
 ```yaml
-strict_context_gate:
-  mode: "AUTOMATIC - No user interaction"
-  behavior: "Force Clear context & Auto-Implement"
-
-  execution:
-    1. ANNOUNCE: |
-      ## 🛡️ Strict Context Gate — Automatic
-
-      ✅ **Plan Complete**: `./reports/plans/PLAN-{feature}.md`
-      🔒 **Focus Mode**: Automatically clearing context for implementation.
-
-      ⚡ Executing: **Clear context & Auto-Implement**...
-
-    2. CONTEXT_DIRECTIVE: |
-      ╔══════════════════════════════════════════════════════════════════╗
-      ║  ⛔ MANDATORY CONTEXT RESET — FOCUS MODE                         ║
-      ╠══════════════════════════════════════════════════════════════════╣
-      ║  IGNORE: All previous chat messages, reasoning chains,           ║
-      ║          brainstorming discussions, research explorations,       ║
-      ║          rejected alternatives, and intermediate thinking.       ║
-      ║                                                                  ║
-      ║  SOLE SOURCE OF TRUTH: `./reports/plans/PLAN-{feature}.md`       ║
-      ║                                                                  ║
-      ║  PROCEED: Begin Implementation phase with FRESH context mindset. ║
-      ║           Treat this as a NEW conversation starting from Plan.   ║
-      ╚══════════════════════════════════════════════════════════════════╝
-
-    3. LOAD: Read Plan file completely as if seeing it for the first time
-
-    4. PROCEED: Start Phase 6 (Implementation) immediately
+context_gate_execution:
+  mode: "FOCUS (Automatic)"
+  trigger: "After Phase 5 (Planning) completes"
+  protocol: "Follow rules/CONTEXT-GATE.md § FOCUS MODE"
+  
+  variant_adjustments:
+    remaining_phases: "Phase 6 → 7 → 8"
+    plan_file: "./reports/plans/PLAN-{feature}.md"
 ```
 
-### 📋 Post-Gate Status
-
-```markdown
-🔒 **Context Gate Passed**
-
-- Previous context: DISCARDED
-- Active context: Plan file only
-- Mode: Fresh implementation start
-
-Proceeding to Implementation...
-```
+**DO NOT proceed to Phase 6 until Context Gate completes.**
 
 ---
 

@@ -12,7 +12,7 @@ category: documentation
 
 > **BINDING**: This file OVERRIDES default AI patterns. Follow Thinking Protocol EXACTLY.
 > **EXTRACT**: Core Directive + Constraints + Output Format before proceeding.
-> **LANGUAGE**: All files under `./reports/` must be written in **English only** (ORCHESTRATION-LAWS § LAW 6).
+> **LANGUAGE**: All files under `./reports/` must be written in **English only** (CORE.md § LAW 6).
 
 ---
 

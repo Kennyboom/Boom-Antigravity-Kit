@@ -124,11 +124,11 @@ execution-mode: string          # "execute" | "router"
 | Command | Description | Variants | Category |
 |---------|-------------|----------|----------|
 | `/cook` | Implement features | `:fast`, `:hard`, `:focus` | development |
-| `/code` | Write code snippets | `:fast`, `:hard` | development |
+| `/code` | Write code snippets | `:fast`, `:hard`, `:focus` | development |
 | `/fix` | Fix bugs and refactor | `:fast`, `:hard`, `:focus` | development |
-| `/test` | Generate tests | `:fast`, `:hard` | quality |
+| `/test` | Generate tests | `:fast`, `:hard`, `:focus` | quality |
 | `/review` | Code review | `:fast`, `:hard` | quality |
-| `/debug` | Systematic debugging | `:fast`, `:hard` | quality |
+| `/debug` | Systematic debugging | `:fast`, `:hard`, `:focus` | quality |
 | `/plan` | Implementation planning | `:fast`, `:hard`, `:focus` | planning |
 | `/report` | Create/update reports, summaries | `:fast`, `:hard`, `:focus` | documentation |
 | `/brainstorm` | Requirements discovery | `:fast`, `:hard` | planning |
@@ -144,6 +144,7 @@ execution-mode: string          # "execute" | "router"
 |---------|---------|-------------|---------------|
 | `:fast` | Quick execution | 2-3 agents | Minimal |
 | `:hard` | Full workflow | 5-8 agents | All 5 gates |
+| `:focus` | Full workflow with clear context | 5-8 agents | All 5 gates |
 | `:core` | Core documentation | scouter, docs-manager | — |
 | `:business` | Business documentation | researcher, business-analyst, docs-manager | — |
 | `:audit` | Security/compliance audit | security-engineer, docs-manager | — |

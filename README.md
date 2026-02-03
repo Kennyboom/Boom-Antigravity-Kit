@@ -22,7 +22,7 @@ Transform one AI into a coordinated team of 21 specialist agents with structured
 | **One-Time Setup, Forever Use** | Configure once at global level (`~/.cursor/`, `~/.claude/`, etc.) and it auto-applies to ALL your projects. No more repetitive config for every new repo.                                      |
 | **Sub-Agent Orchestration**     | When supported (Claude Code, Cursor Max mode), the main agent spawns specialized sub-agents to handle tasks **in parallel** — backend, frontend, testing, security all working simultaneously. |
 | **Multi-Platform Support**      | Works seamlessly across **Cursor**, **GitHub Copilot**, **Claude Code**, and **Antigravity/Gemini**. Same workflows, any tool.                                                                 |
-| **Matrix Skill Discovery**      | Automatically injects the right skills into each agent based on their profile and your request. 310+ skills, zero manual config.                                                              |
+| **Matrix Skill Discovery (HSOL)** | Injects the right skills by profile and request; optional dynamic discovery (find-skills) for `hard`/`focus` when matrix fitness &lt; 0.8. 310+ matrix skills, zero manual config. |
 
 ### The Goal
 

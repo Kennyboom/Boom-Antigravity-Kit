@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-02-03
+
+### Added
+
+- **Context Gate Centralization**: Eliminated ~1,200 lines of duplicate Context Gate logic across command files by centralizing into single source of truth
+  - **`rules/CONTEXT-GATE.md`**: 362-line comprehensive protocol file with FOCUS MODE (automatic) and HARD MODE (user choice)
+  - **3-Layer Enforcement**: BLOCKING directive + sequential flow placement + verification checklist to prevent AI skip
+  - **5-step RELOAD_ESSENTIAL_CONTEXT**: User Request → Acceptance Criteria → Plan/Strategy → Remaining Phases → Implementation Rules
+  - **Variant-aware execution**: Special handling for debug (OUTPUT_ESSENTIAL_CONTEXT handoff), design (review phase), test (strategy source)
+- **HSOL Documentation**: Added comprehensive Hybrid Skill Orchestration Layer planning documents
+  - **Blueprint**: `documents/SMART-SKILL-ORCHESTRATION-BLUEPRINT.md` — architecture for dynamic skill resolution
+  - **Assessment**: `documents/HSOL-ASSESSMENT.md` — production readiness evaluation
+  - **Manifest**: `matrix-skills/_dynamic.yaml` — tracking for dynamically installed community skills
+  - **Knowledge base**: Updated `documents/knowledge-architecture.md`, `documents/knowledge-source-base.md` with HSOL references
+
+### Changed
+
+- **All command variants**: Updated 12 command files (6 focus + 6 hard) to reference centralized Context Gate protocol
+  - **Focus variants** (`/code:focus`, `/cook:focus`, `/fix:focus`, `/debug:focus`, `/design:focus`, `/test:focus`): Replaced ~80-100 lines of inline Context Gate logic with ~19-line minimal reference
+  - **Hard variants** (`/code:hard`, `/cook:hard`, `/fix:hard`, `/debug:hard`, `/design:hard`, `/test:hard`): Replaced ~100 lines of verification checkpoint logic with ~19-line minimal reference
+  - **Pattern**: Each file now loads `rules/CONTEXT-GATE.md` with BLOCKING directive and variant-specific adjustments
+- **Code reduction**: 52% less code (~1,200 lines → ~580 lines references + 362 lines centralized)
+- **Maintenance**: Reduced from updating 12 files manually to updating 1 centralized file (92% easier maintenance)
+
 ## [1.0.4] - 2026-01-30
 
 ### Added

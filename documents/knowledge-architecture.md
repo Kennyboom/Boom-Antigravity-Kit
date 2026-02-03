@@ -174,7 +174,86 @@ Example:
     Injects: skills into agent context
 ```
 
-### 2.6 Rule Engine
+### 2.6 Hybrid Skill Orchestration Layer (HSOL) ⚡
+
+**NEW (v1.1)**: Intelligent system that bridges static matrix-skills with dynamic community skills via the **find-skills** skill. Discovery runs only for `hard`/`focus` variants; when no variant is set, the router chooses by task assessment.
+
+**Dynamic Discovery Interface:**
+- **Skill Path**: `{SKILLS_PATH}/find-skills/SKILL.md`
+- **Browse**: https://skills.sh/
+- **Commands**:
+  - `npx skills find [query]` — Search for skills
+  - `npx skills add <owner/repo@skill> -g -y` — Install globally
+  - `npx skills check` — Check for updates
+
+```
+HSOL Resolution Strategy:
+┌─────────────────────────────────────────────────────────────────────────┐
+│                         SKILL REQUEST                                    │
+│                              │                                           │
+│              ┌───────────────┴───────────────┐                          │
+│              ▼                               ▼                          │
+│     ┌─────────────────┐            ┌─────────────────┐                  │
+│     │  MATRIX LOOKUP  │            │ DYNAMIC SEARCH  │                  │
+│     │   (< 10ms)      │            │ (find-skills)   │                  │
+│     │  Synchronous    │            │  Non-blocking   │                  │
+│     └────────┬────────┘            └────────┬────────┘                  │
+│              │                              │                           │
+│              ▼                              ▼                           │
+│     ┌─────────────────┐            ┌─────────────────┐                  │
+│     │ Fitness Score   │            │ Fitness Score   │                  │
+│     │ (Pre-computed)  │            │ (Calculated)    │                  │
+│     └────────┬────────┘            └────────┬────────┘                  │
+│              │                              │                           │
+│              └───────────────┬──────────────┘                           │
+│                              ▼                                          │
+│                    ┌─────────────────┐                                  │
+│                    │ DECISION ENGINE │                                  │
+│                    │  Apply Formula  │                                  │
+│                    └────────┬────────┘                                  │
+│                              │                                          │
+│        ┌─────────────────────┼─────────────────────┐                   │
+│        ▼                     ▼                     ▼                   │
+│  ┌───────────┐        ┌───────────┐        ┌───────────┐               │
+│  │ USE MATRIX│        │  ENHANCE  │        │USE DYNAMIC│               │
+│  │  (≥0.80)  │        │  (delta)  │        │  (better) │               │
+│  └───────────┘        └───────────┘        └───────────┘               │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+**Fitness Scoring Formula:**
+```
+SKILL_FITNESS = (0.35 × SEMANTIC_MATCH) +
+                (0.25 × SPECIFICITY) +
+                (0.20 × TRUST_SCORE) +
+                (0.10 × FRESHNESS) +
+                (0.10 × SUCCESS_RATE)
+```
+
+**Decision Thresholds:**
+| Condition | Action |
+|-----------|--------|
+| Matrix fitness ≥ 0.80 | Use matrix skill immediately |
+| Matrix fitness 0.75-0.79 + dynamic superior by ≥0.15 | Consider dynamic enhancement (async) |
+| Matrix fitness < 0.75 | Search dynamic skills (blocking; use for current task) |
+| Dynamic skill superior | Surface as enhancement option |
+
+**Trust Progression (Dynamic Skills):**
+```
+new → evaluating → validated → promoted
+0.3      0.5          0.7         1.0
+         │            │           │
+         │            │           └── Promoted to matrix-skills
+         │            └── 10+ successful uses, user validation
+         └── 3 uses without failure
+```
+
+**Key Files:**
+- `rules/SKILL-ORCHESTRATION.md` — Full protocol
+- `matrix-skills/_dynamic.yaml` — Dynamic skill manifest
+- `matrix-skills/_index.yaml` — HSOL configuration
+
+### 2.7 Rule Engine
 
 Enforces orchestration laws and protocols.
 
@@ -183,6 +262,7 @@ Enforces orchestration laws and protocols.
 | `ORCHESTRATION-LAWS.md` | 10 inviolable laws | CRITICAL |
 | `EXECUTION-PROTOCOL.md` | Phase execution details | CRITICAL |
 | `ADAPTIVE-EXECUTION.md` | Tier 1/2 decisions | CRITICAL |
+| `SKILL-ORCHESTRATION.md` | HSOL decision logic | CRITICAL |
 | `AGENT-RULES.md` | Agent behavior guidelines | Reference |
 | `SKILL-DISCOVERY.md` | Matrix resolution algorithm | Reference |
 | `ERROR-RECOVERY.md` | Error handling protocols | Reference |
