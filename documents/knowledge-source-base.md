@@ -325,7 +325,7 @@ All tool entry points follow the same pattern:
 ```markdown
 # ⚡ AGENT ASSISTANT v2.0
 
-> **LOAD**: `{HOME}/.cursor/skills/agent-assistant/rules/BOOTSTRAP.md`
+> **LOAD**: `{TOOL}/.cursor/skills/agent-assistant/rules/BOOTSTRAP.md`
 > **This file is the ENTRY POINT. BOOTSTRAP.md contains all orchestration rules.**
 
 ## 🆔 IDENTITY
@@ -521,17 +521,17 @@ Paths use placeholders that are resolved at runtime:
 
 | Placeholder | Resolution |
 |-------------|------------|
-| `{HOME}` | User home directory (`~`) |
+| `{TOOL}` | User home directory (`~`) |
 | `{TOOL}` | AI tool name (`cursor`, `copilot`, etc.) |
 
 ### 7.2 Standard Paths
 
 ```
-COMMANDS_PATH = {HOME}/.{TOOL}/skills/agent-assistant/commands/
-AGENTS_PATH   = {HOME}/.{TOOL}/skills/agent-assistant/agents/
-SKILLS_PATH   = {HOME}/.{TOOL}/skills/
-RULES_PATH    = {HOME}/.{TOOL}/skills/agent-assistant/rules/
-REPORTS_PATH  = ./reports/
+COMMANDS = {TOOL}/.{TOOL}/skills/agent-assistant/commands/
+AGENTS   = {TOOL}/.{TOOL}/skills/agent-assistant/agents/
+SKILLS   = {TOOL}/.{TOOL}/skills/
+RULES    = {TOOL}/.{TOOL}/skills/agent-assistant/rules/
+REPORTS  = ./reports/
 ```
 
 ### 7.3 Tool-Specific Installation Paths

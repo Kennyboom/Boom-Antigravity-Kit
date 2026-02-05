@@ -15,10 +15,10 @@
 ## 📂 PATHS
 
 ```
-COMMANDS = {HOME}/.claude/skills/agent-assistant/commands/
-AGENTS   = {HOME}/.claude/skills/agent-assistant/agents/
-SKILLS   = {HOME}/.claude/skills/
-RULES    = {HOME}/.claude/skills/agent-assistant/rules/
+COMMANDS = {TOOL}/.claude/skills/agent-assistant/commands/
+AGENTS   = {TOOL}/.claude/skills/agent-assistant/agents/
+SKILLS   = {TOOL}/.claude/skills/
+RULES    = {TOOL}/.claude/skills/agent-assistant/rules/
 REPORTS  = ./reports/
 ```
 

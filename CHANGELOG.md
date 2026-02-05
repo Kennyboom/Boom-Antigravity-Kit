@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.1] - 2026-02-05
+
+### Fixed
+
+- **Path Placeholder Resolution**: Fixed critical issue where `{TOOL}`, `{TOOL}`, `~/.{TOOL}/` placeholders were not properly replaced during installation
+  - Added missing replacement patterns to all tools in `cli/install.js`
+  - Paths now correctly resolve to `~/.copilot/`, `~/.cursor/`, `~/.claude/`, `~/.gemini/antigravity/`
+- **Agent File Formats**: Fixed corrupted YAML frontmatter in agent entry files
+  - Removed invalid code fence wrappers from Copilot and Antigravity agent files
+  - Files now parse correctly as proper YAML + Markdown
+- **Claude Install**: Added missing `AGENT.md` copy (was only copying `CLAUDE.md`)
+- **Enforcement Language**: Strengthened all entry point files with mandatory boot sequence
+  - Added `⛔ MANDATORY BOOT SEQUENCE` block that BLOCKS execution until CORE.md is loaded
+  - Changed passive "should load" to active "MUST load IMMEDIATELY"
+  - Added explicit prohibition statements (NEVER, FORBIDDEN, ABSOLUTE BINDING)
+
+### Changed
+
+- **CORE.md v4.1**: Updated paths section with platform resolution table and clearer examples
+- **Entry Files**: Rewrote COPILOT.md, CLAUDE.md, AGENT.md, GEMINI.md with stronger enforcement
+- **Replacement Order**: Sorted replacement keys by length (longest first) to prevent partial replacements
+
 ## [1.1.0] - 2026-02-03
 
 ### Added

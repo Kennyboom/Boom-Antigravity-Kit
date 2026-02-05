@@ -59,8 +59,10 @@ const TOOLS = {
             agentAssistant: path.join(HOME, '.cursor', 'skills', 'agent-assistant'),
         },
         replacements: {
+            '~/.{TOOL}/skills/agent-assistant/': '~/.cursor/skills/agent-assistant/',
             '{TOOL}/agent-assistant/': 'cursor/skills/agent-assistant/',
             '{TOOL}': 'cursor',
+            '{HOME}': '~',
             '~/.agent/': '~/.cursor/skills/agent-assistant/'
         },
         assets: {
@@ -81,8 +83,11 @@ const TOOLS = {
             vsCodePrompts: getVSCodePromptsFolder(),
         },
         replacements: {
+            '~/.{TOOL}/skills/agent-assistant/': '~/.copilot/skills/agent-assistant/',
             '{TOOL}/agent-assistant/': 'copilot/skills/agent-assistant/',
-            '{TOOL}': 'copilot'
+            '{TOOL}': 'copilot',
+            '{HOME}': '~',
+            '~/.agent/': '~/.copilot/skills/agent-assistant/'
         },
         assets: {
             agentFile: path.join(ROOT, 'code-assistants', 'copilot-assistant', 'agent-assistant.agent.md'),
@@ -103,8 +108,10 @@ const TOOLS = {
             agentAssistant: path.join(HOME, '.gemini', 'antigravity', 'skills', 'agent-assistant'),
         },
         replacements: {
+            '~/.{TOOL}/skills/agent-assistant/': '~/.gemini/antigravity/skills/agent-assistant/',
             '{TOOL}/agent-assistant/': 'gemini/antigravity/skills/agent-assistant/',
             '{TOOL}': 'gemini/antigravity',
+            '{HOME}': '~',
             '~/.agent/': '~/.gemini/antigravity/skills/agent-assistant/'
         },
         assets: {
@@ -123,8 +130,10 @@ const TOOLS = {
             agentAssistant: path.join(HOME, '.claude', 'skills', 'agent-assistant'),
         },
         replacements: {
+            '~/.{TOOL}/skills/agent-assistant/': '~/.claude/skills/agent-assistant/',
             '{TOOL}/agent-assistant/': 'claude/skills/agent-assistant/',
             '{TOOL}': 'claude',
+            '{HOME}': '~',
             '~/.agent/': '~/.claude/skills/agent-assistant/'
         },
         assets: {
@@ -900,10 +909,17 @@ function installClaude() {
     // --- 1. INSTALL GLOBAL CONFIG (~/.claude) ---
     ensureDir(tool.paths.home);
 
-    // 1.1 CLAUDE.md (Global Instructions)
+    // 1.1 Global Config Files (CLAUDE.md, AGENT.md)
     if (tool.assets.claudeMd && fs.existsSync(tool.assets.claudeMd)) {
         const destFile = path.join(tool.paths.home, 'CLAUDE.md');
         if (copyFileWithReplace(tool.assets.claudeMd, destFile, tool.replacements)) total++;
+    }
+    
+    // Copy AGENT.md as well
+    const agentMdSrc = path.join(ROOT, 'AGENT.md');
+    if (fs.existsSync(agentMdSrc)) {
+        const agentMdDest = path.join(tool.paths.home, 'AGENT.md');
+        if (copyFileWithReplace(agentMdSrc, agentMdDest, tool.replacements)) total++;
     }
 
     // 1.2 Commands (~/.claude/commands)
