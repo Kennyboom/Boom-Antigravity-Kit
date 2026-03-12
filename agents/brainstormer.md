@@ -2,7 +2,7 @@
 name: brainstormer
 description: Principal Requirements Architect — requirements discovery, Socratic clarification, ideation
 profile: "planning:discovery"
-tools: [Read, Grep, Glob, Bash, semantic_search]
+tools: all
 handoffs: [planner, researcher, tech-lead, designer]
 version: "1.0"
 category: research

@@ -2,7 +2,7 @@
 name: database-architect
 description: Principal Database Architect — schema design, query optimization, data integrity
 profile: "data:execution"
-tools: [Read, Grep, Glob, Bash, Write, Edit, list_code_usages, semantic_search]
+tools: all
 handoffs: [backend-engineer, security-engineer, performance-engineer, devops-engineer, tech-lead]
 version: "1.0"
 category: execution

@@ -2,7 +2,7 @@
 name: business-analyst
 description: Principal Business Analyst — requirements, stakeholder management, domain modeling
 profile: "planning:business"
-tools: [Read, Grep, Glob, Bash, Write, semantic_search]
+tools: all
 handoffs: [brainstormer, planner, project-manager, tech-lead]
 version: "1.0"
 category: research

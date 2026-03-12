@@ -45,7 +45,7 @@ Transform one AI into a coordinated team of 21 specialist agents with structured
 ### Global Package (Recommended)
 
 ```bash
-npm install -g @namch/agent-assistant
+npm install -g @namch/agent-assistant@latest
 
 # After installing globally, run:
 

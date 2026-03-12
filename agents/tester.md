@@ -2,7 +2,7 @@
 name: tester
 description: Principal QA Architect — test strategy, automation, quality assurance
 profile: "quality:validation"
-tools: [Read, Grep, Glob, Bash, Write, Edit, list_code_usages, semantic_search]
+tools: all
 handoffs: [backend-engineer, frontend-engineer, reviewer, debugger, security-engineer, tech-lead]
 version: "1.0"
 category: validation

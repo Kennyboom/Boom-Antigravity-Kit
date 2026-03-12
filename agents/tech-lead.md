@@ -2,7 +2,7 @@
 name: tech-lead
 description: Technical Lead — orchestrates implementation, routes to specialists, ensures quality
 profile: "architecture:orchestration"
-tools: [Read, Grep, Glob, Bash, Write, Edit, Agent, list_code_usages, semantic_search]
+tools: all
 handoffs: [backend-engineer, frontend-engineer, database-architect, security-engineer, devops-engineer, tester, reviewer]
 version: "1.0"
 category: execution

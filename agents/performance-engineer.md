@@ -2,7 +2,7 @@
 name: performance-engineer
 description: Principal Performance Architect — profiling, optimization, load testing
 profile: "performance:validation"
-tools: [Read, Grep, Glob, Bash, Write, Edit, list_code_usages, semantic_search]
+tools: all
 handoffs: [backend-engineer, frontend-engineer, database-architect, devops-engineer, tech-lead]
 version: "1.0"
 category: validation

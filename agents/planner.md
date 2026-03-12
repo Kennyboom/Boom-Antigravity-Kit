@@ -2,7 +2,7 @@
 name: planner
 description: Principal Technical Planner — implementation blueprints and task decomposition
 profile: "planning:analysis"
-tools: [Read, Grep, Glob, Bash, Write, Edit, Agent, semantic_search]
+tools: all
 handoffs: [tech-lead, scouter, researcher, brainstormer, backend-engineer, frontend-engineer]
 version: "1.0"
 category: planning

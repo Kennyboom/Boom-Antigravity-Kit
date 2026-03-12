@@ -2,7 +2,7 @@
 name: frontend-engineer
 description: Principal Frontend Architect — UI/UX excellence, web performance, accessibility
 profile: "frontend:execution"
-tools: [Read, Grep, Glob, Bash, Write, Edit, list_code_usages, semantic_search, generate_image]
+tools: all
 handoffs: [tester, designer, performance-engineer, backend-engineer, security-engineer]
 version: "1.0"
 category: execution

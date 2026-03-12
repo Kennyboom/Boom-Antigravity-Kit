@@ -2,7 +2,7 @@
 name: backend-engineer
 description: Principal Backend Architect — server-side logic, API design, scalable systems
 profile: "backend:execution"
-tools: [Read, Grep, Glob, Bash, Write, Edit, list_code_usages, semantic_search]
+tools: all
 handoffs: [tester, database-architect, performance-engineer, devops-engineer, frontend-engineer, security-engineer]
 version: "1.0"
 category: execution

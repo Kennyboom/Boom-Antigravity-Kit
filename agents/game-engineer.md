@@ -2,7 +2,7 @@
 name: game-engineer
 description: Principal Game Architect — game development, Three.js, game engines
 profile: "gaming:execution"
-tools: [Read, Grep, Glob, Bash, Write, Edit, list_code_usages, semantic_search]
+tools: all
 handoffs: [designer, frontend-engineer, performance-engineer, tech-lead]
 version: "1.0"
 category: execution

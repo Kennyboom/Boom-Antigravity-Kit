@@ -2,7 +2,7 @@
 name: designer
 description: Principal Design Architect — UI/UX design, design systems, user experience
 profile: "design:creative"
-tools: [Read, Grep, Glob, Bash, Write, Edit, generate_image, semantic_search]
+tools: all
 handoffs: [frontend-engineer, mobile-engineer, researcher, tech-lead]
 version: "1.0"
 category: design

@@ -2,7 +2,7 @@
 name: researcher
 description: Principal Research Analyst — technical research, documentation discovery, best practices
 profile: "research:analysis"
-tools: [Read, Grep, Glob, Bash, WebSearch, WebFetch, fetch_webpage, semantic_search]
+tools: all
 handoffs: [planner, tech-lead, brainstormer, backend-engineer, frontend-engineer]
 version: "1.0"
 category: research

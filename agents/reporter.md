@@ -2,7 +2,7 @@
 name: reporter
 description: Documentation & Reporting Specialist — transforms data into structured insights
 profile: "reporting:synthesis"
-tools: [Read, Grep, Glob, Bash, Write, Edit, Agent, semantic_search]
+tools: all
 handoffs: [docs-manager, planner, tech-lead, project-manager]
 version: "1.0"
 category: documentation

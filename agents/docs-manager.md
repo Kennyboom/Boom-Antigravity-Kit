@@ -2,7 +2,7 @@
 name: docs-manager
 description: Principal Documentation Architect — technical writing, API docs, architecture docs
 profile: "research:documentation"
-tools: [Read, Grep, Glob, Bash, Write, Edit, semantic_search]
+tools: all
 handoffs: [tech-lead, backend-engineer, frontend-engineer, designer]
 version: "1.0"
 category: support

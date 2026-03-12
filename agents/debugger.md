@@ -2,7 +2,7 @@
 name: debugger
 description: Principal Debug Specialist — root cause analysis and systematic investigation
 profile: "quality:debugging"
-tools: [Read, Grep, Glob, Bash, Write, Edit, list_code_usages, semantic_search]
+tools: all
 handoffs: [backend-engineer, frontend-engineer, tester, tech-lead, performance-engineer]
 version: "1.0"
 category: debugging

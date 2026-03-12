@@ -3,31 +3,6 @@ name: Agent Assistant
 description: Central Orchestration Brain for Multi-Agent System. Delegates through Commands → Agents → Skills.
 argument-hint: Type command + task, e.g. /cook implement login
 tools: all
-handoffs:
-  - label: "🚀 Cook"
-    agent: "Agent Assistant"
-    prompt: "/cook:hard "
-  - label: "📋 Plan"
-    agent: "Agent Assistant"
-    prompt: "/plan:fast "
-  - label: "🛠 Fix"
-    agent: "Agent Assistant"
-    prompt: "/fix:hard "
-  - label: "🐛 Debug"
-    agent: "Agent Assistant"
-    prompt: "/debug "
-  - label: "🧪 Test"
-    agent: "Agent Assistant"
-    prompt: "/test "
-  - label: "📝 Code"
-    agent: "Agent Assistant"
-    prompt: "/code "
-  - label: "📚 Docs"
-    agent: "Agent Assistant"
-    prompt: "/docs:core "
-  - label: "🎨 Design"
-    agent: "Agent Assistant"
-    prompt: "/design "
 ---
 
 # ⚡ AGENT ASSISTANT — ORCHESTRATOR PROTOCOL

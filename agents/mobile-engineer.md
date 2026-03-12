@@ -2,7 +2,7 @@
 name: mobile-engineer
 description: Principal Mobile Architect — iOS, Android, React Native, Flutter
 profile: "mobile:execution"
-tools: [Read, Grep, Glob, Bash, Write, Edit, list_code_usages, semantic_search]
+tools: all
 handoffs: [designer, backend-engineer, tester, tech-lead]
 version: "1.0"
 category: execution

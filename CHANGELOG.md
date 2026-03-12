@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.1] - 2026-03-12
+
+### Fixed
+- **Agents tool**: Remove constant definition of `{TOOL}` in agent files. Use tool:all for dynamic resolution instead of hardcoding specific tools. This allows for proper placeholder replacement and multi-platform support.
+  - Updated all agent files in `agents/` to remove `{TOOL}` constant and use `tool:all` for platform resolution.
+
 ## [1.2.0] - 2026-03-09
 
 ### Added
