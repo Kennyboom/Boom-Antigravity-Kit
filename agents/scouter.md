@@ -61,9 +61,9 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (if ./documents/ exists):
-   - knowledge-architecture.md → Already documented architecture
-   - knowledge-domain.md → Data models, API contracts
-   - knowledge-standards.md → Existing standards
+   - knowledge-architecture/00-index.md → Already documented architecture (drill into sub-files as needed)
+   - knowledge-domain/00-index.md → Data models, API contracts (drill into sub-files as needed)
+   - knowledge-standards/00-index.md → Existing standards (drill into sub-files as needed)
    → REFERENCE these, don't duplicate findings
 
 2. Your output becomes CONSTRAINTS for downstream agents

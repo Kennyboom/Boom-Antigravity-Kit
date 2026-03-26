@@ -61,9 +61,9 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (if ./documents/ exists):
-   - knowledge-standards.md → Standards to enforce
-   - knowledge-architecture.md → Architecture to verify
-   - knowledge-domain.md → Data/API contracts to verify
+   - knowledge-standards/00-index.md → Standards to enforce (drill into sub-files as needed)
+   - knowledge-architecture/00-index.md → Architecture to verify (drill into sub-files as needed)
+   - knowledge-domain/00-index.md → Data/API contracts to verify (drill into sub-files as needed)
    → VERIFY code follows project standards
 
 2. IF ./reports/{topic}/plans/PLAN-{feature} exists:

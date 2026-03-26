@@ -60,9 +60,9 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (if ./documents/ exists):
-   - knowledge-standards.md → Coding standards
-   - knowledge-architecture.md → Component patterns
-   - knowledge-domain.md → API contracts, data shapes
+   - knowledge-standards/00-index.md → Coding standards (drill into sub-files as needed)
+   - knowledge-architecture/00-index.md → Component patterns (drill into sub-files as needed)
+   - knowledge-domain/00-index.md → API contracts, data shapes (drill into sub-files as needed)
    → USE these as constraints
 
 2. CHECK for:

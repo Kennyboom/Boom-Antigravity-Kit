@@ -7,15 +7,16 @@ Documentation can look complete while hiding major risk: unverified controls, pr
 ## What it generates
 Docs Audit manages these mandatory outputs in the audit directory:
 
-- documents/audit/audit-security.md
-- documents/audit/audit-compliance.md
-- documents/audit/audit-dataflow.md
-- documents/audit/audit-recommendations.md
+- documents/audit/audit-security/ (00-index.md + 01~04)
+- documents/audit/audit-compliance/ (00-index.md + 01~04)
+- documents/audit/audit-dataflow/ (00-index.md + 01~04)
+- documents/audit/audit-recommendations/ (00-index.md + 01~04)
 
 Mode behavior:
 
-- CREATE: produce missing audit documents from scratch.
-- UPDATE: refresh existing audit files with current evidence, preserving valid context.
+- CREATE: produce missing audit folders from scratch.
+- UPDATE: refresh existing audit folders with current evidence, preserving valid context.
+- MIGRATE: convert legacy flat `audit-*.md` files into folder-based structure.
 
 ## Core capabilities
 - Scans audit surface using skills/docs-audit/scripts/scan-audit-surface.sh.
@@ -46,12 +47,13 @@ Mode behavior:
 - Existing files in documents/audit/
 
 ## Quality gates / Definition of Done
-- All four mandatory audit documents exist and are up to date.
+- All four mandatory audit folders exist with 00-index.md and sub-files.
 - Major claims are explicitly tagged as Verified, Partial, or Unknown.
 - Scoring is strict, justified, and free from inflated confidence.
 - Findings include severity, rationale, and evidence references.
 - Recommendations are prioritized and realistically actionable.
-- Cross-file consistency is maintained for finding IDs and severity logic.
+- Cross-folder consistency is maintained for finding IDs and severity logic.
+- Each 00-index.md contains a strict score section.
 
 ## Typical use cases
 - Produce a baseline security and compliance audit package.

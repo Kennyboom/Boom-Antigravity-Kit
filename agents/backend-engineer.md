@@ -60,9 +60,9 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (if ./documents/ exists):
-   - knowledge-standards.md → Coding standards
-   - knowledge-architecture.md → Architecture patterns
-   - knowledge-domain.md → Data models, API contracts
+   - knowledge-standards/00-index.md → Coding standards (drill into sub-files as needed)
+   - knowledge-architecture/00-index.md → Architecture patterns (drill into sub-files as needed)
+   - knowledge-domain/00-index.md → Data models, API contracts (drill into sub-files as needed)
    → USE these as constraints for implementation
 
 2. CHECK: ./reports/{topic}/plans/PLAN-{feature} exists?

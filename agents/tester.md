@@ -60,8 +60,8 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (if ./documents/ exists):
-   - knowledge-standards.md → Testing standards
-   - knowledge-domain.md → Data shapes, API contracts
+   - knowledge-standards/00-index.md → Testing standards (drill into sub-files as needed)
+   - knowledge-domain/00-index.md → Data shapes, API contracts (drill into sub-files as needed)
    → USE these for test fixtures/assertions
 
 2. IF ./reports/{topic}/plans/PLAN-{feature} exists:

@@ -13,9 +13,10 @@ metadata:
 
 This skill replaces the workflow in `commands/docs/audit.md` with a reusable, self-contained audit documentation engine.
 
-It supports two modes:
-- `CREATE`: generate missing audit documents from scratch.
-- `UPDATE`: refresh existing audit documents without discarding still-valid context.
+It supports three modes:
+- `CREATE`: generate missing audit folders from scratch.
+- `UPDATE`: refresh existing audit folders without discarding still-valid context.
+- `MIGRATE`: convert legacy flat `audit-*.md` files into folder-based structure.
 
 All generated files under `./documents/` must be written in English only.
 
@@ -45,21 +46,21 @@ Visual clarity bars:
 
 ## Deliverables
 
-| # | File | Purpose |
+| # | Folder | Purpose |
 |---|---|---|
-| 1 | `./documents/audit/audit-security.md` | Security assessment, attack surface, findings, and risk summary |
-| 2 | `./documents/audit/audit-compliance.md` | Compliance posture, control mapping, and verification gaps |
-| 3 | `./documents/audit/audit-dataflow.md` | Data flow map, trust boundaries, privacy posture, and sensitive-data handling |
-| 4 | `./documents/audit/audit-recommendations.md` | Prioritized remediation roadmap, score uplift plan, and implementation guidance |
+| 1 | `./documents/audit/audit-security/` | Security assessment, attack surface, findings, and risk summary (00-index + 01~04) |
+| 2 | `./documents/audit/audit-compliance/` | Compliance posture, control mapping, and verification gaps (00-index + 01~04) |
+| 3 | `./documents/audit/audit-dataflow/` | Data flow map, trust boundaries, privacy posture, and sensitive-data handling (00-index + 01~04) |
+| 4 | `./documents/audit/audit-recommendations/` | Prioritized remediation roadmap, score uplift plan, and implementation guidance (00-index + 01~04) |
 
 Failure condition:
-- If fewer than 4 files are produced, execution is incomplete.
+- If fewer than 4 folders are produced with their sub-files, execution is incomplete.
 
-Per-file standard (mandatory):
-- `audit-security.md`: vulnerabilities identified, OWASP checklist complete, risk assessment complete.
-- `audit-compliance.md`: control coverage matrix, compliance gap register, evidence-state rigor.
-- `audit-dataflow.md`: trust boundaries + sensitive data paths + privacy posture.
-- `audit-recommendations.md`: prioritized and actionable remediation roadmap linked to finding IDs.
+Per-folder standard (mandatory):
+- `audit-security/`: vulnerabilities identified, OWASP checklist complete, risk assessment complete.
+- `audit-compliance/`: control coverage matrix, compliance gap register, evidence-state rigor.
+- `audit-dataflow/`: trust boundaries + sensitive data paths + privacy posture.
+- `audit-recommendations/`: prioritized and actionable remediation roadmap linked to finding IDs.
 
 ## Required References
 
@@ -83,22 +84,23 @@ Before analysis begins:
 4. If `./documents/templates/` or `./documents/templates/audit/` exists, treat it as legacy output and ignore it as a template source.
 5. Do not create or persist template copies under `./documents/templates/`.
 6. If legacy template copies are present, remove them before continuing.
-7. Check which of the 4 audit files already exist.
-8. Determine per-file mode:
-   - missing file -> `CREATE`
-   - existing file -> `UPDATE`
+7. Check which of the 4 audit folders already exist.
+8. Determine per-folder mode:
+   - folder exists with sub-files -> `UPDATE`
+   - flat file exists (legacy `audit-*.md`) -> `MIGRATE`
+   - neither exists -> `CREATE`
 9. Record execution plan before writing.
 
 Output format:
 
 ```markdown
 ## Docs-Audit Execution Plan
-| File | Status | Mode |
-|------|--------|------|
-| audit-security.md | Exists / Missing | UPDATE / CREATE |
-| audit-compliance.md | Exists / Missing | UPDATE / CREATE |
-| audit-dataflow.md | Exists / Missing | UPDATE / CREATE |
-| audit-recommendations.md | Exists / Missing | UPDATE / CREATE |
+| Folder | Status | Mode |
+|--------|--------|------|
+| audit-security/ | Exists / Missing / Legacy flat file | UPDATE / CREATE / MIGRATE |
+| audit-compliance/ | Exists / Missing / Legacy flat file | UPDATE / CREATE / MIGRATE |
+| audit-dataflow/ | Exists / Missing / Legacy flat file | UPDATE / CREATE / MIGRATE |
+| audit-recommendations/ | Exists / Missing / Legacy flat file | UPDATE / CREATE / MIGRATE |
 ```
 
 ### Step 1: Hybrid Audit Reconnaissance
@@ -252,24 +254,25 @@ Mapping rules:
 
 Verify all of the following before completion:
 
-| Check | audit-security | audit-compliance | audit-dataflow | audit-recommendations |
+| Check | audit-security/ | audit-compliance/ | audit-dataflow/ | audit-recommendations/ |
 |---|---|---|---|---|
-| File exists | □ | □ | □ | □ |
-| TOC present | □ | □ | □ | □ |
+| Folder exists with 00-index + sub-files | □ | □ | □ | □ |
+| TOC present in 00-index.md | □ | □ | □ | □ |
 | English only | □ | □ | □ | □ |
 | Evidence sources present | □ | □ | □ | □ |
-| Known gaps present | □ | □ | □ | □ |
-| Final strict score present | □ | □ | □ | □ |
+| Known gaps present in 00-index.md | □ | □ | □ | □ |
+| Strict score in 00-index.md | □ | □ | □ | □ |
 | No TODO/TBD placeholders | □ | □ | □ | □ |
 | No unresolved {placeholder} markers | □ | □ | □ | □ |
 | Claims backed by evidence | □ | □ | □ | □ |
 | Score rationale present | □ | □ | □ | □ |
+| Finding IDs consistent cross-folder | □ | □ | □ | □ |
 
 Additional quality gates:
-- `audit-security.md` must contain at least one attack-surface view and one findings table.
-- `audit-compliance.md` must contain at least one control-mapping table.
-- `audit-dataflow.md` must contain at least one data-flow or trust-boundary diagram.
-- `audit-recommendations.md` must contain a prioritized remediation matrix.
+- `audit-security/` must contain at least one attack-surface view and one findings table.
+- `audit-compliance/` must contain at least one control-mapping table.
+- `audit-dataflow/` must contain at least one data-flow or trust-boundary diagram.
+- `audit-recommendations/` must contain a prioritized remediation matrix and score uplift plan.
 
 ### Step 8: Completion Report
 
@@ -278,12 +281,12 @@ Provide a concise final report:
 ```markdown
 ## Docs-Audit Complete
 
-| File | Mode | Status |
+| Folder | Mode | Status |
 |---|---|---|
-| ./documents/audit/audit-security.md | CREATE/UPDATE | ✅ |
-| ./documents/audit/audit-compliance.md | CREATE/UPDATE | ✅ |
-| ./documents/audit/audit-dataflow.md | CREATE/UPDATE | ✅ |
-| ./documents/audit/audit-recommendations.md | CREATE/UPDATE | ✅ |
+| ./documents/audit/audit-security/ | CREATE/UPDATE/MIGRATE | ✅ |
+| ./documents/audit/audit-compliance/ | CREATE/UPDATE/MIGRATE | ✅ |
+| ./documents/audit/audit-dataflow/ | CREATE/UPDATE/MIGRATE | ✅ |
+| ./documents/audit/audit-recommendations/ | CREATE/UPDATE/MIGRATE | ✅ |
 
 ### Score Summary
 - Security posture: {score}
@@ -308,8 +311,9 @@ Provide a concise final report:
 The skill is not complete if it produces shallow summaries.
 
 It is complete only when:
-- all 4 files exist
-- each file is evidence-driven
-- each file contains a strict score section
+- all 4 folders exist with 00-index.md + sub-files
+- each folder is evidence-driven
+- each 00-index.md contains a strict score section
+- finding IDs are consistent across folders
 - the package is materially as rigorous as `docs-core`
 - recommendations are actionable enough for engineering planning

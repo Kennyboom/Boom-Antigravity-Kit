@@ -103,12 +103,12 @@ Apply a cap when one or more blockers exist.
 
 Recommended weighted roll-up:
 
-| File | Weight |
+| Folder | Weight |
 | --- | --- |
-| audit-security.md | 35 |
-| audit-compliance.md | 25 |
-| audit-dataflow.md | 20 |
-| audit-recommendations.md | 20 |
+| audit-security/ | 35 |
+| audit-compliance/ | 25 |
+| audit-dataflow/ | 20 |
+| audit-recommendations/ | 20 |
 
 Rules:
 - If any individual file is below 50, overall maturity cannot exceed `D`.

@@ -61,9 +61,9 @@ ALWAYS:
 
 ```
 CHECK PROJECT DOCS (if ./documents/ exists):
-- knowledge-overview.md → Project scope
-- business/business-prd.md → Existing requirements
-- business/business-features.md → Existing features
+- knowledge-overview/00-index.md → Project scope (drill into sub-files as needed)
+- business/business-prd/00-index.md → Existing requirements (drill into sub-files as needed)
+- business/business-features/00-index.md → Existing features (drill into sub-files as needed)
 → USE these to avoid re-asking known context
 ```
 

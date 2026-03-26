@@ -61,8 +61,8 @@ ALWAYS:
 
 ```
 CHECK PROJECT DOCS (if ./documents/ exists):
-- knowledge-standards.md → Design standards
-- business/business-workflows.md → User flows
+- knowledge-standards/00-index.md → Design standards (drill into sub-files as needed)
+- business/business-workflows/00-index.md → User flows (drill into sub-files as needed)
 → USE these for design decisions
 ```
 

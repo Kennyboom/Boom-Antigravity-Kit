@@ -61,10 +61,10 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (if ./documents/ exists):
-   - knowledge-standards.md → Coding standards
-   - knowledge-architecture.md → App architecture
-   - knowledge-domain.md → API contracts, data shapes
-   → USE these for implementation decisions
+   - knowledge-standards/00-index.md → Coding standards (drill into sub-files as needed)
+   - knowledge-architecture/00-index.md → App architecture (drill into sub-files as needed)
+   - knowledge-domain/00-index.md → API contracts, data shapes (drill into sub-files as needed)
+   → USE these as constraints for implementation
 
 2. IF plan exists: READ → FOLLOW EXACTLY
 3. IF no plan + complex: STOP → Request plan

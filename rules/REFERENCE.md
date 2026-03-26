@@ -105,14 +105,18 @@ performance-engineer: ./reports/{topic}/performance/{component}/00-index.md + se
 
 ---
 
-## DOCUMENTATION PATHS (from /docs:core)
+## DOCUMENTATION PATHS (from /docs:core v2.0 — folder-based)
 
 ```yaml
-overview:     ./documents/knowledge-overview.md
-architecture: ./documents/knowledge-architecture.md
-domain:       ./documents/knowledge-domain.md
-source-base:  ./documents/knowledge-source-base.md
-standards:    ./documents/knowledge-standards.md
+# Each knowledge area is now a FOLDER with 00-index.md + sub-files
+overview:     ./documents/knowledge-overview/00-index.md       # + 01~04 sub-files
+architecture: ./documents/knowledge-architecture/00-index.md   # + 01~05 sub-files
+domain:       ./documents/knowledge-domain/00-index.md         # + 01~04 sub-files
+source-base:  ./documents/knowledge-source-base/00-index.md    # + 01~04 sub-files
+standards:    ./documents/knowledge-standards/00-index.md       # + 01~04 sub-files
+
+# To get full context: read 00-index.md first, then load specific sub-files
+# To get quick overview: read only 00-index.md files
 ```
 
 ---

@@ -61,8 +61,8 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (if ./documents/ exists):
-   - knowledge-architecture.md → Infrastructure patterns
-   - knowledge-standards.md → Deployment standards
+   - knowledge-architecture/00-index.md → Infrastructure patterns (drill into sub-files as needed)
+   - knowledge-standards/00-index.md → Deployment standards (drill into sub-files as needed)
    → FOLLOW existing infra conventions
 
 2. CHECK: ./reports/{topic}/plans/PLAN-{feature}

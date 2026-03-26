@@ -61,9 +61,9 @@ ALWAYS:
 
 ```
 CHECK PROJECT DOCS (if ./documents/ exists):
-- knowledge-overview.md → Project context
-- knowledge-architecture.md → Technical context
-- knowledge-domain.md → Domain concepts
+- knowledge-overview/00-index.md → Project context (drill into sub-files as needed)
+- knowledge-architecture/00-index.md → Technical context (drill into sub-files as needed)
+- knowledge-domain/00-index.md → Domain concepts (drill into sub-files as needed)
 → USE these to focus research on project needs
 ```
 

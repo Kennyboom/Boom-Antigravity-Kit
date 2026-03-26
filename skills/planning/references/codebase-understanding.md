@@ -21,11 +21,11 @@ ALWAYS read these files first when they exist under `./documents/`:
    - Development rules and best practices
    - Code quality standards & Security guidelines
 
-2. **`./documents/knowledge-overview.md`** — Project purpose, goals, tech stack, getting started
-3. **`./documents/knowledge-architecture.md`** — System design, components, data flow, patterns
-4. **`./documents/knowledge-source-base.md`** — Project structure, modules, entry points
-5. **`./documents/knowledge-domain.md`** — Data models, API contracts, domain entities
-6. **`./documents/knowledge-standards.md`** — Coding conventions, naming, commit format
+2. **`./documents/knowledge-overview/00-index.md`** — Project purpose, goals, tech stack, getting started (drill into sub-files as needed)
+3. **`./documents/knowledge-architecture/00-index.md`** — System design, components, data flow, patterns (drill into sub-files as needed)
+4. **`./documents/knowledge-source-base/00-index.md`** — Project structure, modules, entry points (drill into sub-files as needed)
+5. **`./documents/knowledge-domain/00-index.md`** — Data models, API contracts, domain entities (drill into sub-files as needed)
+6. **`./documents/knowledge-standards/00-index.md`** — Coding conventions, naming, commit format (drill into sub-files as needed)
 7. **`./docs/design-guidelines.md`** (if exists) — Design system, branding, UI/UX
    - Design system guidelines
    - Branding and UI/UX conventions

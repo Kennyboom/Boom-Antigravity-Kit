@@ -61,9 +61,9 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (if ./documents/ exists):
-   - knowledge-standards.md → Coding standards
-   - knowledge-architecture.md → Game architecture
-   - knowledge-domain.md → Game data models
+   - knowledge-standards/00-index.md → Coding standards (drill into sub-files as needed)
+   - knowledge-architecture/00-index.md → Game architecture (drill into sub-files as needed)
+   - knowledge-domain/00-index.md → Game data models (drill into sub-files as needed)
    → USE these for implementation decisions
 
 2. IF plan exists: READ → FOLLOW specifications EXACTLY

@@ -61,9 +61,9 @@ ALWAYS:
 
 ```
 CHECK PROJECT DOCS (if ./documents/ exists):
-- knowledge-overview.md → Project scope
-- knowledge-domain.md → Data/API scope
-- business/business-prd.md → Requirements
+- knowledge-overview/00-index.md → Project scope (drill into sub-files as needed)
+- knowledge-domain/00-index.md → Data/API scope (drill into sub-files as needed)
+- business/business-prd/00-index.md → Requirements (drill into sub-files as needed)
 → USE these for project tracking and scope management
 ```
 

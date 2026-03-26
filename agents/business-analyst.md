@@ -61,9 +61,9 @@ ALWAYS:
 
 ```
 CHECK PROJECT DOCS (if ./documents/ exists):
-- business/business-prd.md → Existing PRD
-- business/business-features.md → Feature list
-- business/business-workflows.md → User workflows
+- business/business-prd/00-index.md → Existing PRD (drill into sub-files as needed)
+- business/business-features/00-index.md → Feature list (drill into sub-files as needed)
+- business/business-workflows/00-index.md → User workflows (drill into sub-files as needed)
 → BUILD ON existing docs, don't start from scratch
 ```
 

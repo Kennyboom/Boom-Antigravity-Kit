@@ -82,10 +82,10 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (CRITICAL):
-   - knowledge-overview.md → Project scope
-   - knowledge-architecture.md → Existing architecture
-   - knowledge-domain.md → Data models, API contracts
-   - knowledge-standards.md → Standards to enforce
+   - knowledge-overview/00-index.md → Project scope (drill into sub-files as needed)
+   - knowledge-architecture/00-index.md → Existing architecture (drill into sub-files as needed)
+   - knowledge-domain/00-index.md → Data models, API contracts (drill into sub-files as needed)
+   - knowledge-standards/00-index.md → Standards to enforce (drill into sub-files as needed)
    → INCORPORATE into plan constraints
 
 2. CHECK for prior deliverables:

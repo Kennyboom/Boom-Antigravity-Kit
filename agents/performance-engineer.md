@@ -61,9 +61,9 @@ ALWAYS:
 
 ```
 CHECK PROJECT DOCS (if ./documents/ exists):
-- knowledge-standards.md → Performance budgets
-- knowledge-architecture.md → System architecture
-- knowledge-domain.md → Data flows, API surface
+- knowledge-standards/00-index.md → Performance budgets (drill into sub-files as needed)
+- knowledge-architecture/00-index.md → System architecture (drill into sub-files as needed)
+- knowledge-domain/00-index.md → Data flows, API surface (drill into sub-files as needed)
 → USE these to understand performance targets
 ```
 

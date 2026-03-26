@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2026-03-26
+
+### Changed
+- **Documentation Workflows — Folder-Based Architecture**: Migrated all 3 `/docs` sub-command workflows from single-file to folder-based structure for greater detail and maintainability
+  - **`/docs:core` (v3.0)**: 5 knowledge folders, each with `00-index.md` + numbered sub-files. Added MIGRATE mode for legacy flat-file-to-folder conversion, Thinking Protocol (7-question pre-write checklist), Anti-Shallow Guardrails, and Mode Detection table with per-folder CREATE/UPDATE/MIGRATE resolution
+  - **`/docs:business` (v4.0)**: 4 business folders with folder-based structure. Added MIGRATE mode, Thinking Protocol (5-question checklist), Anti-Shallow Guardrails, and Business Evidence Ledger
+  - **`/docs:audit` (v4.0)**: 4 audit folders with folder-based structure. Added MIGRATE mode, Thinking Protocol (5-question security-focused checklist), and Signal Precision Rules
+  - **`/docs` router (v2.0)**: Updated sequential execution flow references to match new folder-based deliverables and corrected version references
+- **Cross-Workflow Consistency**: Harmonized agent roles (`docs-manager` for generation phase), mode rules (CREATE/UPDATE/MIGRATE), quality mechanisms (Thinking Protocol, Evidence Ledger), and exit criteria across all 3 workflows
+
 ## [1.3.0] - 2026-03-23
 
 ### Added
@@ -90,7 +100,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Blueprint**: `documents/SMART-SKILL-ORCHESTRATION-BLUEPRINT.md` — architecture for dynamic skill resolution
   - **Assessment**: `documents/HSOL-ASSESSMENT.md` — production readiness evaluation
   - **Manifest**: `matrix-skills/_dynamic.yaml` — tracking for dynamically installed community skills
-  - **Knowledge base**: Updated `documents/knowledge-architecture.md`, `documents/knowledge-source-base.md` with HSOL references
+  - **Knowledge base**: Updated `documents/knowledge-architecture/` folder, `documents/knowledge-source-base/` folder with HSOL references
 
 ### Changed
 

@@ -61,9 +61,9 @@ ALWAYS:
 
 ```
 1. CHECK PROJECT DOCS (if ./documents/ exists):
-   - knowledge-architecture.md → Existing architecture
-   - knowledge-domain.md → Data models, schema
-   - knowledge-standards.md → Naming conventions
+   - knowledge-architecture/00-index.md → Existing architecture (drill into sub-files as needed)
+   - knowledge-domain/00-index.md → Data models, schema (drill into sub-files as needed)
+   - knowledge-standards/00-index.md → Naming conventions (drill into sub-files as needed)
    → USE these for schema naming and structure
 
 2. CHECK: ./reports/{topic}/plans/PLAN-{feature}

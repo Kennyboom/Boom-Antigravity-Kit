@@ -62,9 +62,9 @@ ALWAYS:
 
 ```
 CHECK PROJECT DOCS (if ./documents/ exists):
-- knowledge-standards.md → Security standards
-- knowledge-architecture.md → Attack surface
-- knowledge-domain.md → API surface, auth boundaries
+- knowledge-standards/00-index.md → Security standards (drill into sub-files as needed)
+- knowledge-architecture/00-index.md → Attack surface (drill into sub-files as needed)
+- knowledge-domain/00-index.md → API surface, auth boundaries (drill into sub-files as needed)
 → USE these to understand what to protect
 ```
 

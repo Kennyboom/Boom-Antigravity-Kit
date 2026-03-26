@@ -2,7 +2,7 @@ import type { Node, Edge } from '@xyflow/react'
 
 /**
  * Workflow Architecture Data
- * Based on actual Agent Assistant system architecture from knowledge-architecture.md
+ * Based on actual Agent Assistant system architecture from knowledge-architecture/00-index.md
  * 
  * WORKFLOW FLOW:
  * 1. User Request → Command Router (parse /command or natural language)

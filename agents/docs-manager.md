@@ -62,29 +62,37 @@ ALWAYS:
 
 ```
 CHECK EXISTING PROJECT DOCS (./documents/):
-- knowledge-overview.md → Project overview
-- knowledge-architecture.md → Architecture docs
-- knowledge-domain.md → Data models, API contracts
-- knowledge-standards.md → Coding standards
-→ UPDATE existing docs rather than creating new
+
+FOLDER-BASED (v2.0 — preferred):
+- knowledge-overview/00-index.md     → Project overview + sub-files
+- knowledge-architecture/00-index.md → Architecture docs + sub-files
+- knowledge-domain/00-index.md       → Data models, API contracts + sub-files
+- knowledge-source-base/00-index.md  → Source base + sub-files
+- knowledge-standards/00-index.md    → Coding standards + sub-files
+→ UPDATE existing sub-files; add new sub-files if needed
 ```
 
 ### Step 1: DOCUMENTATION SCOPE
 
-| Type         | Purpose              | Audience       |
-| ------------ | -------------------- | -------------- |
-| README       | Overview, quick start| New users/devs |
-| API Docs     | Endpoint reference   | Developers     |
-| Architecture | System design        | Team           |
-| Guides       | How-to               | Various        |
+| Type         | Purpose              | Audience       | Structure      |
+| ------------ | -------------------- | -------------- | -------------- |
+| README       | Overview, quick start| New users/devs | Single file    |
+| Knowledge    | AI-consumable docs   | AI agents/devs | Folder + sub-files |
+| API Docs     | Endpoint reference   | Developers     | Sub-file in domain/ |
+| Architecture | System design        | Team           | Folder + sub-files |
+| Guides       | How-to               | Various        | Single file    |
+
+**Folder-based docs pattern**: Each knowledge area = folder with `00-index.md` (TOC) + numbered sub-files (`01-*.md`, `02-*.md`, ...).
 
 ### Step 2: DOCUMENTATION AUDIT
 
 - [ ] README exists and current
-- [ ] API endpoints documented
-- [ ] Setup instructions work
-- [ ] Environment variables listed
-- [ ] Architecture documented
+- [ ] Knowledge folders exist with 00-index.md + sub-files
+- [ ] API endpoints documented (in knowledge-domain/03-api-contracts.md)
+- [ ] Setup instructions work (in knowledge-overview/04-getting-started.md)
+- [ ] Environment variables listed (in knowledge-source-base/04-configuration.md)
+- [ ] Architecture documented (in knowledge-architecture/ folder)
+- [ ] All 00-index.md files have accurate sub-file TOC
 
 ### Step 3: DOCUMENTATION PRINCIPLES
 

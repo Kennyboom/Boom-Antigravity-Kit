@@ -61,8 +61,8 @@ ALWAYS:
 
 ```
 CHECK PROJECT DOCS (if bug involves domain logic):
-- knowledge-architecture.md → System understanding
-- knowledge-domain.md → Expected behavior
+- knowledge-architecture/00-index.md → System understanding (drill into sub-files as needed)
+- knowledge-domain/00-index.md → Expected behavior (drill into sub-files as needed)
 → USE these to understand what SHOULD happen
 ```
 
