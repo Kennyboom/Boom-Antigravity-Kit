@@ -100,6 +100,14 @@ If search          → search index + suggestions + history
 
 ## Phase 3: Spec Generation (per feature)
 
+> 🚨 **MANDATORY:** `view_file` the feature templates reference
+> BEFORE writing any spec:
+> `.agent/workflows/references/plan/feature-templates.md`
+>
+> Choose the right template per feature type:
+> UI → Template 1 | API → Template 2 | Full-stack → Template 3
+> AI/LLM → Template 4 | IPC → Template 5 | Security → Template 6
+
 ### 3.1 User Story (MANDATORY)
 
 ```

@@ -1,113 +1,183 @@
 ---
-description: Structured brainstorming for projects and features. Explores multiple options before implementation.
+description: >-
+  Structured Brainstorming Engine v3 — SCAMPER ideation, user
+  journey mapping, competitive analysis, decision matrix with
+  weighted scoring. Explores multiple approaches before
+  committing to implementation.
 ---
 
-# /brainstorm - Structured Idea Exploration
+# /brainstorm — Structured Idea Exploration v3.0
 
 $ARGUMENTS
 
 ---
 
-## Purpose
+## Sub-commands
 
-This command activates BRAINSTORM mode for structured idea exploration. Use when you need to explore options before committing to an implementation.
-
----
-
-## Behavior
-
-When `/brainstorm` is triggered:
-
-1. **Understand the goal**
-   - What problem are we solving?
-   - Who is the user?
-   - What constraints exist?
-
-2. **Generate options**
-   - Provide at least 3 different approaches
-   - Each with pros and cons
-   - Consider unconventional solutions
-
-3. **Compare and recommend**
-   - Summarize tradeoffs
-   - Give a recommendation with reasoning
+```
+/brainstorm [topic]          - Full structured exploration
+/brainstorm:quick [topic]    - Fast 3-option comparison
+/brainstorm:team [topic]     - Multi-perspective exploration
+```
 
 ---
 
-## Output Format
+## GOLDEN RULES
+
+```
+1. NO CODE — Ideas only, implementation comes later
+2. 3+ OPTIONS MINIMUM — Never present just one approach
+3. HONEST TRADEOFFS — Don't hide complexity or risk
+4. USER DECIDES — Present, don't dictate
+5. RESEARCH FIRST — search_web for current best practices
+```
+
+---
+
+## Phase 1: Problem Understanding
+
+```
+BEFORE generating ideas:
+
+1. WHAT problem are we solving?
+   → Core need (not symptom)
+
+2. WHO is affected?
+   → User types, stakeholders
+
+3. WHAT constraints exist?
+   → Time, budget, tech stack, team size
+
+4. WHAT does success look like?
+   → Measurable outcomes
+
+5. WHAT has been tried before?
+   → Past approaches, why they failed
+
+Report:
+  "🧠 BRAINSTORM: [Topic]
+   🎯 Problem: [core need]
+   👤 Users: [who]
+   ⚠️ Constraints: [limits]
+   📊 Success metric: [measurable outcome]"
+```
+
+---
+
+## Phase 2: Research (MANDATORY for tech decisions)
+
+```
+For technical decisions:
+□ search_web for current best practices (2025+)
+□ Check ecosystem maturity (GitHub stars, npm downloads)
+□ Find real-world case studies
+□ Identify common pitfalls
+
+For product decisions:
+□ Competitor analysis (how do others solve this?)
+□ User behavior patterns
+□ Market trends
+```
+
+---
+
+## Phase 3: SCAMPER Ideation
+
+```
+Apply SCAMPER framework to generate diverse ideas:
+
+S — SUBSTITUTE: What can we replace?
+C — COMBINE: What can we merge?
+A — ADAPT: What can we borrow from elsewhere?
+M — MODIFY: What can we change/enhance?
+P — PUT TO OTHER USE: Can we repurpose?
+E — ELIMINATE: What can we remove?
+R — REVERSE: What if we flip the approach?
+
+→ Generate at least 5 raw ideas
+→ Filter to top 3 viable options
+```
+
+---
+
+## Phase 4: Option Exploration (minimum 3)
 
 ```markdown
-## 🧠 Brainstorm: [Topic]
+### Option A: [Name] — [1-line summary]
 
-### Context
-[Brief problem statement]
+**How it works:**
+[2-3 sentences explaining the approach]
 
----
+**Architecture sketch:**
+[ASCII diagram if applicable]
 
-### Option A: [Name]
-[Description]
+✅ Pros:
+- [benefit with specifics]
+- [benefit with specifics]
 
-✅ **Pros:**
-- [benefit 1]
-- [benefit 2]
+❌ Cons:
+- [risk with mitigation]
+- [risk with mitigation]
 
-❌ **Cons:**
-- [drawback 1]
+📊 Effort: [Low/Medium/High] | Risk: [Low/Medium/High]
+🔧 Tech: [key technologies/libraries]
+⏱️ Timeline: [estimate]
+```
 
-📊 **Effort:** Low | Medium | High
-
----
-
-### Option B: [Name]
-[Description]
-
-✅ **Pros:**
-- [benefit 1]
-
-❌ **Cons:**
-- [drawback 1]
-- [drawback 2]
-
-📊 **Effort:** Low | Medium | High
+Repeat for Options B, C (minimum 3).
 
 ---
 
-### Option C: [Name]
-[Description]
+## Phase 5: Decision Matrix
 
-✅ **Pros:**
-- [benefit 1]
+```markdown
+| Criteria (weighted) | Option A | Option B | Option C |
+|---------------------|:--------:|:--------:|:--------:|
+| Effort (25%) | [1-5] | [1-5] | [1-5] |
+| Scalability (20%) | [1-5] | [1-5] | [1-5] |
+| User Experience (20%) | [1-5] | [1-5] | [1-5] |
+| Maintainability (15%) | [1-5] | [1-5] | [1-5] |
+| Risk (10%) | [1-5] | [1-5] | [1-5] |
+| Time to Market (10%) | [1-5] | [1-5] | [1-5] |
+| **WEIGHTED TOTAL** | **[X]** | **[Y]** | **[Z]** |
 
-❌ **Cons:**
-- [drawback 1]
-
-📊 **Effort:** Low | Medium | High
-
----
-
-## 💡 Recommendation
-
-**Option [X]** because [reasoning].
-
-What direction would you like to explore?
+🏆 Winner: Option [X] — Score: [N]/5
 ```
 
 ---
 
-## Examples
+## Phase 6: Recommendation
 
 ```
-/brainstorm authentication system
-/brainstorm state management for complex form
-/brainstorm database schema for social app
-/brainstorm caching strategy
+"💡 RECOMMENDATION: Option [X]
+
+WHY: [2-3 sentences with reasoning]
+
+RISKS: [main risk + mitigation]
+
+NEXT STEPS:
+1. /plan [approved option]
+2. /architect [detailed design]
+3. /create [implementation]
+
+What direction would you like to explore?"
 ```
 
 ---
 
-## Key Principles
+## :team Variant — Multi-Perspective
 
-- **No code** - this is about ideas, not implementation
-- **Visual when helpful** - use diagrams for architecture
-- **Honest tradeoffs** - don't hide complexity
-- **Defer to user** - present options, let them decide
+```
+For :team mode, explore from 3 viewpoints:
+
+👤 USER PERSPECTIVE:
+   "As a user, I would prefer... because..."
+
+🔧 ENGINEER PERSPECTIVE:
+   "Technically, the best approach is... because..."
+
+💰 BUSINESS PERSPECTIVE:
+   "For growth/cost, we should... because..."
+
+Then synthesize into unified recommendation.
+```

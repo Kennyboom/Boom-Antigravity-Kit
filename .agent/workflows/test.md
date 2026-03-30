@@ -1,144 +1,261 @@
 ---
-description: Test generation and test running command. Creates and executes tests for code.
+description: >-
+  Test Engineer v3 — TDD workflow, test pyramid strategy,
+  coverage targets, integration/E2E patterns, mutation testing.
 ---
 
-# /test - Test Generation and Execution
+# /test — Test Engineer v3.0
 
 $ARGUMENTS
-
----
-
-## Purpose
-
-This command generates tests, runs existing tests, or checks test coverage.
 
 ---
 
 ## Sub-commands
 
 ```
-/test                - Run all tests
-/test [file/feature] - Generate tests for specific target
-/test coverage       - Show test coverage report
-/test watch          - Run tests in watch mode
+/test                  - Run all tests
+/test [file/feature]   - Generate tests for target
+/test coverage         - Show coverage report
+/test tdd [feature]    - Start TDD cycle for feature
+/test e2e              - Run end-to-end tests
 ```
 
 ---
 
-## Behavior
-
-### Generate Tests
-
-When asked to test a file or feature:
-
-1. **Analyze the code**
-   - Identify functions and methods
-   - Find edge cases
-   - Detect dependencies to mock
-
-2. **Generate test cases**
-   - Happy path tests
-   - Error cases
-   - Edge cases
-   - Integration tests (if needed)
-
-3. **Write tests**
-   - Use project's test framework (Jest, Vitest, etc.)
-   - Follow existing test patterns
-   - Mock external dependencies
-
----
-
-## Output Format
-
-### For Test Generation
-
-```markdown
-## 🧪 Tests: [Target]
-
-### Test Plan
-| Test Case | Type | Coverage |
-|-----------|------|----------|
-| Should create user | Unit | Happy path |
-| Should reject invalid email | Unit | Validation |
-| Should handle db error | Unit | Error case |
-
-### Generated Tests
-
-`tests/[file].test.ts`
-
-[Code block with tests]
-
----
-
-Run with: `npm test`
-```
-
-### For Test Execution
+## GOLDEN RULES
 
 ```
-🧪 Running tests...
-
-✅ auth.test.ts (5 passed)
-✅ user.test.ts (8 passed)
-❌ order.test.ts (2 passed, 1 failed)
-
-Failed:
-  ✗ should calculate total with discount
-    Expected: 90
-    Received: 100
-
-Total: 15 tests (14 passed, 1 failed)
+1. TEST BEHAVIOR, NOT IMPLEMENTATION — Refactor-proof tests
+2. ONE ASSERTION PER TEST — Clear failure messages
+3. ARRANGE-ACT-ASSERT — Consistent structure
+4. TEST PYRAMID — Many unit, some integration, few E2E
+5. NO FLAKY TESTS — Deterministic, no timing deps
+6. REGRESSION FIRST — Add test for bugs BEFORE fixing
 ```
 
 ---
 
-## Examples
+## Phase 1: Test Strategy Analysis
 
 ```
-/test src/services/auth.service.ts
-/test user registration flow
-/test coverage
-/test fix failed tests
+BEFORE writing tests:
+
+1. SCAN project:
+   □ Test framework detected (Jest/Vitest/Playwright?)
+   □ Existing test count and coverage
+   □ Test patterns already in use
+   □ Mock/stub patterns
+
+2. CLASSIFY target:
+   □ Pure function → Unit test
+   □ Component with state → Component test
+   □ API endpoint → Integration test
+   □ User flow → E2E test
+
+Report:
+  "🧪 TEST STRATEGY:
+   Framework: [Jest/Vitest]
+   Current: [X] tests | Coverage: [Y]%
+   Target: [type] tests for [scope]"
 ```
 
 ---
 
-## Test Patterns
+## Phase 2: Coverage Targets
 
-### Unit Test Structure
+```
+COVERAGE BUDGET:
+
+| Layer | Target | Minimum | Tool |
+|-------|:------:|:-------:|------|
+| Statements | 80% | 70% | Jest --coverage |
+| Branches | 75% | 65% | Jest --coverage |
+| Functions | 85% | 75% | Jest --coverage |
+| Lines | 80% | 70% | Jest --coverage |
+
+PRIORITY (what to test FIRST):
+1. Business logic / utils (highest ROI)
+2. API route handlers
+3. Complex components with state
+4. Edge cases from bug history
+5. Integration points (DB, external APIs)
+
+SKIP (not worth testing):
+- Simple getters/setters
+- Framework boilerplate
+- Generated code
+- Constants/types
+```
+
+---
+
+## Phase 3: TDD Workflow (Red → Green → Refactor)
+
+```
+🔴 RED — Write FAILING test first:
+  1. Write test describing desired behavior
+  2. Run → MUST FAIL (proves test works)
+  3. Failure should be for RIGHT reason
+
+🟢 GREEN — Minimal code to pass:
+  1. Write MINIMUM code to make test pass
+  2. No extra features, no "nice to have"
+  3. Run → MUST PASS
+
+🔵 REFACTOR — Clean without breaking:
+  1. Improve code quality
+  2. Run tests → MUST STILL PASS
+  3. No new behavior, only structure changes
+
+REPEAT for each behavior
+```
+
+---
+
+## Phase 4: Test Generation (per type)
+
+### Unit Test Pattern
 
 ```typescript
-describe('AuthService', () => {
-  describe('login', () => {
-    it('should return token for valid credentials', async () => {
+describe('[Module/Function]', () => {
+  // Group by function
+  describe('[functionName]', () => {
+    // Happy path
+    it('should [expected behavior] when [condition]', () => {
       // Arrange
-      const credentials = { email: 'test@test.com', password: 'pass123' };
-      
+      const input = { /* valid data */ };
+
       // Act
-      const result = await authService.login(credentials);
-      
+      const result = functionName(input);
+
       // Assert
-      expect(result.token).toBeDefined();
+      expect(result).toEqual(expectedOutput);
     });
 
-    it('should throw for invalid password', async () => {
-      // Arrange
-      const credentials = { email: 'test@test.com', password: 'wrong' };
-      
-      // Act & Assert
-      await expect(authService.login(credentials)).rejects.toThrow('Invalid credentials');
+    // Error case
+    it('should throw [ErrorType] when [invalid condition]', () => {
+      const invalidInput = { /* bad data */ };
+
+      expect(
+        () => functionName(invalidInput)
+      ).toThrow(ExpectedError);
     });
+
+    // Edge case
+    it('should handle [edge case]', () => {
+      const edgeInput = { /* boundary data */ };
+      const result = functionName(edgeInput);
+      expect(result).toBeDefined();
+    });
+  });
+});
+```
+
+### Component Test Pattern
+
+```typescript
+describe('[ComponentName]', () => {
+  it('renders in idle state', () => {
+    render(<Component />);
+    expect(screen.getByText('...')).toBeVisible();
+  });
+
+  it('shows loading state', () => {
+    render(<Component isLoading />);
+    expect(screen.getByRole('progressbar')).toBeVisible();
+  });
+
+  it('shows error state with retry', async () => {
+    render(<Component error="Failed" />);
+    expect(screen.getByText('Failed')).toBeVisible();
+    expect(screen.getByRole('button', { name: /retry/i }))
+      .toBeVisible();
+  });
+
+  it('shows empty state with CTA', () => {
+    render(<Component data={[]} />);
+    expect(screen.getByText(/no items/i)).toBeVisible();
+  });
+});
+```
+
+### API Integration Test Pattern
+
+```typescript
+describe('POST /api/v1/[resource]', () => {
+  it('creates resource with valid input', async () => {
+    const response = await request(app)
+      .post('/api/v1/resource')
+      .send(validPayload)
+      .set('Authorization', `Bearer ${token}`);
+
+    expect(response.status).toBe(201);
+    expect(response.body).toHaveProperty('id');
+  });
+
+  it('rejects invalid input with 400', async () => {
+    const response = await request(app)
+      .post('/api/v1/resource')
+      .send(invalidPayload);
+
+    expect(response.status).toBe(400);
+  });
+
+  it('rejects unauthorized with 401', async () => {
+    const response = await request(app)
+      .post('/api/v1/resource')
+      .send(validPayload);
+
+    expect(response.status).toBe(401);
   });
 });
 ```
 
 ---
 
-## Key Principles
+## Phase 5: Test Quality Checklist
 
-- **Test behavior not implementation**
-- **One assertion per test** (when practical)
-- **Descriptive test names**
-- **Arrange-Act-Assert pattern**
-- **Mock external dependencies**
+```
+BEFORE submitting tests:
+
+□ Each test has descriptive name
+□ Tests are independent (no shared state)
+□ No hardcoded waits (use waitFor/findBy)
+□ Mocks reset between tests (afterEach)
+□ Edge cases covered (null, empty, max, min)
+□ Error paths covered (network, validation, auth)
+□ All 5 UI states tested (if component)
+□ No console.log left in tests
+□ Tests pass in CI (not just locally)
+□ Coverage meets targets
+```
+
+---
+
+## Output Format
+
+```markdown
+## 🧪 Test Report: [Target]
+
+### Strategy
+| Metric | Value |
+|--------|-------|
+| Framework | [Jest/Vitest] |
+| Tests written | [N] |
+| Coverage | [X]% |
+
+### Test Plan
+| Test Case | Type | Status |
+|-----------|------|:------:|
+| Should [behavior] | Unit | ✅ |
+| Should handle [error] | Unit | ✅ |
+| Should render [state] | Component | ✅ |
+
+### Coverage
+Statements: [X]% | Branches: [Y]%
+Functions: [X]% | Lines: [Y]%
+
+### Next
+1. Run tests: `npm test`
+2. Check coverage: `npm test -- --coverage`
+```
