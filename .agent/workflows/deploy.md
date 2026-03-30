@@ -1,176 +1,205 @@
 ---
-description: Deployment command for production releases. Pre-flight checks and deployment execution.
+description: Production deployment with pre-flight security gate, environment configs, post-deploy verification, and rollback integration.
 ---
 
-# /deploy - Production Deployment
+# /deploy — Production Deployment v2.0
 
 $ARGUMENTS
-
----
-
-## Purpose
-
-This command handles production deployment with pre-flight checks, deployment execution, and verification.
 
 ---
 
 ## Sub-commands
 
 ```
-/deploy            - Interactive deployment wizard
-/deploy check      - Run pre-deployment checks only
-/deploy preview    - Deploy to preview/staging
-/deploy production - Deploy to production
-/deploy rollback   - Rollback to previous version
+/deploy            — Interactive deployment wizard
+/deploy check      — Run pre-deployment checks only
+/deploy preview    — Deploy to preview/staging
+/deploy production — Deploy to production
+/deploy rollback   — Switch to /rollback workflow
 ```
 
 ---
 
-## Pre-Deployment Checklist
-
-Before any deployment:
+## Phase 1: Pre-Flight Security Gate (MANDATORY)
 
 ```markdown
 ## 🚀 Pre-Deploy Checklist
 
-### Code Quality
-- [ ] No TypeScript errors (`npx tsc --noEmit`)
-- [ ] ESLint passing (`npx eslint .`)
-- [ ] All tests passing (`npm test`)
+### Code Quality (ALL must pass)
+- [ ] TypeScript clean: `npx tsc --noEmit` → 0 errors
+- [ ] Lint clean: `npx eslint . --quiet` → 0 errors
+- [ ] Tests passing: `npm test` → all green
+- [ ] Build succeeds: `npm run build` → 0 errors
 
-### Security
-- [ ] No hardcoded secrets
-- [ ] Environment variables documented
-- [ ] Dependencies audited (`npm audit`)
+### Security (ALL must pass)
+- [ ] No hardcoded secrets (grep for API keys, passwords)
+- [ ] No console.log in production code
+- [ ] Dependencies audited: `npm audit` → 0 critical
+- [ ] Environment variables: all documented in .env.example
+- [ ] CORS configured for production origins only
+- [ ] Rate limiting enabled on auth endpoints
 
 ### Performance
-- [ ] Bundle size acceptable
-- [ ] No console.log statements
-- [ ] Images optimized
+- [ ] Bundle size acceptable (check build output)
+- [ ] Images optimized (no 5MB PNGs)
+- [ ] No unnecessary dependencies
+- [ ] Lazy loading for heavy components
 
 ### Documentation
-- [ ] README updated
-- [ ] CHANGELOG updated
-- [ ] API docs current
+- [ ] README up-to-date
+- [ ] CHANGELOG updated with new version
+- [ ] API docs reflect current endpoints
 
-### Ready to deploy? (y/n)
+⛔ ANY check fails → FIX before deploying.
 ```
 
 ---
 
-## Deployment Flow
+## Phase 2: Environment Configuration
 
 ```
-┌─────────────────┐
-│  /deploy        │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  Pre-flight     │
-│  checks         │
-└────────┬────────┘
-         │
-    Pass? ──No──► Fix issues
-         │
-        Yes
-         │
-         ▼
-┌─────────────────┐
-│  Build          │
-│  application    │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  Deploy to      │
-│  platform       │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  Health check   │
-│  & verify       │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│  ✅ Complete    │
-└─────────────────┘
+DETECT deployment target:
+
+| Platform | Detection | Command |
+|----------|-----------|---------|
+| Vercel | vercel.json or .vercel/ | vercel --prod |
+| Railway | railway.toml | railway up |
+| Fly.io | fly.toml | fly deploy |
+| Docker | Dockerfile | docker compose up -d |
+| K8s | k8s/ or helm/ | kubectl apply -f k8s/ |
+| AWS | serverless.yml | sls deploy --stage prod |
+| Netlify | netlify.toml | netlify deploy --prod |
+| Self-hosted | PM2 ecosystem | pm2 deploy production |
+
+VERIFY environment variables:
+  □ .env.production has all required vars?
+  □ Secrets stored in platform's secret manager?
+  □ Database connection string points to production?
+  □ API URLs point to production endpoints?
 ```
 
 ---
 
-## Output Format
+## Phase 3: Deploy Execution
 
-### Successful Deploy
+```
+DEPLOYMENT FLOW:
+
+┌─────────────┐
+│ Pre-flight   │ ← Phase 1 checks
+│ checks       │
+└──────┬──────┘
+       │ ALL PASS
+       ▼
+┌─────────────┐
+│ Build        │ ← npm run build
+│ application  │
+└──────┬──────┘
+       │ BUILD OK
+       ▼
+┌─────────────┐
+│ Deploy to    │ ← Platform-specific command
+│ platform     │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│ Post-deploy  │ ← Phase 4 verification
+│ verification │
+└──────┬──────┘
+       │ ALL PASS
+       ▼
+┌─────────────┐
+│ ✅ COMPLETE  │
+└─────────────┘
+
+At ANY failure → Ask: "Run /rollback?"
+```
+
+---
+
+## Phase 4: Post-Deploy Verification (MANDATORY)
+
+```
+SMOKE TESTS (run within 2 minutes of deploy):
+
+□ Homepage loads? (HTTP 200)
+□ Login works? (auth flow)
+□ API health: GET /api/health → 200
+□ Database connected? (basic query works)
+□ Static assets load? (CSS, JS, images)
+□ SSL certificate valid? (HTTPS works)
+□ Core user flow works? (create, read, update)
+
+MONITORING CHECK:
+□ Error rate normal? (check Sentry/LogRocket)
+□ Response times normal? (< 500ms for API)
+□ No spike in 4xx/5xx errors?
+□ Memory/CPU usage stable?
+```
+
+---
+
+## Phase 5: Success Report
 
 ```markdown
-## 🚀 Deployment Complete
+## 🚀 Deployment Complete!
 
 ### Summary
-- **Version:** v1.2.3
-- **Environment:** production
-- **Duration:** 47 seconds
-- **Platform:** Vercel
+- Version: [version from package.json]
+- Environment: production
+- Platform: [detected platform]
+- Duration: [X] seconds
+- Commit: [git hash]
 
 ### URLs
-- 🌐 Production: https://app.example.com
-- 📊 Dashboard: https://vercel.com/project
+- 🌐 Production: [url]
+- 📊 Dashboard: [platform dashboard url]
 
 ### What Changed
-- Added user profile feature
-- Fixed login bug
-- Updated dependencies
+- [feat: description]
+- [fix: description]
 
-### Health Check
-✅ API responding (200 OK)
-✅ Database connected
-✅ All services healthy
+### Smoke Test Results
+✅ Homepage: OK (200, 340ms)
+✅ API Health: OK (200, 45ms)
+✅ Auth Flow: OK
+✅ Core CRUD: OK
+
+### Rollback Available
+Previous version is still available.
+If issues arise → /rollback
 ```
 
-### Failed Deploy
+### Failed Deploy Report
 
 ```markdown
 ## ❌ Deployment Failed
 
 ### Error
-Build failed at step: TypeScript compilation
-
-### Details
-```
-error TS2345: Argument of type 'string' is not assignable...
-```
+[Error description]
 
 ### Resolution
-1. Fix TypeScript error in `src/services/user.ts:45`
-2. Run `npm run build` locally to verify
-3. Try `/deploy` again
+1. [Fix step]
+2. Run `npm run build` locally
+3. Try /deploy again
 
-### Rollback Available
-Previous version (v1.2.2) is still active.
-Run `/deploy rollback` if needed.
+### Rollback
+Previous version still active.
+Run /rollback if needed.
 ```
 
 ---
 
-## Platform Support
-
-| Platform | Command | Notes |
-|----------|---------|-------|
-| Vercel | `vercel --prod` | Auto-detected for Next.js |
-| Railway | `railway up` | Needs Railway CLI |
-| Fly.io | `fly deploy` | Needs flyctl |
-| Docker | `docker compose up -d` | For self-hosted |
-
----
-
-## Examples
+## Exit Gate
 
 ```
-/deploy
-/deploy check
-/deploy preview
-/deploy production --skip-tests
-/deploy rollback
+□ Pre-flight checks: ALL passed?
+□ Build: succeeded?
+□ Deploy: completed?
+□ Smoke tests: ALL passed?
+□ Monitoring: no anomalies?
+
+IF ANY fails → Do NOT mark as complete.
+Offer: /rollback or /debug
 ```

@@ -1,23 +1,28 @@
-# Antigravity Kit V4.0 — Architecture
+# Antigravity Kit V4.1 — Architecture
 
-> No-Skip Engineering System with Master Precision
+> No-Skip Engineering System with Full Lifecycle Coverage
 
 ---
 
 ## Pipeline
 
 ```
-/plan → /architect → /create → /deep-audit → RELEASE
-  │         │           │           │
-  ▼         ▼           ▼           ▼
-Plan      Design      Code        Deep
-Coverage  Coverage    Coverage    Audit
-Audit     Audit       Audit       Gate
-(5 chk)   (6 chk)     (7 chk)     (10 dim)
+/init → /brainstorm → /plan → /architect → /create
+                                              │
+                                    ┌─────────┼──────────┐
+                                    ▼         ▼          ▼
+                                 /debug    /test    /enhance
+                                    └─────────┼──────────┘
+                                              ▼
+                              /deep-audit → /security-audit
+                                              │
+                                              ▼
+                                   /deploy → /save
+                                              │
+                                           /recap → /next
 
-Support workflows:
-/security-audit  /performance  /refactor  /review
-/debug  /test  /enhance  /brainstorm  /deploy  /docs
+Emergency: /rollback (any point)
+Support: /refactor /performance /review /docs /orchestrate
 ```
 
 ---
@@ -26,129 +31,128 @@ Support workflows:
 
 ```
 .agent/
-├── ARCHITECTURE.md        ← This file
+├── ARCHITECTURE.md
 ├── mcp_config.json
 │
-├── rules/                 ← Quality enforcement
-│   ├── anti-skip.md       ← v2.0: Context isolation, file budgets
-│   ├── 5-ui-states.md     ← v1.0: Idle/Loading/Success/Error/Empty
-│   ├── coverage-audits.md ← v2.0: 4 gates (plan/design/code/deep)
-│   ├── feature-discovery.md ← v2.0: Entity/Sub/Cross/Nav inference
-│   ├── code-discipline.md ← v1.0: File limits, naming, patterns
-│   └── safe-edit.md       ← v1.0: Surgical editing + Conventional Commits
+├── rules/
+│   ├── anti-skip.md         ← Context isolation, file budgets
+│   ├── 5-ui-states.md       ← Idle/Loading/Success/Error/Empty
+│   ├── coverage-audits.md   ← 4 gates (plan/design/code/deep)
+│   ├── feature-discovery.md ← Entity/Sub/Cross/Nav inference
+│   ├── code-discipline.md   ← File limits, naming, patterns
+│   └── safe-edit.md         ← Surgical editing + Conventional Commits
 │
-├── workflows/             ← Execution pipelines
-│   ├── plan.md            ← v4.0: Master Planner + Feature Templates
-│   ├── architect.md       ← v2.0: Bulletproof Design System
-│   ├── create.md          ← v3.0: Universal Coder + Anti-Skip
-│   ├── deep-audit.md      ← v2.0: Ruthless Inspector
+├── workflows/
+│   │ # Core Pipeline
+│   ├── init.md              ← v1.0: Project Bootstrap
+│   ├── plan.md              ← v4.0: Master Planner
+│   ├── architect.md         ← v2.0: Bulletproof Design
+│   ├── create.md            ← v3.0: Universal Coder
+│   ├── deep-audit.md        ← v2.0: Ruthless Inspector
 │   │
-│   ├── security-audit.md  ← v3.0: Fortress Builder (OWASP+STRIDE)
-│   ├── performance.md     ← v3.0: Speed Alchemist (6-layer cache)
-│   ├── refactor.md        ← v3.0: Code Surgeon (SOLID+Fowler)
-│   ├── review.md          ← v2.0: Project Intelligence Scanner
-│   ├── docs.md            ← v1.0: Documentation Alchemist
+│   │ # Lifecycle
+│   ├── security-audit.md    ← v3.0: OWASP + STRIDE
+│   ├── performance.md       ← v3.0: Speed Alchemist
+│   ├── refactor.md          ← v3.0: Code Surgeon
+│   ├── review.md            ← v2.0: Project Scanner
+│   ├── docs.md              ← v1.0: Doc Alchemist
 │   │
-│   ├── debug.md           ← v3.0: 5 Whys + hypothesis-driven
-│   ├── test.md            ← v3.0: TDD + test pyramid
-│   ├── enhance.md         ← v3.0: Feature Enhancement Engine
-│   ├── brainstorm.md      ← v3.0: SCAMPER + decision matrix
+│   │ # Development
+│   ├── debug.md             ← v3.0: 5 Whys
+│   ├── test.md              ← v3.0: TDD + Pyramid
+│   ├── enhance.md           ← v3.0: Feature Enhancement
+│   ├── brainstorm.md        ← v3.0: SCAMPER + Matrix
 │   │
-│   ├── deploy.md          ← v1.0: Deployment workflow
-│   ├── save.md            ← v1.0: Context persistence
-│   ├── recap.md           ← v1.0: Context restoration
-│   ├── preview.md         ← v1.0: Preview workflow
-│   ├── status.md          ← v1.0: Status check
-│   ├── orchestrate.md     ← v1.0: Multi-agent orchestration
-│   └── ui-ux-pro-max.md   ← v1.0: Premium UI design
+│   │ # Operations
+│   ├── deploy.md            ← v2.0: Hardened Deployment
+│   ├── rollback.md          ← v1.0: Emergency Recovery
+│   ├── next.md              ← v1.0: Smart Navigator
+│   │
+│   │ # Persistence
+│   ├── save.md              ← v2.0: Brain Persistence
+│   ├── recap.md             ← v2.0: Context Restoration
+│   │
+│   │ # Other
+│   ├── orchestrate.md       ← v1.0: Multi-agent
+│   ├── preview.md           ← v1.0: Dev server
+│   ├── status.md            ← v1.0: Status check
+│   └── ui-ux-pro-max.md     ← v1.0: Premium UI
 │
-├── workflows/references/  ← Extended details (on-demand loading)
+├── workflows/references/
 │   ├── plan/
-│   │   ├── feature-templates.md  ← 6 templates (UI/API/AI/IPC/Security)
-│   │   └── bdd-gherkin.md        ← BDD scenario templates + test mapping
+│   │   ├── feature-templates.md  ← 6 feature templates
+│   │   └── bdd-gherkin.md        ← BDD scenario templates
 │   ├── security/
-│   │   ├── owasp-stride.md       ← OWASP Top 10 + STRIDE deep details
-│   │   └── auth-data-api.md      ← Auth/Data/API security checklists
-│   └── ui/
-│       └── design-system-sync.md ← Token enforcement + responsive checks
+│   │   ├── owasp-stride.md       ← OWASP + STRIDE details
+│   │   └── auth-data-api.md      ← Auth/Data/API checklists
+│   ├── ui/
+│   │   └── design-system-sync.md ← Token enforcement
+│   └── workflow-chain.md         ← Auto-chaining rules
 │
-├── agents/                ← Role specifications (21 agents)
-│   ├── orchestrator.md    ← v2.0: + Context Guardian Protocol
-│   └── [20 other agent roles]
-│
-├── scripts/               ← Automation tools
-│   ├── verify_all.py
-│   └── session_manager.py
-│
-├── skills/                ← Domain expertise modules
-│   └── [35+ skill modules]
-│
-└── .shared/               ← Cross-cutting resources
-    └── design-thinking/
-        └── design-philosophy.md
+├── agents/          ← 21 agent roles
+├── scripts/         ← 4 automation scripts
+├── skills/          ← 37 skill modules
+└── .shared/         ← Cross-cutting resources
 ```
 
 ---
 
-## V4.0 Changelog (vs V3.6)
-
-### NEW Rules
-
-| File | Version | Purpose |
-|------|---------|---------|
-| safe-edit.md | v1.0 | 3 Laws of Safe Editing + Post-Edit Gate (Build/Lint/Diff) + Conventional Commits |
+## V4.1 Changelog (vs V4.0)
 
 ### NEW Workflows
 
 | File | Version | Purpose |
 |------|---------|---------|
-| docs.md | v1.0 | Documentation Alchemist (README/API/Component/Changelog) |
+| init.md | v1.0 | Project bootstrap + .brain/ setup |
+| rollback.md | v1.0 | Emergency recovery (P0-P3, Docker/K8s) |
+| next.md | v1.0 | Smart navigator + auto-routing |
+
+### REWRITTEN Workflows
+
+| File | Before | After | What Changed |
+|------|:------:|:-----:|-------------|
+| save.md | 1,124 | ~5,000 | brain.json + session.json + Proactive Handover |
+| recap.md | 816 | ~3,500 | Progress bar + phase detection + smart suggestions |
+
+### UPGRADED Workflows
+
+| File | Before | After | What Changed |
+|------|:------:|:-----:|-------------|
+| deploy.md | 3,811 | ~6,000 | Security gate + smoke tests + rollback link |
 
 ### NEW References
 
 | File | Purpose |
 |------|---------|
-| references/plan/bdd-gherkin.md | 4 BDD templates (Auth/CRUD/Payment/API) + Playwright/Jest mapping |
-| references/ui/design-system-sync.md | Token enforcement, magic color ban, 3-viewport responsive check |
-
-### MODIFIED Agents
-
-| File | Change |
-|------|--------|
-| orchestrator.md | + Context Guardian Protocol (3-workflow flush cycle, state persistence) |
+| workflow-chain.md | Auto-chaining rules + phase mapping |
 
 ---
 
-## Quality Gates Summary
+## Complete Workflow Count: 23
 
-| Gate | When | Checks | Min to Pass |
-|------|------|--------|-------------|
-| Plan Audit | /plan → /architect | 5 | 5/5 |
-| Design Audit | /architect → /create | 6 | 6/6 |
-| Code Audit | /create → done | 7 | 7/7 |
-| Deep Audit | /deep-audit → release | 10 dim | ≥6/10 each |
-| Security Audit | /security-audit | 5 | 5/5 |
-| Perf Audit | /performance | 4 | 4/4 |
-| Safe Edit Gate | Every code edit | 3 | 3/3 (Build+Lint+Diff) |
-| Doc Audit | /docs | 7 | 7/7 |
+| Category | Workflows | Count |
+|----------|-----------|:-----:|
+| Core Pipeline | init, plan, architect, create, deep-audit | 5 |
+| Lifecycle | security-audit, performance, refactor, review, docs | 5 |
+| Development | debug, test, enhance, brainstorm | 4 |
+| Operations | deploy, rollback, next | 3 |
+| Persistence | save, recap | 2 |
+| Other | orchestrate, preview, status, ui-ux-pro-max | 4 |
 
 ---
 
-## Anti-Skip Summary
+## Quality Gates
 
-| Mechanism | What It Prevents |
-|-----------|-----------------|
-| Feature Counting Guard | Missing features in Blueprint |
-| 7-Layer Analysis | Shallow implementation |
-| Progressive Verification | Feature drift during coding |
-| Build-Verify Loop | Broken builds accumulating |
-| Context Isolation | AI forgetting features (context overflow) |
-| File Size Discipline | Monolithic unmaintainable files |
-| No-TODO Protocol | Placeholder/incomplete code |
-| Safe Edit 3 Laws | Destructive file overwrites |
-| Design Token Lock | UI inconsistency / magic values |
-| Context Guardian | AI degradation in long sessions |
-| BDD Scenarios | Untested acceptance criteria |
+| Gate | Checks | Min |
+|------|:------:|:---:|
+| Plan Audit | 5 | 5/5 |
+| Design Audit | 6 | 6/6 |
+| Code Audit | 7 | 7/7 |
+| Deep Audit | 10 dim | ≥6/10 |
+| Security Audit | 5 | 5/5 |
+| Safe Edit Gate | 3 | 3/3 |
+| Deploy Gate | Smoke tests | ALL |
+| Doc Audit | 7 | 7/7 |
 
 ---
 
@@ -156,5 +160,7 @@ Support workflows:
 
 - **Antigravity Kit V2** — vudovn/antigravity-kit
 - **Boom Workflow Framework** — Kennyboom/Boom-Workflow-Framework
-- **V3.5-3.6** — BWF quality gates + security + lifecycle
-- **V4.0** — Master Precision (safe edit, BDD, design sync, auto-docs)
+- **V3.5** — BWF quality gates
+- **V3.6** — Security + lifecycle
+- **V4.0** — Master Precision (safe edit, BDD, docs)
+- **V4.1** — Full lifecycle (brain, rollback, navigator, deploy)
