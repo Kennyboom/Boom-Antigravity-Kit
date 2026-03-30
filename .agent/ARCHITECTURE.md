@@ -1,6 +1,6 @@
-# Antigravity Kit V3.6 — Architecture
+# Antigravity Kit V4.0 — Architecture
 
-> Checklist-Driven Engineering System with BWF Quality Gates
+> No-Skip Engineering System with Master Precision
 
 ---
 
@@ -17,7 +17,7 @@ Audit     Audit       Audit       Gate
 
 Support workflows:
 /security-audit  /performance  /refactor  /review
-/debug  /test  /enhance  /brainstorm  /deploy
+/debug  /test  /enhance  /brainstorm  /deploy  /docs
 ```
 
 ---
@@ -34,7 +34,8 @@ Support workflows:
 │   ├── 5-ui-states.md     ← v1.0: Idle/Loading/Success/Error/Empty
 │   ├── coverage-audits.md ← v2.0: 4 gates (plan/design/code/deep)
 │   ├── feature-discovery.md ← v2.0: Entity/Sub/Cross/Nav inference
-│   └── code-discipline.md ← v1.0: File limits, naming, patterns
+│   ├── code-discipline.md ← v1.0: File limits, naming, patterns
+│   └── safe-edit.md       ← v1.0: Surgical editing + Conventional Commits
 │
 ├── workflows/             ← Execution pipelines
 │   ├── plan.md            ← v4.0: Master Planner + Feature Templates
@@ -46,6 +47,7 @@ Support workflows:
 │   ├── performance.md     ← v3.0: Speed Alchemist (6-layer cache)
 │   ├── refactor.md        ← v3.0: Code Surgeon (SOLID+Fowler)
 │   ├── review.md          ← v2.0: Project Intelligence Scanner
+│   ├── docs.md            ← v1.0: Documentation Alchemist
 │   │
 │   ├── debug.md           ← v3.0: 5 Whys + hypothesis-driven
 │   ├── test.md            ← v3.0: TDD + test pyramid
@@ -62,13 +64,17 @@ Support workflows:
 │
 ├── workflows/references/  ← Extended details (on-demand loading)
 │   ├── plan/
-│   │   └── feature-templates.md  ← 6 templates (UI/API/AI/IPC/Security)
-│   └── security/
-│       ├── owasp-stride.md       ← OWASP Top 10 + STRIDE deep details
-│       └── auth-data-api.md      ← Auth/Data/API security checklists
+│   │   ├── feature-templates.md  ← 6 templates (UI/API/AI/IPC/Security)
+│   │   └── bdd-gherkin.md        ← BDD scenario templates + test mapping
+│   ├── security/
+│   │   ├── owasp-stride.md       ← OWASP Top 10 + STRIDE deep details
+│   │   └── auth-data-api.md      ← Auth/Data/API security checklists
+│   └── ui/
+│       └── design-system-sync.md ← Token enforcement + responsive checks
 │
-├── agents/                ← Role specifications
-│   └── [9 agent roles]
+├── agents/                ← Role specifications (21 agents)
+│   ├── orchestrator.md    ← v2.0: + Context Guardian Protocol
+│   └── [20 other agent roles]
 │
 ├── scripts/               ← Automation tools
 │   ├── verify_all.py
@@ -84,36 +90,32 @@ Support workflows:
 
 ---
 
-## V3.6 Changelog (vs V3.5)
+## V4.0 Changelog (vs V3.6)
+
+### NEW Rules
+
+| File | Version | Purpose |
+|------|---------|---------|
+| safe-edit.md | v1.0 | 3 Laws of Safe Editing + Post-Edit Gate (Build/Lint/Diff) + Conventional Commits |
 
 ### NEW Workflows
 
 | File | Version | Purpose |
 |------|---------|---------|
-| security-audit.md | v3.0 | OWASP Top 10, STRIDE Threat Modeling, Auth/API/Data/Supply Chain |
-| performance.md | v3.0 | Performance budgets, 6-layer caching, Core Web Vitals |
-| refactor.md | v3.0 | SOLID audit, code smell detection, Fowler's catalog |
-| review.md | v2.0 | Code quality scoring, tech debt, architecture review |
+| docs.md | v1.0 | Documentation Alchemist (README/API/Component/Changelog) |
 
-### Upgraded Workflows
-
-| File | Version | Changes |
-|------|---------|---------|
-| debug.md | v1→v3 | 5 Whys root cause, hypothesis-driven, regression prevention |
-| test.md | v1→v3 | TDD Red-Green-Refactor, test pyramid, coverage targets |
-| enhance.md | v1→v3 | Feature Discovery Lite, Impact Analysis, Blueprint Lite |
-| brainstorm.md | v1→v3 | SCAMPER ideation, decision matrix, research phase |
-
-### References Pattern (NEW)
+### NEW References
 
 | File | Purpose |
 |------|---------|
-| references/plan/feature-templates.md | 6 templates: UI, API, Full-stack, AI/LLM, IPC, Security |
-| references/security/owasp-stride.md | OWASP Top 10 extended checklists + STRIDE templates |
-| references/security/auth-data-api.md | Auth, JWT, Data Protection, API security deep details |
+| references/plan/bdd-gherkin.md | 4 BDD templates (Auth/CRUD/Payment/API) + Playwright/Jest mapping |
+| references/ui/design-system-sync.md | Token enforcement, magic color ban, 3-viewport responsive check |
 
-### Plan Workflow Update
-- Added `view_file` directive to load feature templates reference
+### MODIFIED Agents
+
+| File | Change |
+|------|--------|
+| orchestrator.md | + Context Guardian Protocol (3-workflow flush cycle, state persistence) |
 
 ---
 
@@ -127,6 +129,8 @@ Support workflows:
 | Deep Audit | /deep-audit → release | 10 dim | ≥6/10 each |
 | Security Audit | /security-audit | 5 | 5/5 |
 | Perf Audit | /performance | 4 | 4/4 |
+| Safe Edit Gate | Every code edit | 3 | 3/3 (Build+Lint+Diff) |
+| Doc Audit | /docs | 7 | 7/7 |
 
 ---
 
@@ -141,6 +145,10 @@ Support workflows:
 | Context Isolation | AI forgetting features (context overflow) |
 | File Size Discipline | Monolithic unmaintainable files |
 | No-TODO Protocol | Placeholder/incomplete code |
+| Safe Edit 3 Laws | Destructive file overwrites |
+| Design Token Lock | UI inconsistency / magic values |
+| Context Guardian | AI degradation in long sessions |
+| BDD Scenarios | Untested acceptance criteria |
 
 ---
 
@@ -149,3 +157,4 @@ Support workflows:
 - **Antigravity Kit V2** — vudovn/antigravity-kit
 - **Boom Workflow Framework** — Kennyboom/Boom-Workflow-Framework
 - **V3.5-3.6** — BWF quality gates + security + lifecycle
+- **V4.0** — Master Precision (safe edit, BDD, design sync, auto-docs)

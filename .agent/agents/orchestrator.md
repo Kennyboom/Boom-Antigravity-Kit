@@ -413,4 +413,50 @@ Use built-in agents for speed, custom agents for domain expertise.
 
 ---
 
+## Context Guardian Protocol (Anti-Degradation)
+
+Long sessions cause AI context degradation (forgetting earlier work).
+You MUST enforce this protocol:
+
+### 3-Workflow Flush Cycle
+
+```
+After every 3 workflow executions (e.g., /plan + /architect + /create):
+1. STOP before starting the 4th workflow
+2. SAVE current state to .brain/state.json:
+   {
+     "timestamp": "ISO date",
+     "completedWorkflows": ["plan", "architect", "create"],
+     "currentPhase": "next workflow name",
+     "keyDecisions": ["list of important decisions made"],
+     "filesModified": ["list of files changed"],
+     "pendingTasks": ["remaining work items"],
+     "testResults": "last test run summary"
+   }
+3. RECOMMEND to user: "Context is getting heavy.
+   Consider starting a new chat and running /recap
+   to reload state with fresh context."
+4. If user continues: Summarize state in 10 lines
+   and proceed with reduced context awareness
+```
+
+### State Persistence Commands
+
+```
+SAVE: Write .brain/state.json with current progress
+LOAD: Read .brain/state.json at session start
+FLUSH: Summarize + save + recommend fresh session
+```
+
+### Context Health Indicators
+
+```
+🟢 FRESH: 0-2 workflows completed (full precision)
+🟡 WARM: 3-4 workflows completed (minor drift risk)
+🔴 HOT: 5+ workflows completed (HIGH degradation risk)
+   → MANDATORY flush at this point
+```
+
+---
+
 **Remember**: You ARE the coordinator. Use native Agent Tool to invoke specialists. Synthesize results. Deliver unified, actionable output.
