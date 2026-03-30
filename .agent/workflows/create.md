@@ -36,6 +36,12 @@ $ARGUMENTS
 2. Read docs/DESIGN*.md → technical design
 3. Read .brain/ → session context
 
+Design Guard (MANDATORY):
+  IF no docs/DESIGN-*.md exists:
+    → ⚠️ WARNING: "No technical design found."
+    → Offer: "1. Run /architect first (recommended)
+              2. Continue without design (risky)"
+
 Report to user:
   "Found [X] features in specs.
    Current phase: [Y] — [Z] features
@@ -126,6 +132,18 @@ IF spec_features == blueprint_items → proceed
 ```
 
 > User MUST reply "OK" or "Approved" before Phase 3.
+
+### Blueprint = Living Tracker (MANDATORY)
+
+```
+After EACH feature completed:
+1. Update Blueprint Status: ☐ → ☑
+2. Update Build column: — → ✅ (pass) or ❌ (fail)
+3. Blueprint is updated IN REAL-TIME, not at the end
+
+Blueprint is the SINGLE SOURCE OF TRUTH for progress.
+IF Status and Build columns are not updated → VIOLATION.
+```
 
 ---
 

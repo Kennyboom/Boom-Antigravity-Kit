@@ -1,4 +1,4 @@
-# Antigravity Kit V4.2 — Architecture
+# Antigravity Kit V4.3 — Architecture
 
 > No-Skip Engineering System with Full Lifecycle Coverage + AA-Grade Protocols
 
@@ -162,6 +162,20 @@ Support: /refactor /performance /review /docs /orchestrate
 |------|-------------|
 | code-discipline.md | +Section 9: Deliverable size management (>150 lines → chunked folder) |
 
+## V4.3 Changelog (vs V4.2) — Plan + Create Deep Improvements
+
+### UPGRADED Workflows
+
+| File | What Changed |
+|------|--------------|
+| plan.md | +Golden Rule 11 (self-contained) |
+| plan.md | +AC table Verify column |
+| plan.md | +Smart Splitting rule (≤3 features = 1 file) |
+| plan.md | +Phase File Template: User Request VERBATIM + Context Summary |
+| plan.md | +Phase 6.5: Risk Matrix (Risk/Probability/Impact/Mitigation/Rollback) |
+| create.md | +Design Guard clause (warn if no /architect) |
+| create.md | +Blueprint = Living Tracker enforcement |
+
 ---
 
 ## Inventory Totals
@@ -169,9 +183,9 @@ Support: /refactor /performance /review /docs /orchestrate
 | Category | Count |
 |----------|:-----:|
 | Workflows | 23 |
-| Rules | 8 (+2) |
-| References | 7 (+1) |
-| Schemas | 3 (NEW) |
+| Rules | 8 |
+| References | 7 |
+| Schemas | 3 |
 | Agents | 21 |
 | Scripts | 4 |
 | Skills | 37 |
@@ -183,9 +197,10 @@ Support: /refactor /performance /review /docs /orchestrate
 
 - **Antigravity Kit V2** — vudovn/antigravity-kit
 - **Boom Workflow Framework** — Kennyboom/Boom-Workflow-Framework
-- **Agent Assistant** — AA rules/schemas (error recovery, brain protocol, preferences)
+- **Agent Assistant** — AA rules/schemas/planner patterns
 - **V3.5** — BWF quality gates
 - **V3.6** — Security + lifecycle
 - **V4.0** — Master Precision (safe edit, BDD, docs)
 - **V4.1** — Full lifecycle (brain, rollback, navigator, deploy)
 - **V4.2** — AA-Grade protocols (error recovery, auto-save, schemas, preferences)
+- **V4.3** — Plan + Create deep improvements (risk, self-contained, living blueprint)

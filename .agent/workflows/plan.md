@@ -15,7 +15,7 @@ $ARGUMENTS
 
 ```
 1. EVERY FEATURE HAS A SPEC — No code without spec
-2. ACCEPTANCE CRITERIA = Given/When/Then TABLE — Specific, measurable
+2. ACCEPTANCE CRITERIA = Given/When/Then+Verify TABLE
 3. EDGE CASES MINIMUM 5 PER FEATURE — Happy path is NOT enough
 4. EACH PHASE = SEPARATE FILE — No merging, no summarizing
 5. EACH FEATURE MUST HAVE: User Story + AC + Edge Cases + Effort
@@ -24,6 +24,7 @@ $ARGUMENTS
 8. DEPENDENCY MATRIX AT END OF EACH PHASE — Clear build order
 9. BUFFER x1.5 — Always add time buffer
 10. NO CODE IN PLAN — No TypeScript/Rust/Python code blocks
+11. SELF-CONTAINED — Plan executable with ZERO external context
 ```
 
 ---
@@ -122,14 +123,21 @@ Group by role:
 ### 3.2 Acceptance Criteria (MANDATORY — TABLE format)
 
 ```markdown
-| # | Given | When | Then |
-|:-:|-------|------|------|
-| 1 | [specific condition] | [specific action] | [measurable result] |
+| # | Given | When | Then | Verify |
+|:-:|-------|------|------|--------|
+| 1 | [condition] | [action] | [result] | [how to verify] |
+
+Verify column examples:
+  "Unit test: auth.test.ts"
+  "Integration: POST /api/login → 200"
+  "Visual: screenshot comparison"
+  "Manual: check email received"
 
 ⚠️ NO vague AC allowed:
 ❌ "Given user login, When click, Then success"
 ✅ "Given user has valid account, When enters email+pass
-    and clicks Login, Then redirect to /dashboard in < 2s"
+    and clicks Login, Then redirect to /dashboard in < 2s
+    | Verify: Integration test + visual check"
 ```
 
 ### 3.3 Edge Cases (MANDATORY — minimum 5 per feature)
@@ -170,11 +178,21 @@ Group by role:
 
 ---
 
-## Phase 4: Phase Splitting — SEPARATE FILES (MANDATORY)
+## Phase 4: Phase Splitting — SMART SPLIT (MANDATORY)
 
-> EACH phase = 1 file. EACH feature in phase = 1 full section.
+> Split based on complexity. Small tasks = 1 file. Large = many.
 
-### Directory Structure
+### Smart Splitting Rule
+
+```
+IF ≤ 3 features AND ≤ 3 days effort:
+  → SINGLE file: SPECS-{ID}-plan.md (all phases combined)
+
+IF > 3 features OR > 3 days:
+  → SEPARATE files: master + phase-NN-{name}.md
+```
+
+### Directory Structure (multi-file)
 
 ```
 docs/specs/{feature-name}/
@@ -210,6 +228,18 @@ Status: Draft
 > **Depends on:** [previous phase]
 > **Status:** Draft | **Effort:** ⭐⭐⭐ | **Timeline:** X weeks
 
+## 📌 User Request (VERBATIM)
+> {Copy user's original request EXACTLY as written}
+> {Do NOT paraphrase or interpret}
+
+## 📋 Context Summary
+**Architecture**: {relevant tech decisions}
+**Patterns**: {coding patterns to follow}
+**Constraints**: {technical/business constraints}
+
+⚠️ This phase file MUST be self-contained.
+Implementer should execute with ONLY this file — no chat history.
+
 ---
 
 ## Feature {X.1}: {Feature Name}
@@ -221,9 +251,9 @@ Status: Draft
 As [role], I want [action], so that [benefit].
 
 ### Acceptance Criteria
-| # | Given | When | Then |
-|:-:|-------|------|------|
-| 1 | [specific] | [specific] | [specific] |
+| # | Given | When | Then | Verify |
+|:-:|-------|------|------|--------|
+| 1 | [specific] | [specific] | [specific] | [method] |
 
 ### UI Description (MANDATORY if has interface)
 [ASCII wireframe — detailed layout]
@@ -303,6 +333,24 @@ Phase 01 → Phase 02 → Phase 03
 MVP = Phase [01+02]: ~X days (~X months with buffer)
 
 ⚠️ Buffer x1.5 ALWAYS APPLIED
+```
+
+---
+
+## Phase 6.5: Risk Matrix (MANDATORY)
+
+> Every plan MUST assess what could go wrong.
+
+```markdown
+| Risk | Probability | Impact | Mitigation | Rollback |
+|------|:-----------:|:------:|------------|----------|
+| DB migration breaks | M | H | Run staging first | Backup + rollback script |
+| API rate limit | L | M | Implement retry | Cache fallback |
+| 3rd party downtime | L | H | Health check | Feature flag disable |
+
+Rollback Strategy:
+  IF Phase X fails → revert to Phase X-1 state
+  Specific steps: [git revert / DB rollback / config restore]
 ```
 
 ---
