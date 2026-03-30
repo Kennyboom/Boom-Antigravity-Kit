@@ -1,6 +1,6 @@
-# Antigravity Kit V4.3 — Architecture
+# Antigravity Kit V4.4 — Architecture
 
-> No-Skip Engineering System with Full Lifecycle Coverage + AA-Grade Protocols
+> No-Skip Engineering + 2026 Industry Best Practices
 
 ---
 
@@ -176,6 +176,23 @@ Support: /refactor /performance /review /docs /orchestrate
 | create.md | +Design Guard clause (warn if no /architect) |
 | create.md | +Blueprint = Living Tracker enforcement |
 
+## V4.4 Changelog (vs V4.3) — 2026 Industry Techniques
+
+### UPGRADED Workflows
+
+| File | What Changed |
+|------|--------------|
+| plan.md | +3.1b Atomic Task Decomposition (≤2h, 1 file scope) |
+| plan.md | +3.5 API Contract (MANDATORY for API features) |
+| create.md | +Blueprint §6 Decision Log (WHY, not just WHAT) |
+| create.md | +3.4 Reflect Gate (simplify/DRY/naming/reuse check) |
+
+### UPGRADED Rules
+
+| File | What Changed |
+|------|--------------|
+| anti-skip.md | +§9 Immutable Test Protocol (AI can't modify tests) |
+
 ---
 
 ## Inventory Totals
@@ -202,5 +219,6 @@ Support: /refactor /performance /review /docs /orchestrate
 - **V3.6** — Security + lifecycle
 - **V4.0** — Master Precision (safe edit, BDD, docs)
 - **V4.1** — Full lifecycle (brain, rollback, navigator, deploy)
-- **V4.2** — AA-Grade protocols (error recovery, auto-save, schemas, preferences)
-- **V4.3** — Plan + Create deep improvements (risk, self-contained, living blueprint)
+- **V4.2** — AA-Grade protocols (error recovery, auto-save, schemas)
+- **V4.3** — AA planner (self-contained, risk matrix, verify column)
+- **V4.4** — 2026 Industry (reflect, immutable tests, atomic tasks, contract-first)

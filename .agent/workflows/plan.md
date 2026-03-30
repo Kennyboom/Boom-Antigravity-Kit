@@ -120,6 +120,25 @@ Group by role:
 - System (automated)
 ```
 
+### 3.1b Atomic Task Decomposition (MANDATORY)
+
+```
+EACH task in plan MUST be:
+☐ ≤ 2 hours effort (if bigger → SPLIT)
+☐ 1 file or 1 component scope
+☐ Has: description + target file + acceptance criteria
+
+❌ BAD:  "Build Dashboard page"
+✅ GOOD: "1. Create DashboardLayout (grid 3-col)"
+       "2. Create StatsCard component"
+       "3. Create RecentTable component"
+       "4. Wire API: GET /api/stats"
+       "5. Add loading/error/empty states"
+
+WHY: Tasks > 2h cause AI to skip details.
+     Atomic tasks = zero feature loss.
+```
+
 ### 3.2 Acceptance Criteria (MANDATORY — TABLE format)
 
 ```markdown
@@ -166,7 +185,25 @@ Verify column examples:
 | Empty | Illustration + CTA |
 ```
 
-### 3.5 Processing Contract (if backend logic)
+### 3.5 API Contract (MANDATORY for API features)
+
+```markdown
+IF feature involves API → contract MUST be defined in plan:
+
+| Endpoint | Method | Request | Response 200 | Errors |
+|----------|--------|---------|--------------|--------|
+| /api/users | GET | ?page=1&limit=20 | { users[], meta } | 500 |
+| /api/users | POST | { name, email } | { user } | 422, 409 |
+| /api/users/:id | PUT | { name } | { user } | 404, 422 |
+
+WHY: Frontend mocks from contract.
+     Backend codes from contract.
+     Both work in PARALLEL. Zero integration bugs.
+
+IF feature has NO API → skip this section.
+```
+
+### 3.6 Processing Contract (if non-API backend logic)
 
 ```markdown
 | Input | Output | Side Effects |

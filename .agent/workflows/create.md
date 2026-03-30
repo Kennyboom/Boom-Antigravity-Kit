@@ -119,6 +119,12 @@ Report to user:
 |------|--------------|-------|
 | [component.tsx] | ~120 | 300 |
 | [service.ts] | ~80 | 300 |
+
+### 6. Decision Log (append during coding)
+
+| # | Decision | Why | Alternative Rejected |
+|---|----------|-----|---------------------|
+| 1 | [what was chosen] | [reasoning] | [what was rejected] |
 ```
 
 ### Feature Counting Guard
@@ -196,7 +202,23 @@ After EACH feature completed:
 IF FAIL → fix IMMEDIATELY before next feature.
 ```
 
-### 3.4 Progressive Verification
+### 3.4 Reflect Gate (after Build-Verify, before next feature)
+
+```
+After EACH major feature (or every 3-5 small features):
+
+REFLECT CHECKLIST:
+☐ Can this code be simpler? (simplify)
+☐ Any duplicated logic to extract? (DRY)
+☐ Are names clear and descriptive? (readability)
+☐ Any hardcoded values? (magic numbers)
+☐ Any reusable component/function missed? (reuse)
+
+IF any issue found → REFACTOR NOW (before next feature)
+IF all clean → proceed
+```
+
+### 3.5 Progressive Verification
 
 ```
 After every 3-5 features → STOP → cross-check:

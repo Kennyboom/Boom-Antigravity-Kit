@@ -155,3 +155,29 @@ Before marking any task complete, ALL must pass:
 ```
 
 > If ANY check fails → fix before handover.
+
+---
+
+## 9. Immutable Test Protocol
+
+> Tests = source of truth. AI fixes CODE, not TESTS.
+
+```
+RULES:
+1. AI can READ test files → understand expected behavior
+2. AI can RUN tests → check if code passes
+3. AI CANNOT MODIFY test files to force pass
+4. IF test fails → fix IMPLEMENTATION code
+5. ONLY exception: user explicitly says "update test"
+
+WHY: If AI rewrites a failing test to "pass",
+     the test loses its value as a quality guardrail.
+     This is the #1 AI coding anti-pattern in 2026.
+
+ENFORCEMENT:
+  Before modifying any *.test.* or *.spec.* file:
+  → STOP → Ask user: "Test X is failing.
+    Should I fix the code or update the test?"
+  → Default: fix the code.
+```
+
