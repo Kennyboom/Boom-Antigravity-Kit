@@ -1,6 +1,6 @@
-# Antigravity Kit V4.1 — Architecture
+# Antigravity Kit V4.2 — Architecture
 
-> No-Skip Engineering System with Full Lifecycle Coverage
+> No-Skip Engineering System with Full Lifecycle Coverage + AA-Grade Protocols
 
 ---
 
@@ -39,8 +39,15 @@ Support: /refactor /performance /review /docs /orchestrate
 │   ├── 5-ui-states.md       ← Idle/Loading/Success/Error/Empty
 │   ├── coverage-audits.md   ← 4 gates (plan/design/code/deep)
 │   ├── feature-discovery.md ← Entity/Sub/Cross/Nav inference
-│   ├── code-discipline.md   ← File limits, naming, patterns
-│   └── safe-edit.md         ← Surgical editing + Conventional Commits
+│   ├── code-discipline.md   ← File limits, naming, patterns, deliverable size
+│   ├── safe-edit.md         ← Surgical editing + Conventional Commits
+│   ├── error-recovery.md    ← v1.0: E1-E4 classification + self-healing
+│   └── auto-save.md         ← v1.0: .brain/ trigger rules
+│
+├── schemas/
+│   ├── brain.schema.json    ← Validates .brain/brain.json
+│   ├── session.schema.json  ← Validates .brain/session.json
+│   └── preferences.schema.json ← Validates .brain/preferences.json
 │
 ├── workflows/
 │   │ # Core Pipeline
@@ -126,33 +133,49 @@ Support: /refactor /performance /review /docs /orchestrate
 |------|---------|
 | workflow-chain.md | Auto-chaining rules + phase mapping |
 
+## V4.2 Changelog (vs V4.1) — Agent Assistant Gap Closure
+
+### NEW Rules (sourced from Agent Assistant)
+
+| File | Version | Purpose |
+|------|---------|---------|
+| error-recovery.md | v1.0 | E1-E4 error classification + self-healing + 8 anti-patterns |
+| auto-save.md | v1.0 | .brain/ trigger rules + brain vs session decision tree |
+
+### NEW Schemas
+
+| File | Validates |
+|------|----------|
+| brain.schema.json | .brain/brain.json (project, tech stack, DB, API, features) |
+| session.schema.json | .brain/session.json (progress, decisions, errors, changes) |
+| preferences.schema.json | .brain/preferences.json (tone, autonomy, quality, pace) |
+
+### NEW References
+
+| File | Purpose |
+|------|---------|
+| brain/preferences-schema.md | User preferences field definitions + AI behavior mapping |
+
+### PATCHED
+
+| File | What Changed |
+|------|-------------|
+| code-discipline.md | +Section 9: Deliverable size management (>150 lines → chunked folder) |
+
 ---
 
-## Complete Workflow Count: 23
+## Inventory Totals
 
-| Category | Workflows | Count |
-|----------|-----------|:-----:|
-| Core Pipeline | init, plan, architect, create, deep-audit | 5 |
-| Lifecycle | security-audit, performance, refactor, review, docs | 5 |
-| Development | debug, test, enhance, brainstorm | 4 |
-| Operations | deploy, rollback, next | 3 |
-| Persistence | save, recap | 2 |
-| Other | orchestrate, preview, status, ui-ux-pro-max | 4 |
-
----
-
-## Quality Gates
-
-| Gate | Checks | Min |
-|------|:------:|:---:|
-| Plan Audit | 5 | 5/5 |
-| Design Audit | 6 | 6/6 |
-| Code Audit | 7 | 7/7 |
-| Deep Audit | 10 dim | ≥6/10 |
-| Security Audit | 5 | 5/5 |
-| Safe Edit Gate | 3 | 3/3 |
-| Deploy Gate | Smoke tests | ALL |
-| Doc Audit | 7 | 7/7 |
+| Category | Count |
+|----------|:-----:|
+| Workflows | 23 |
+| Rules | 8 (+2) |
+| References | 7 (+1) |
+| Schemas | 3 (NEW) |
+| Agents | 21 |
+| Scripts | 4 |
+| Skills | 37 |
+| Quality Gates | 8 |
 
 ---
 
@@ -160,7 +183,9 @@ Support: /refactor /performance /review /docs /orchestrate
 
 - **Antigravity Kit V2** — vudovn/antigravity-kit
 - **Boom Workflow Framework** — Kennyboom/Boom-Workflow-Framework
+- **Agent Assistant** — AA rules/schemas (error recovery, brain protocol, preferences)
 - **V3.5** — BWF quality gates
 - **V3.6** — Security + lifecycle
 - **V4.0** — Master Precision (safe edit, BDD, docs)
 - **V4.1** — Full lifecycle (brain, rollback, navigator, deploy)
+- **V4.2** — AA-Grade protocols (error recovery, auto-save, schemas, preferences)

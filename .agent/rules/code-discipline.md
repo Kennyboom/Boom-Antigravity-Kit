@@ -147,6 +147,27 @@ Check for duplication:
 
 ---
 
+## 9. Deliverable Size Management
+
+```
+IF output > 150 lines OR has ≥ 4 major sections:
+  → SPLIT into folder with 00-index.md
+
+  folder-name/
+  ├── 00-index.md         ← Overview + table of contents
+  ├── 01-section-name.md  ← Section 1 (80-150 lines max)
+  ├── 02-section-name.md  ← Section 2
+  └── 03-section-name.md  ← Section 3
+
+RULES:
+  □ NEVER create a single file > 200 lines
+  □ NEVER create multiple files in parallel
+  □ ALWAYS create 00-index.md FIRST
+  □ Each section file: target 80-150 lines
+```
+
+---
+
 ## Pre-commit Checklist
 
 ```

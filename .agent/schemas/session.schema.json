@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AG-Kit Session State Schema",
+  "description": "Dynamic session state for .brain/session.json",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["timestamp"],
+  "properties": {
+    "timestamp": { "type": "string", "format": "date-time" },
+    "summary": { "type": "string" },
+    "working_on": {
+      "type": "object",
+      "properties": {
+        "feature": { "type": "string" },
+        "task": { "type": "string" },
+        "status": {
+          "type": "string",
+          "enum": ["planning", "coding", "testing", "debugging", "reviewing", "deploying"]
+        },
+        "files": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" }
+      }
+    },
+    "progress": {
+      "type": "object",
+      "properties": {
+        "completed": { "type": "array", "items": { "type": "string" } },
+        "in_progress": { "type": "array", "items": { "type": "string" } },
+        "remaining": { "type": "array", "items": { "type": "string" } },
+        "percentage": { "type": "string" }
+      }
+    },
+    "decisions_made": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "decision": { "type": "string" },
+          "reasoning": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "errors_encountered": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "error": { "type": "string" },
+          "resolved": { "type": "boolean" },
+          "fix": { "type": "string" }
+        }
+      }
+    },
+    "recent_changes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "file": { "type": "string" },
+          "change": { "type": "string" },
+          "commit": { "type": "string" },
+          "timestamp": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  }
+}

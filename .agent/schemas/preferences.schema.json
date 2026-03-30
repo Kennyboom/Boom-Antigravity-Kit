@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AG-Kit User Preferences Schema",
+  "description": "User preferences for .brain/preferences.json",
+  "version": "1.0.0",
+  "type": "object",
+  "properties": {
+    "updated_at": { "type": "string", "format": "date-time" },
+    "communication": {
+      "type": "object",
+      "properties": {
+        "tone": {
+          "type": "string",
+          "enum": ["friendly", "professional", "casual"],
+          "default": "friendly"
+        },
+        "persona": {
+          "type": "string",
+          "enum": ["assistant", "mentor", "senior_dev", "partner"],
+          "default": "assistant"
+        }
+      }
+    },
+    "technical": {
+      "type": "object",
+      "properties": {
+        "detail_level": {
+          "type": "string",
+          "enum": ["results_only", "simple", "learning", "full"],
+          "default": "simple"
+        },
+        "autonomy": {
+          "type": "string",
+          "enum": ["ask_often", "balanced", "autonomous"],
+          "default": "balanced"
+        },
+        "quality": {
+          "type": "string",
+          "enum": ["mvp", "production", "enterprise"],
+          "default": "production"
+        }
+      }
+    },
+    "working_style": {
+      "type": "object",
+      "properties": {
+        "pace": {
+          "type": "string",
+          "enum": ["careful", "fast"],
+          "default": "careful"
+        },
+        "feedback": {
+          "type": "string",
+          "enum": ["gentle", "direct", "silent"],
+          "default": "direct"
+        }
+      }
+    }
+  }
+}

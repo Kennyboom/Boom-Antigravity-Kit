@@ -1,0 +1,173 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AG-Kit Brain Context Schema",
+  "description": "Static project knowledge for .brain/brain.json",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["project", "updated_at"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "properties": {
+        "schema_version": { "type": "string", "default": "1.0.0" },
+        "project_version": { "type": "string" }
+      }
+    },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "project": {
+      "type": "object",
+      "required": ["name", "type"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["website", "webapp", "api", "fullstack", "mobile", "desktop", "cli", "library"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["planning", "development", "testing", "production", "maintenance"]
+        },
+        "repository": { "type": "string" },
+        "urls": {
+          "type": "object",
+          "properties": {
+            "local": { "type": "string" },
+            "staging": { "type": "string" },
+            "production": { "type": "string" }
+          }
+        }
+      }
+    },
+    "tech_stack": {
+      "type": "object",
+      "properties": {
+        "frontend": {
+          "type": "object",
+          "properties": {
+            "framework": { "type": "string" },
+            "language": { "type": "string" },
+            "styling": { "type": "string" },
+            "state_management": { "type": "string" }
+          }
+        },
+        "backend": {
+          "type": "object",
+          "properties": {
+            "framework": { "type": "string" },
+            "language": { "type": "string" },
+            "runtime": { "type": "string" },
+            "orm": { "type": "string" }
+          }
+        },
+        "database": {
+          "type": "object",
+          "properties": {
+            "type": { "type": "string" },
+            "provider": { "type": "string" },
+            "orm": { "type": "string" }
+          }
+        },
+        "infrastructure": {
+          "type": "object",
+          "properties": {
+            "hosting": { "type": "string" },
+            "cdn": { "type": "string" },
+            "ci_cd": { "type": "string" }
+          }
+        }
+      }
+    },
+    "database_schema": {
+      "type": "object",
+      "properties": {
+        "tables": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "columns": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "type": { "type": "string" },
+                    "nullable": { "type": "boolean" },
+                    "primary": { "type": "boolean" }
+                  }
+                }
+              },
+              "indexes": { "type": "array", "items": { "type": "string" } },
+              "relations": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "api_endpoints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "method": {
+            "type": "string",
+            "enum": ["GET", "POST", "PUT", "PATCH", "DELETE"]
+          },
+          "path": { "type": "string" },
+          "description": { "type": "string" },
+          "auth_required": { "type": "boolean" }
+        }
+      }
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["planned", "in_progress", "implemented", "tested", "deployed"]
+          },
+          "phase": { "type": "string" },
+          "files": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "business_rules": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "knowledge_items": {
+      "type": "object",
+      "properties": {
+        "patterns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "description": { "type": "string" }
+            }
+          }
+        },
+        "gotchas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "issue": { "type": "string" },
+              "solution": { "type": "string" }
+            }
+          }
+        },
+        "conventions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}
