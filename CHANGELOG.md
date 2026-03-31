@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0] - 2026-03-31
+
+### Changed
+- **Version Unification**: All version references unified to 5.0.0 (was 2.0.0/2.0.1/3.0/4.5)
+- **GEMINI.md**: Updated year reference from 2025 to 2026
+- **create.md**: Fixed duplicate section numbering (3.5 → 3.6)
+
+### Fixed
+- **mcp_config.json**: Removed invalid JS comments that broke JSON parsing
+- **.gitignore**: Added `.brain/` directory to prevent committing session state
 
 ## [2.0.2] - 2026-02-04
 - **New Skills**:
@@ -63,5 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CLI tool for easy installation and updates
 - Comprehensive documentation and architecture guide
 
-[Unreleased]: https://github.com/vudovn/antigravity-kit/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/vudovn/antigravity-kit/compare/v5.0.0...HEAD
+[5.0.0]: https://github.com/vudovn/antigravity-kit/compare/v2.0.2...v5.0.0
+[2.0.2]: https://github.com/vudovn/antigravity-kit/compare/v2.0.1...v2.0.2
+[2.0.1]: https://github.com/vudovn/antigravity-kit/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/vudovn/antigravity-kit/releases/tag/v2.0.0

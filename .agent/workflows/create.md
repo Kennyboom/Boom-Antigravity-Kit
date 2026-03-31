@@ -229,7 +229,7 @@ After every 3-5 features → STOP → cross-check:
 NEVER let gaps accumulate.
 ```
 
-### 3.5 File Size Discipline
+### 3.6 File Size Discipline
 
 ```
 AFTER writing each file:

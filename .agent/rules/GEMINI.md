@@ -109,7 +109,7 @@ When user's prompt is NOT in English:
 
 - **Code**: Concise, direct, no over-engineering. Self-documenting.
 - **Testing**: Mandatory. Pyramid (Unit > Int > E2E) + AAA Pattern.
-- **Performance**: Measure first. Adhere to 2025 standards (Core Web Vitals).
+- **Performance**: Measure first. Adhere to 2026 standards (Core Web Vitals).
 - **Infra/Safety**: 5-Phase Deployment. Verify secrets security.
 
 ### 🧠 Context Budget (Global — ALL Workflows)
@@ -212,24 +212,14 @@ WHY: Too much context degrades AI output quality.
 - **Completion:** A task is NOT finished until `checklist.py` returns success.
 - **Reporting:** If it fails, fix the **Critical** blockers first (Security/Lint).
 
-**Available Scripts (12 total):**
+**Available Scripts (2 total):**
 
-| Script                     | Skill                 | When to Use         |
-| -------------------------- | --------------------- | ------------------- |
-| `security_scan.py`         | vulnerability-scanner | Always on deploy    |
-| `dependency_analyzer.py`   | vulnerability-scanner | Weekly / Deploy     |
-| `lint_runner.py`           | lint-and-validate     | Every code change   |
-| `test_runner.py`           | testing-patterns      | After logic change  |
-| `schema_validator.py`      | database-design       | After DB change     |
-| `ux_audit.py`              | frontend-design       | After UI change     |
-| `accessibility_checker.py` | frontend-design       | After UI change     |
-| `seo_checker.py`           | seo-fundamentals      | After page change   |
-| `bundle_analyzer.py`       | performance-profiling | Before deploy       |
-| `mobile_audit.py`          | mobile-design         | After mobile change |
-| `lighthouse_audit.py`      | performance-profiling | Before deploy       |
-| `playwright_runner.py`     | webapp-testing        | Before deploy       |
+| Script                     | When to Use         |
+| -------------------------- | ------------------- |
+| `checklist.py`             | Manual Quality Gate |
+| `verify_all.py`            | Automated QA Hook   |
 
-> 🔴 **Agents & Skills can invoke ANY script** via `python .agent/skills/<skill>/scripts/<script>.py`
+> 🔴 **Agents & Skills can invoke these scripts** via `python .agent/scripts/<script>.py`
 
 ### 🎭 Gemini Mode Mapping
 

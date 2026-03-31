@@ -1,4 +1,4 @@
-# Boom Antigravity Kit V4.5 — Architecture
+# Boom Antigravity Kit V5.0 — Architecture
 
 > No-Skip Engineering + 2026 Industry Best Practices + Full Audit Complete
 

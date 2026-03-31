@@ -1,10 +1,10 @@
-# Boom Boom Antigravity Kit V4.5
+# Boom Boom Antigravity Kit V5.0
 
 > Forked from [vudovn/antigravity-kit](https://github.com/vudovn/antigravity-kit) with BWF quality gates integration.
 
-The next-generation autonomous engineering toolkit. V3.0 adds disciplined engineering protocols that ensure **zero feature omissions** through systematic discovery, mandatory coverage audits, and build verification loops.
+The next-generation autonomous engineering toolkit. V5.0 delivers disciplined engineering protocols that ensure **zero feature omissions** through systematic discovery, mandatory coverage audits, and build verification loops.
 
-## What's New in V3.0
+## What's New in V5.0
 
 ### 🆕 New Features
 - **`/architect` workflow** — 10-phase technical design (C4, ADR, DB, API, Screen Specs, Error Handling, Caching)
@@ -76,7 +76,7 @@ See [`.agent/ARCHITECTURE.md`](.agent/ARCHITECTURE.md) for the full technical br
 
 - **Base**: [antigravity-kit](https://github.com/vudovn/antigravity-kit) by vudovn
 - **Quality Gates**: [Boom Workflow Framework](https://github.com/Kennyboom/Boom-Workflow-Framework)
-- **Session Persistence**: Agent Assistant V5.0
+- **Session Persistence**: Agent Assistant patterns (error recovery, auto-save, schemas)
 
 ## License
 
