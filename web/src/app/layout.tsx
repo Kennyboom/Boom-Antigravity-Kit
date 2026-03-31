@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Antigravity Kit - AI Agent Capability Expansion Toolkit",
+  title: "Boom Antigravity Kit - AI Agent Capability Expansion Toolkit",
   description: "A comprehensive collection of skills, rules, and workflows to supercharge AI coding assistants for Antigravity. 35+ skills, 57 UI Styles, production-ready workflows.",
   metadataBase: new URL("https://antigravity-kit.vercel.app/"),
   robots: {
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://antigravity-kit.vercel.app/",
-    siteName: "Antigravity Kit",
+    siteName: "Boom Antigravity Kit",
     images: ["/images/logo.png"],
   },
 };

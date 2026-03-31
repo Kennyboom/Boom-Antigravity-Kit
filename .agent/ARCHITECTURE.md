@@ -1,4 +1,4 @@
-# Antigravity Kit V4.5 — Architecture
+# Boom Antigravity Kit V4.5 — Architecture
 
 > No-Skip Engineering + 2026 Industry Best Practices + Full Audit Complete
 
@@ -233,7 +233,7 @@ Support: /refactor /performance /review /docs /orchestrate
 
 ## Credits
 
-- **Antigravity Kit V2** — vudovn/antigravity-kit
+- **Boom Antigravity Kit V2** — vudovn/antigravity-kit
 - **Boom Workflow Framework** — Kennyboom/Boom-Workflow-Framework
 - **Agent Assistant** — AA rules/schemas/planner patterns
 - **V3.5** — BWF quality gates

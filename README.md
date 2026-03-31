@@ -1,4 +1,4 @@
-# Antigravity Kit V3.0
+# Boom Boom Antigravity Kit V4.5
 
 > Forked from [vudovn/antigravity-kit](https://github.com/vudovn/antigravity-kit) with BWF quality gates integration.
 

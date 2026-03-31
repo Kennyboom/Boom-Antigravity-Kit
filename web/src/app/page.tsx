@@ -465,14 +465,14 @@ export default function Home() {
         <img
           className="dark:invert"
           src="/images/logo.png"
-          alt="Antigravity Kit logo"
+          alt="Boom Antigravity Kit logo"
           width={100}
           height={20}
         />
         <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
           <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
             <span className="before:-inset-x-1 before:-rotate-1 relative z-4 before:pointer-events-none before:absolute before:inset-y-0 before:z-4 before:bg-linear-to-r before:from-blue-500 before:via-cyan-500 before:to-orange-500 before:opacity-16 before:mix-blend-hard-light">
-              Antigravity Kit
+              Boom Antigravity Kit
             </span>
           </h1>
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
