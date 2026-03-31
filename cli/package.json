@@ -1,0 +1,43 @@
+{
+  "name": "boom-ag-kit",
+  "version": "5.0.0",
+  "description": "CLI to install Boom Antigravity Kit — hardened AI Agent templates with Skills, Agents, Workflows, and .brain memory",
+  "main": "bin/index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "boom-ag-kit": "bin/index.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kennyboom/Boom-Antigravity-Kit.git"
+  },
+  "homepage": "https://github.com/Kennyboom/Boom-Antigravity-Kit#readme",
+  "bugs": {
+    "url": "https://github.com/Kennyboom/Boom-Antigravity-Kit/issues"
+  },
+  "keywords": [
+    "boom",
+    "antigravity",
+    "ai",
+    "agent",
+    "gemini",
+    "skills",
+    "workflows",
+    "cli"
+  ],
+  "author": "Boom Team",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.3.3",
+    "giget": "^2.0.0",
+    "ora": "^8.2.0"
+  }
+}
