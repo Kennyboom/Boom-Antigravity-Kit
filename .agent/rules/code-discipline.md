@@ -10,10 +10,12 @@
 | Rule | Limit | Action When Violated |
 |------|:-----:|---------------------|
 | File length | ≤ 300 lines | MUST split by responsibility |
-| Function length | ≤ 25 lines | MUST extract sub-functions |
-| Line width | ≤ 100 chars | MUST wrap |
+| Function length | ≤ 25 lines | MUST extract sub-functions (JSX render tolerates longer but prefer sub-components) |
+| Line width | ≤ 100 chars | MUST wrap (except URL/SVG inline) |
 | Nesting depth | ≤ 3 levels | MUST use early return / guards |
 | Function params | ≤ 4 params | MUST use object/config pattern |
+| Cyclomatic complexity | ≤ 10 | MUST split logic into helpers |
+| useState per component | ≤ 3 separate | MUST use useReducer / custom hook / object state |
 
 ---
 
@@ -51,6 +53,7 @@ Every function MUST follow this structure:
 2. Main logic IN THE MIDDLE
 3. Return/cleanup AT THE END
 4. NO nested if/else beyond 3 levels
+5. JSDoc/TSDoc REQUIRED for every public function
 
 Example mental model:
   function doThing(input) {
@@ -80,7 +83,7 @@ Example mental model:
 | Components | PascalCase | UserCard, SettingsPanel |
 | Files | kebab-case | user-card.tsx, settings-panel.tsx |
 
-**FORBIDDEN names:** data, temp, result, item, thing, x, val
+**FORBIDDEN names:** data, temp, result, item, thing, x, val, res, ret, obj
 
 ---
 
@@ -95,9 +98,10 @@ EVERY async/API call MUST have:
 5. Recovery strategy (retry, fallback, redirect)
 
 FORBIDDEN:
-❌ catch(e) {} // empty catch
-❌ catch(e) { console.log(e) } // log and forget
+❌ catch(e) {} — empty catch (swallowing errors)
+❌ catch(e) { console.log(e) } — log and forget
 ❌ // no try-catch at all
+❌ console.log() anywhere — use proper logger only
 ```
 
 ---
@@ -168,17 +172,62 @@ RULES:
 
 ---
 
+## 10. TypeScript Strictness
+
+```
+MUST have specific types for everything:
+❌ any — FORBIDDEN everywhere
+❌ @ts-ignore — FORBIDDEN (unless mandatory + comment why)
+❌ @ts-expect-error — FORBIDDEN (unless mandatory + comment why)
+✅ Use generics, union types, or unknown + type guards
+```
+
+---
+
+## 11. Pure vs Impure Separation
+
+```
+Core business logic MUST be Pure Functions:
+  - Input → Output, zero side-effects
+  - No API calls, no DB, no global state mutation
+  - Easy to test, easy to reason about
+
+Impure functions (fetch, DB, global state) MUST:
+  - Live in separate service/hook files
+  - Never mix with pure computation logic
+```
+
+---
+
+## 12. No console.log
+
+```
+console.log is FORBIDDEN in production code.
+Use proper structured logger only:
+  ✅ logger.debug() — dev diagnostics
+  ✅ logger.info()  — operational events
+  ✅ logger.warn()  — recoverable issues
+  ✅ logger.error() — failures requiring attention
+```
+
+---
+
 ## Pre-commit Checklist
 
 ```
 Before completing ANY file:
 □ File ≤ 300 lines?
 □ All functions ≤ 25 lines?
+□ Cyclomatic complexity ≤ 10?
 □ Nesting ≤ 3 levels?
 □ No magic numbers?
 □ No unused imports?
 □ No TODO/FIXME/HACK comments?
 □ Error handling on all async calls?
-□ Types defined (no `any`)?
+□ Types defined (no any, no @ts-ignore)?
+□ No console.log?
+□ Pure/Impure properly separated?
+□ JSDoc on public functions?
+□ useState ≤ 3 per component?
 □ Named exports (not default)?
 ```
