@@ -213,3 +213,15 @@ TECHNIQUES (use official names):
 🔴 PERFORMANCE SACRED:
   Any slowdown → ROLLBACK → find another approach
 ```
+
+---
+
+## Next Steps
+
+```
+After /refactor, consider:
+  → /test — Verify no behavior changed (mandatory)
+  → /review health — Check improved code health score
+  → /save — Persist refactor decisions to .brain/
+```
+

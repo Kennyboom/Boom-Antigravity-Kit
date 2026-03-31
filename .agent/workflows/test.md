@@ -59,6 +59,24 @@ Report:
    Target: [type] tests for [scope]"
 ```
 
+### Phase 1.5: Spec Traceability (IF specs exist)
+
+```
+IF docs/specs/ exists:
+  1. READ acceptance criteria from spec files
+  2. MAP each AC → test file:
+
+  | AC | Description | Test File | Status |
+  |----|-------------|-----------|:------:|
+  | AC1 | Login redirects to dashboard | auth.test.ts | ✅ |
+  | AC2 | Invalid email shows error | auth.test.ts | ✅ |
+  | AC3 | Rate limit after 5 attempts | NO TEST | ⚠️ |
+
+  3. REPORT gaps: "AC3 has NO test → must create"
+
+IF no specs → skip this phase.
+```
+
 ---
 
 ## Phase 2: Coverage Targets
@@ -120,8 +138,8 @@ REPEAT for each behavior
 describe('[Module/Function]', () => {
   // Group by function
   describe('[functionName]', () => {
-    // Happy path
-    it('should [expected behavior] when [condition]', () => {
+    // Happy path (tag with AC# if spec exists)
+    it('[AC1] should [expected behavior] when [condition]', () => {
       // Arrange
       const input = { /* valid data */ };
 
@@ -258,4 +276,6 @@ Functions: [X]% | Lines: [Y]%
 ### Next
 1. Run tests: `npm test`
 2. Check coverage: `npm test -- --coverage`
+3. Review quality: `/review health`
+4. Save context: `/save`
 ```

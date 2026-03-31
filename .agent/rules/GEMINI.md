@@ -112,6 +112,20 @@ When user's prompt is NOT in English:
 - **Performance**: Measure first. Adhere to 2025 standards (Core Web Vitals).
 - **Infra/Safety**: 5-Phase Deployment. Verify secrets security.
 
+### 🧠 Context Budget (Global — ALL Workflows)
+
+```
+CONTEXT OVERLOAD PREVENTION (applies everywhere):
+- Load max 50-100KB source code per session
+- After 5 files modified → save progress to .brain/
+- After 50+ messages → auto-generate handover.md
+- IF context feels saturated → notify user:
+  "Context heavy. Progress saved. /recap in new session."
+
+WHY: Too much context degrades AI output quality.
+     Small, focused sessions = better code.
+```
+
 ### 📁 File Dependency Awareness
 
 **Before modifying ANY file:**

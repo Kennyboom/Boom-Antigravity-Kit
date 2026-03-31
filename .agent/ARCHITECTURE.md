@@ -1,6 +1,6 @@
-# Antigravity Kit V4.4 — Architecture
+# Antigravity Kit V4.5 — Architecture
 
-> No-Skip Engineering + 2026 Industry Best Practices
+> No-Skip Engineering + 2026 Industry Best Practices + Full Audit Complete
 
 ---
 
@@ -195,12 +195,33 @@ Support: /refactor /performance /review /docs /orchestrate
 
 ---
 
+## V4.5 Changelog (vs V4.4) — Final Comprehensive Audit
+
+### UPGRADED Workflows
+
+| File | What Changed |
+|------|--------------|
+| debug.md | +Error persistence to .brain/ after every fix |
+| debug.md | +Next Steps cross-workflow linkage |
+| test.md | +Phase 1.5 Spec Traceability (AC → test mapping) |
+| test.md | +[AC#] naming convention in test templates |
+| test.md | +Next Steps cross-workflow linkage |
+| refactor.md | +Next Steps cross-workflow linkage |
+
+### UPGRADED Rules
+
+| File | What Changed |
+|------|--------------|
+| GEMINI.md | +Context Budget rule (global, all workflows) |
+
+---
+
 ## Inventory Totals
 
 | Category | Count |
 |----------|:-----:|
 | Workflows | 23 |
-| Rules | 8 |
+| Rules | 9 |
 | References | 7 |
 | Schemas | 3 |
 | Agents | 21 |
@@ -221,4 +242,6 @@ Support: /refactor /performance /review /docs /orchestrate
 - **V4.1** — Full lifecycle (brain, rollback, navigator, deploy)
 - **V4.2** — AA-Grade protocols (error recovery, auto-save, schemas)
 - **V4.3** — AA planner (self-contained, risk matrix, verify column)
-- **V4.4** — 2026 Industry (reflect, immutable tests, atomic tasks, contract-first)
+- **V4.4** — 2026 Industry (reflect, immutable tests, atomic, contract-first)
+- **V4.5** — Final audit (error persistence, spec traceability, context budget)
+

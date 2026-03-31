@@ -166,11 +166,27 @@ After EVERY fix, add prevention:
    - How to avoid in future
    - Related areas to watch
 
+4. SAVE to .brain/session.json → errors_encountered:
+   { error, root_cause, fix, prevention }
+   WHY: Same bug pattern won't be hit again in new session.
+
 Report:
   "🛡️ REGRESSION PREVENTION:
    ✅ Test added: [test name]
    ✅ Guard added: [description]
+   ✅ Error saved to .brain/
    ✅ Build: clean | Lint: clean"
+```
+
+---
+
+## Next Steps
+
+```
+After /debug, consider:
+  → /test [file] — Add regression test for the fix
+  → /save — Persist debug findings to .brain/
+  → /review health — Check overall code quality
 ```
 
 ---
