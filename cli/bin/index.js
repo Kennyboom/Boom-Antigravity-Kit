@@ -6,6 +6,7 @@ import { downloadTemplate } from "giget";
 import path from "path";
 import fse from "fs-extra";
 import readline from "readline";
+import { execSync } from "child_process";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -174,7 +175,35 @@ const initCommand = async (options) => {
     await cleanupTemp(tempDir);
 
     if (spinner) {
-      spinner.succeed(chalk.green("Installation successful!"));
+      spinner.succeed(chalk.green("Kit installed!"));
+    }
+
+    // Auto-index with GitNexus Knowledge Graph
+    const gnSpinner = quiet
+      ? null
+      : ora({
+          text: "Indexing codebase with GitNexus...",
+          color: "magenta",
+        }).start();
+
+    try {
+      execSync(
+        "npx -y gitnexus@latest analyze",
+        { cwd: targetDir, stdio: "pipe", timeout: 120000 }
+      );
+      if (gnSpinner) {
+        gnSpinner.succeed(
+          chalk.green("Knowledge Graph ready!")
+        );
+      }
+    } catch {
+      if (gnSpinner) {
+        gnSpinner.warn(
+          chalk.yellow(
+            "GitNexus skipped (empty project or offline)"
+          )
+        );
+      }
     }
 
     if (!quiet) {
@@ -188,8 +217,11 @@ const initCommand = async (options) => {
           `  ${chalk.cyan(BRAIN_FOLDER)} → ${chalk.gray(brainDir)}`
         );
       }
+      console.log(
+        `  ${chalk.magenta("🧠 GitNexus")} → MCP configured`
+      );
       console.log(chalk.gray("─".repeat(44)));
-      console.log(chalk.green("\nHappy coding! ⚡\n"));
+      console.log(chalk.green("\nFully ready! ⚡\n"));
     }
   } catch (error) {
     if (spinner) {

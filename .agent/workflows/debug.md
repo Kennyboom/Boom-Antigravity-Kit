@@ -92,6 +92,14 @@ WHY 5: Why was [guard] missing?
 ## Phase 4: Hypothesis-Driven Investigation
 
 ```
+GitNexus Trace (if .gitnexus/ exists):
+  BEFORE forming hypotheses, run:
+  → `gitnexus context [failing_symbol]`
+  → Get callers + callees + containing process
+  → Use call chain to narrow hypothesis scope
+
+  IF .gitnexus/ NOT found → skip (use grep)
+
 List hypotheses by likelihood:
 
 | # | Hypothesis | Likelihood | Test Method |

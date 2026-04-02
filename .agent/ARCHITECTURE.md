@@ -216,6 +216,34 @@ Support: /refactor /performance /review /docs /orchestrate
 
 ---
 
+## V5.1 Changelog (vs V5.0) — GitNexus Intelligence Integration
+
+### NEW MCP Server
+
+| Server | Purpose |
+|--------|---------|
+| `gitnexus` | Code Knowledge Graph — indexes codebase into graph DB, exposes 7 MCP tools (query, context, impact, detect_changes, rename, cypher, list_repos) |
+
+### NEW Skills
+
+| File | Purpose |
+|------|---------|
+| `gitnexus-intelligence/SKILL.md` | Teaches AI to use 7 GitNexus MCP tools with decision matrix and graceful fallback |
+
+### UPGRADED Workflows
+
+| File | What Changed |
+|------|-------------|
+| `create.md` | +Phase 0.5: Impact Analysis via GitNexus (blast radius check before coding) |
+| `refactor.md` | +Phase 1: GitNexus Enhancement (call chain + impact + rename dry-run) |
+| `debug.md` | +Phase 4: GitNexus Trace (call chain analysis before hypothesis) |
+
+### Design Decision
+
+All GitNexus steps use graceful fallback: if `.gitnexus/` is not found, the workflow skips the step and falls back to traditional grep/manual review. This ensures the Kit works on machines without GitNexus installed.
+
+---
+
 ## Inventory Totals
 
 | Category | Count |
@@ -226,8 +254,9 @@ Support: /refactor /performance /review /docs /orchestrate
 | Schemas | 3 |
 | Agents | 21 |
 | Scripts | 4 |
-| Skills | 37 |
+| Skills | 38 |
 | Quality Gates | 8 |
+| MCP Servers | 3 |
 
 ---
 

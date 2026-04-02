@@ -63,6 +63,30 @@ Report to user:
 
 ---
 
+## Phase 0.5: Impact Analysis via GitNexus (if indexed)
+
+```
+IF .gitnexus/ exists in project root:
+
+1. Run `gitnexus impact` on each core symbol
+   being modified in this phase
+2. Record blast radius in Blueprint:
+
+   | Symbol | Upstream | Downstream | Risk |
+   |--------|:--------:|:----------:|:----:|
+   | [func] | [N] | [N] | [H/M/L] |
+
+3. If Risk = HIGH on any symbol:
+   → Warn user before proceeding
+   → List all affected files
+
+IF .gitnexus/ NOT found:
+   → Skip (graceful fallback to manual review)
+   → Suggest: "npx gitnexus analyze" for next time
+```
+
+---
+
 ## Phase 1: Project Setup (first phase only)
 
 > ALL code is PRODUCTION quality. Full TypeScript,

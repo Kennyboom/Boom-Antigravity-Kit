@@ -157,6 +157,32 @@ WHY: Too much context degrades AI output quality.
 2. What PRINCIPLES must I apply?
 3. How does this DIFFER from generic output?
 
+### 🔗 Response Linking Protocol (MANDATORY)
+
+> 🔴 **ABSOLUTE RULE — NO EXCEPTIONS:**
+> Every time you **create**, **modify**, or **reference** a file in your response,
+> you MUST include a **clickable markdown link** so the user can open it directly.
+
+**Format:** `[filename](file:///absolute/path/to/file)`
+
+**Rules:**
+
+| Action | Required | Example |
+|--------|----------|---------|
+| **Create file** | Show link immediately after creation | 📄 Created: [plan.md](file:///path/to/plan.md) |
+| **Modify file** | Show link to modified file | ✏️ Updated: [GEMINI.md](file:///path/to/GEMINI.md) |
+| **Reference file** | Link every file you mention by name | See [auth.config.ts](file:///path/to/auth.config.ts) |
+| **Create artifact** | Show link in response summary | 📋 Plan: [implementation_plan.md](file:///path/to/plan.md) |
+
+**Failure Conditions:**
+
+- ❌ Saying "see file X" without a link = **PROTOCOL VIOLATION**
+- ❌ Creating a file and not showing its link = **USER CANNOT FIND IT**
+- ❌ Using relative paths instead of absolute `file:///` URIs = **LINK BROKEN**
+
+> **WHY:** Users cannot read minds. If you don't link it, it doesn't exist to them.
+> This is the #1 UX complaint. Fix it by making EVERY file reference clickable.
+
 ---
 
 ## TIER 1: CODE RULES (When Writing Code)

@@ -68,6 +68,37 @@ Copy the `.agent` directory into your project root:
 
 All audits are **MANDATORY**. No handover without PASS.
 
+## 🧠 GitNexus Intelligence (V5.1)
+
+The Kit ships with [GitNexus](https://github.com/abhigyanpatwari/GitNexus) pre-configured — a Knowledge Graph engine that indexes your entire codebase and gives AI agents deep architectural awareness.
+
+### What It Does
+
+| Capability | Tool | Example |
+|-----------|------|---------|
+| Find code by concept | `query` | "Find all authentication logic" |
+| Trace call chains | `context` | "Who calls `parseRawData`?" |
+| Check blast radius | `impact` | "What breaks if I change `UserSession`?" |
+| Map git changes | `detect_changes` | "What symbols did last commit affect?" |
+| Safe rename | `rename` | Preview all rename locations before applying |
+| Advanced query | `cypher` | Run Cypher queries on the code graph |
+
+### Automatic Setup
+
+GitNexus indexes automatically when you run `boom-ag-kit init`. No extra commands needed.
+
+```bash
+# This single command does everything:
+# 1. Copy .agent/ + .brain/
+# 2. Index codebase with GitNexus
+boom-ag-kit init
+
+# Optional: View interactive graph in browser
+npx gitnexus serve
+```
+
+Once installed, AI agents auto-connect via MCP and use GitNexus tools during `/create`, `/refactor`, and `/debug` workflows. If indexing fails (empty project), workflows gracefully fall back to traditional search.
+
 ## Architecture
 
 See [`.agent/ARCHITECTURE.md`](.agent/ARCHITECTURE.md) for the full technical breakdown.

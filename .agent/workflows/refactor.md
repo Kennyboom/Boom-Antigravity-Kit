@@ -38,10 +38,21 @@ $ARGUMENTS
 2. Run lint + build → current health status
 3. Read recent git log → context
 
+GitNexus Enhancement (if .gitnexus/ exists):
+4. Run `gitnexus context` on target symbols
+   → Get full call chain (callers + callees)
+5. Run `gitnexus impact` on refactor targets
+   → Know blast radius BEFORE touching code
+6. Use `gitnexus rename --dry-run` for rename ops
+   → Preview all locations with confidence score
+
+IF .gitnexus/ NOT found → skip steps 4-6
+
 Report:
   "🔪 Found:
    [X] source files | [Y] functions
    [Z] lint warnings | Build: [pass/fail]
+   🧠 GitNexus: [indexed/not indexed]
 
    Choose mode:"
 
