@@ -178,29 +178,39 @@ const initCommand = async (options) => {
       spinner.succeed(chalk.green("Kit installed!"));
     }
 
-    // Auto-index with GitNexus Knowledge Graph
+    // Ensure GitNexus is installed locally to go with the project
     const gnSpinner = quiet
       ? null
       : ora({
-          text: "Indexing codebase with GitNexus...",
+          text: "Integrating GitNexus into project...",
           color: "magenta",
         }).start();
 
     try {
+      // 1. Install globally to ensure the MCP server works automatically for the user
+      execSync("npm install -g gitnexus@latest", { stdio: "pipe" });
+      
+      // 2. Install as devDependency so it binds to this codebase specifically
+      if (fse.pathExistsSync(path.join(targetDir, "package.json"))) {
+        execSync("npm install -D gitnexus@latest", { cwd: targetDir, stdio: "pipe" });
+      }
+
+      // 3. Analyze to build the initial AGENTS.md graph
       execSync(
-        "npx -y gitnexus@latest analyze",
+        "npx gitnexus analyze",
         { cwd: targetDir, stdio: "pipe", timeout: 120000 }
       );
+
       if (gnSpinner) {
         gnSpinner.succeed(
-          chalk.green("Knowledge Graph ready!")
+          chalk.green("GitNexus integrated & Knowledge Graph ready!")
         );
       }
-    } catch {
+    } catch (e) {
       if (gnSpinner) {
         gnSpinner.warn(
           chalk.yellow(
-            "GitNexus skipped (empty project or offline)"
+            `GitNexus skipped (${e.message})`
           )
         );
       }

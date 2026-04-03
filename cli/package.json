@@ -38,6 +38,7 @@
     "commander": "^12.1.0",
     "fs-extra": "^11.3.3",
     "giget": "^2.0.0",
+    "gitnexus": "latest",
     "ora": "^8.2.0"
   }
 }
