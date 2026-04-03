@@ -1,241 +1,144 @@
 <div align="center">
-  <img src="https://agent-assistant-ten.vercel.app/assets/logo.svg" alt="Agent Assistant Logo" width="120" height="auto" />
+  <h1>🚀 BoomOpen Workflow Kit</h1>
+  <p><strong>Multi-agent orchestration and elite workflow framework for AI coding assistants</strong></p>
+  
+  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+  [![Node.js 18+](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
 </div>
 
-# Agent Assistant
+---
 
-**Multi-agent orchestration for AI coding assistants**
+*(Vietnamese document is available below / Bản tiếng Việt ở bên dưới)*
 
-Transform one AI into a coordinated team of 21 specialist agents with structured workflows and 1400+ domain skills.
+## 🇬🇧 English Documentation
 
-[![npm (scoped)](https://img.shields.io/npm/v/@namch/agent-assistant?label=npm%20global)](https://www.npmjs.com/package/@namch/agent-assistant)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Node.js 18+](https://img.shields.io/badge/Node.js-18%2B-green.svg)](https://nodejs.org/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
+### What is BoomOpen Workflow Kit?
+**BoomOpen Workflow Kit** is an advanced, open-source AI workforce operating system designed to transform a single AI coding assistant into a highly coordinated team of specialist agents. Combining the hardcore **38 Boom Elite Core Skills** with the vast **1400+ Matrix Skill Library (HSOL)**, it provides structural rigor to AI tools like Cursor, Claude Code, Copilot, and Gemini.
+
+### 🌟 Key Features
+- **Write Less, Architect More**: Enforces production-grade coding standards via built-in logic engines (SPIE v3 Debugger, Master Planner v4.0).
+- **Environment Agnostic Setup**: Install once to your global directory (`~/.cursor/`, `~/.gemini/`) and it applies to all your projects seamlessly.
+- **Smart Router Architecture**: Built-in routing via commands like `/code`, `/plan`, `/debug` which automatically delegate tasks to the right AI agents based on complexity variants (`:fast`, `:hard`, `:team`).
+- **Strict Quality Gates**: Over 5 phases of requirement gathering, brainstorming, planning, and TDD-based execution are strictly enforced to prevent AI hallucinations and context slipping.
+
+### 💻 Supported AI Tools
+| Tool | Support Level | Installation Path |
+|------|--------------|-------------------|
+| **Cursor** | ✅ Full | `~/.cursor/` |
+| **Antigravity (Gemini)** | ✅ Full | `~/.gemini/` |
+| **Claude Code** | ✅ Full | `~/.claude/` |
+| **GitHub Copilot** | ✅ Full | `~/.copilot/` |
+| **Codex** | ✅ Full | `~/.codex/` |
 
 ---
 
-## Why Agent Assistant?
+### ⚙️ Installation
 
-| 🎯 Feature                      | What It Does                                                                                                                                                                                   |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **One-Time Setup, Forever Use** | Configure once at global level (`~/.cursor/`, `~/.claude/`, etc.) and it auto-applies to ALL your projects. No more repetitive config for every new repo.                                      |
-| **Sub-Agent Orchestration**     | When supported (Claude Code, Cursor Max mode), the main agent spawns specialized sub-agents to handle tasks **in parallel** — backend, frontend, testing, security all working simultaneously. |
-| **Multi-Platform Support**      | Works seamlessly across **Cursor**, **GitHub Copilot**, **Claude Code**, **Codex**, and **Antigravity/Gemini**. Same workflows, any tool.                                                                 |
-| **Matrix Skill Discovery (HSOL)** | Injects the right skills by profile and request; optional dynamic discovery (find-skills) for `hard`/`team` when matrix fitness &lt; 0.8. 1400+ matrix skills, zero manual config. |
-
-### The Goal
-
-> **Code less, deliver more.** Reduce token costs by 85%, cut bugs by 70%, and stop wasting time on repetitive tasks.
-
----
-
-## Quick Results
-
-| Metric                | Improvement       |
-| --------------------- | ----------------- |
-| ⏰ Time-to-Production | **70% faster**    |
-| 🐛 Bug Rate           | **70% reduction** |
-| 💰 Token Cost         | **85% savings**   |
-
----
-
-## Installation
-
-### Global Package (Recommended)
-
+**1. Using npx (Global Package)**
 ```bash
-npm install -g @namch/agent-assistant@latest
-
-# After installing globally, run:
-
-agent-assistant install cursor # Setup for Cursor
-agent-assistant install claude # Setup for Claude Code
-agent-assistant install copilot # Setup for GitHub Copilot
-agent-assistant install antigravity # Setup for Antigravity/Gemini
-agent-assistant install codex # Setup for Codex
-agent-assistant install --all # Setup for ALL tools
+npx @boomopen/workflow-kit install cursor       # Setup for Cursor
+npx @boomopen/workflow-kit install antigravity  # Setup for Gemini
+npx @boomopen/workflow-kit install --all        # Setup for all supported tools
 ```
 
-### From Source
-
+**2. From Source (Local Repository)**
 ```bash
-# Clone
-git clone https://github.com/hainamchung/agent-assistant.git
-cd agent-assistant
+# Clone the repository
+git clone https://github.com/Kennyboom/BoomOpen-Workflow-Kit.git
+cd BoomOpen-Workflow-Kit
 
-# Install for your tool(s)
-node cli/install.js install cursor      # Cursor
-node cli/install.js install claude      # Claude Code
-node cli/install.js install copilot     # GitHub Copilot
-node cli/install.js install antigravity # Antigravity/Gemini
-node cli/install.js install codex       # Codex
-node cli/install.js install --all       # All tools
+# Install into your tool
+node cli/install.js install cursor
+node cli/install.js install --all
 ```
 
-That's it. The framework installs globally and works across all your projects.
+---
 
-## Uninstall
+### 🚀 Quick Start
+Once installed, simply open your AI chat interface (e.g., Cursor Chat) and type one of the router commands:
 
-### Remove configurations
+- `/code:fast "add dark mode"` — Execute a simple feature.
+- `/plan:hard "build payment module"` — Trigger the Master Planner v4 to build an architectural blueprint.
+- `/debug:hard "auth failed in production"` — Trigger the SPIE (Systematic Problem Investigation Engine) to find the root cause.
+- `/test:hard "login components"` — Run the Test Engineer v3.0 logic for RED-GREEN-REFACTOR.
+- `/orchestrate "build new fullstack SaaS"` — Spawn a multi-agent team to collaborate.
 
+---
+
+### 🗑️ Uninstall
 ```bash
-agent-assistant uninstall cursor      # Remove from Cursor
-agent-assistant uninstall claude      # Remove from Claude Code
-agent-assistant uninstall copilot     # Remove from GitHub Copilot
-agent-assistant uninstall antigravity # Remove from Antigravity/Gemini
-agent-assistant uninstall codex       # Remove from Codex
-agent-assistant uninstall --all       # Remove from ALL tools
+npx @boomopen/workflow-kit uninstall cursor
+# OR locally:
+node cli/install.js uninstall cursor
 ```
-
-### Remove global package
-
-```bash
-npm uninstall -g @namch/agent-assistant
-```
-
-### From Source
-
-```bash
-cd agent-assistant
-node cli/install.js uninstall cursor      # Remove from Cursor
-node cli/install.js uninstall claude      # Remove from Claude Code
-node cli/install.js uninstall copilot     # Remove from GitHub Copilot
-node cli/install.js uninstall antigravity # Remove from Antigravity/Gemini
-node cli/install.js uninstall codex       # Remove from Codex
-node cli/install.js uninstall --all   # Remove from all tools
-# Then remove the directory
-cd ..
-rm -rf agent-assistant
-```
-
----
-
-## Quick Start
-
-### 1. Generate Project Docs (Recommended)
-
-```bash
-/docs:core       # Technical docs for AI context
-/docs:business   # Business requirements
-```
-
-Creates `./documents/` files that agents reference. Without docs, agents work generically. With docs, they follow YOUR patterns.
-
-### 2. Start Building
-
-```bash
-/cook:fast "add dark mode toggle"           # Simple feature
-/cook:hard "implement OAuth 2.0"            # Complex feature with all quality gates
-/fix "payment fails on Safari"              # Bug fix
-/plan "build notification system"           # Implementation plan
-/test:hard "user registration flow"         # Generate tests
-/review "audit auth module"                 # Code review
-/report "status report for sprint"          # Reporting (create/update reports)
-```
-
-### Variants
-
-| Variant | Use For          | Agents                     |
-| ------- | ---------------- | -------------------------- |
-| `:fast` | Simple tasks     | 2-3 agents                 |
-| `:hard` | Complex features | 5-8 agents + quality gates |
-| `:team` | Team workflows   | All agents, structured phases |
-
-## Commands Reference
-
-| Category    | Commands                                                 |
-| ----------- | -------------------------------------------------------- |
-| **Build**   | `/cook`, `/code`, `/fix`                                 |
-| **Quality** | `/test`, `/review`, `/debug`                             |
-| **Plan**    | `/plan`, `/brainstorm`, `/design`                        |
-| **Docs**    | `/docs:core`, `/docs:business`, `/docs:audit`            |
-| **Report**  | `/report:fast`, `/report:hard`, `/report:team`           |
-| **Deploy**  | `/deploy:check`, `/deploy:preview`, `/deploy:production` |
-
----
-
-## 21 Specialist Agents
-
-| Domain             | Agents                                                                                              |
-| ------------------ | --------------------------------------------------------------------------------------------------- |
-| **Implementation** | backend-engineer, frontend-engineer, mobile-engineer, game-engineer                                 |
-| **Architecture**   | tech-lead, database-architect                                                                       |
-| **Quality**        | tester, reviewer, debugger, security-engineer                                                       |
-| **Planning**       | planner, brainstormer, business-analyst                                                             |
-| **Support**        | designer, devops-engineer, docs-manager, performance-engineer, researcher, scouter, project-manager, **reporter** |
-
----
-
-## Matrix Skill Discovery
-
-Agents don't have hardcoded skills. They declare a **profile**, and the Matrix automatically injects relevant skills:
-
-```yaml
-# Agent declares:
-profile: "backend:execution"
-
-# Matrix resolves → 20+ backend skills injected automatically
-```
-
-**1400+ skills** across 19 domains. Add a new skill once, all relevant agents get it instantly.
-
----
-
-## Project Structure
-
-```
-agent-assistant/
-├── agents/          # 21 specialist agents
-├── commands/        # 50+ workflow commands (routers + variants: fast, hard, team)
-├── rules/           # 8 orchestration rules
-├── matrix-skills/   # 19 domain skill registries
-├── skills/          # 1400+ domain skills
-└── cli/             # Installer
-```
-
----
-
-## Supported Tools
-
-| Tool           | Status  | Install Path  |
-| -------------- | ------- | ------------- |
-| Cursor         | ✅ Full | `~/.cursor/`  |
-| Claude Code    | ✅ Full | `~/.claude/`  |
-| GitHub Copilot | ✅ Full | `~/.copilot/` |
-| Antigravity    | ✅ Full | `~/.gemini/`  |
-| Codex          | ✅ Full | `~/.codex/`   |
-
----
-
-## Contributing
-
-1. Fork → Branch → Commit (`feat:`, `fix:`, `docs:`) → PR
-2. Areas: Agents, Commands, Skills, Matrix, Docs, Bug fixes
-
----
-
-## Support
-
-If this helps you ship faster, consider buying me a coffee!
-
-<a href="https://buymeacoffee.com/hainamchuns" target="_blank">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217">
-</a>
 
 <br/>
-<img src="https://agent-assistant-ten.vercel.app/assets/buymeacoffee-qr.png" alt="Buy Me A Coffee QR Code" width="150" />
-<br/>
-<img src="https://agent-assistant-ten.vercel.app/assets/IMG_20260126_202557.png" alt="QR Code" width="150" />
 
 ---
 
-## License
+<br/>
 
-MIT — [NamCH](https://github.com/hainamchung) — [Issues](https://github.com/hainamchung/agent-assistant/issues)
+## 🇻🇳 Hướng Dẫn Sử Dụng (Tiếng Việt)
 
+### BoomOpen Workflow Kit là gì?
+**BoomOpen Workflow Kit** là một hệ điều hành mã nguồn mở dành cho AI coding assistant. Khung làm việc này giúp biến một AI thông thường thành một đội ngũ gồm nhiều Đặc vụ (Agents) chuyên biệt. Với bộ lõi thiện chiến gồm **38 Boom Elite Core Skills** kết hợp cùng thư viện khổng lồ **1400+ Matrix Skills (HSOL)**, hệ thống áp đặt tư duy phát triển phần mềm và tiêu chuẩn code cực kỳ nghiêm ngặt cho các công cụ như Cursor, Claude Code, hay Copilot.
+
+### 🌟 Tính năng nổi bật
+- **Kiến trúc Router Thông minh**: Giao tiếp thông qua các tập lệnh tinh gọn như `/code`, `/plan`, `/debug` đi kèm các cấp độ (`:fast`, `:hard`, `:team`) giúp AI tự biết cách chia nhỏ công việc.
+- **Tiêu chuẩn Production-Grade**: Áp đặt các Engine độc quyền như *SPIE v3 Debugger* (phân tích lỗi 5-Whys) hay *Master Planner v4.0* (lên kế hoạch chống bỏ sót code).
+- **Cài đặt 1 lần cho mọi dự án**: Cấu hình sẽ tự động tiêm thẳng vào thư mục toàn cục (Global) của trình soạn thảo, dùng được cho 100% các dự án của bạn.
+
+### 💻 Các công cụ AI được Hỗ trợ
+Hệ thống hiện tại hỗ trợ cài đặt toàn cục và tự động áp dụng các quy tắc cho:
+- **Cursor** (`~/.cursor/`)
+- **Antigravity - Gemini** (`~/.gemini/`)
+- **Claude Code** (`~/.claude/`)
+- **GitHub Copilot** (`~/.copilot/`)
+- **Codex** (`~/.codex/`)
+
+---
+
+### ⚙️ Cài đặt
+
+**1. Cài đặt trực tiếp qua NPX**
+```bash
+npx @boomopen/workflow-kit install cursor       # Cài đặt cho Cursor
+npx @boomopen/workflow-kit install antigravity  # Cài đặt cho Gemini
+npx @boomopen/workflow-kit install --all        # Cài đặt cho toàn bộ tools
+```
+
+**2. Cài đặt từ mã nguồn gốc (Source)**
+```bash
+# Tải mã nguồn về máy
+git clone https://github.com/Kennyboom/BoomOpen-Workflow-Kit.git
+cd BoomOpen-Workflow-Kit
+
+# Chạy lệnh cài đặt thẳng vào môi trường Editor
+node cli/install.js install cursor
+node cli/install.js install --all
+```
+
+---
+
+### 🚀 Khởi động nhanh (Cách sử dụng)
+Sau khi cài đặt xong, hãy mở phần Chat của AI (vd: Cursor Chat) và gõ ngay các tập lệnh sau:
+
+- `/code:fast "thêm nút dark mode"` — Build tính năng nhanh và gọn.
+- `/plan:hard "xây hệ thống thanh toán"` — Kích hoạt Master Planner lên kế hoạch tỉ mỉ trước khi code.
+- `/debug:hard "lỗi xác thực đăng nhập"` — Gọi chuyên gia gỡ rối giải quyết tận gốc vấn đề theo phương pháp 5-Whys.
+- `/test:hard "login flow"` — Đảm bảo tính năng được test theo tiêu chuẩn TDD v3.0.
+- `/orchestrate "xây hẳn hệ thống SaaS"` — Kích hoạt toàn bộ đội ngũ Đặc vụ AI cùng làm việc nhóm.
+
+---
+
+### 🗑️ Gỡ cài đặt
+```bash
+npx @boomopen/workflow-kit uninstall cursor
+# HOẶC từ source code:
+node cli/install.js uninstall cursor
+```
+
+<br/>
 <div align="center">
-
-**Agent Assistant** — _Code less. Deliver more._
-
+  <b>BoomOpen Workflow Kit</b> — <i>Code less. Architect more.</i>
 </div>
